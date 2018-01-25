@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">renzhengtong</string>
+    <string name="title_activity_table_bar">TableBarActivity</string>
+    <string name="title_news">新闻</string>
+    <string name="title_search">查询</string>
+    <string name="title_evaluating">测评</string>
+    <string name="title_services">服务</string>
 </resources>

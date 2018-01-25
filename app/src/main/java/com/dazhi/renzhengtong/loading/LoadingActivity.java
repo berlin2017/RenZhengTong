@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.dazhi.renzhengtong.MainActivity;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.TableBarActivity;
 
 /**
  * Created by mac on 2018/1/22.
@@ -44,7 +45,7 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
     public void onProgressChanged(int progress) {
         if (progress == 0){
             textView.setText("0s");
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this,TableBarActivity.class);
             startActivity(intent);
             finish();
         }else{
