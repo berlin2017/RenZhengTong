@@ -50,7 +50,7 @@ public class NewsImageAdapter extends PagerAdapter{
         SimpleDraweeView simpleDraweeView = view.findViewById(R.id.item_news_pager_image);
         simpleDraweeView.setImageURI(Uri.parse(list.get(position).getImage()));
         container.addView(view);
-        return  container;
+        return  view;
     }
 
     @Override

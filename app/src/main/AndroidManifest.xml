@@ -27,6 +27,10 @@
             android:name=".TableBarActivity"
             android:label="@string/title_activity_table_bar"
             android:theme="@style/MyNoActionTheme"></activity>
+
+        <activity
+            android:name=".news.NewsDetailActivity"
+            android:theme="@style/MyNoActionTheme"></activity>
     </application>
 
 </manifest>

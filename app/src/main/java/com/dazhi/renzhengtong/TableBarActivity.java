@@ -21,7 +21,6 @@ import java.util.List;
 
 public class TableBarActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
-    private TextView mTextMessage;
     private BottomNavigationView mBottomNavigationView;
     private ViewPager mViewPager;
     private HomeFragmentAdapter mAdapter;
@@ -56,7 +55,6 @@ public class TableBarActivity extends AppCompatActivity implements ViewPager.OnP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_bar);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -110,15 +108,16 @@ public class TableBarActivity extends AppCompatActivity implements ViewPager.OnP
 
     @Override
     public void onBackPressed() {
-        SharedPreferences sharedPreferences = getSharedPreferences("renzhengtong",MODE_PRIVATE);
-        long old = sharedPreferences.getLong("key_time",0l);
+        SharedPreferences sharedPreferences = getSharedPreferences("renzhengtong", MODE_PRIVATE);
+        long old = sharedPreferences.getLong("key_time", 0l);
         long now = System.currentTimeMillis();
-        if (-old<=3000){
+        if (now - old <= 3000) {
             finish();
-        }else{
-            sharedPreferences.edit().putLong("key_time",now);
-            sharedPreferences.edit().commit();
-            Toast.makeText(this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+        } else {
+            SharedPreferences.Editor editor =  sharedPreferences.edit();
+            editor.putLong("key_time", now);
+            editor.commit();
+            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
         }
 
     }

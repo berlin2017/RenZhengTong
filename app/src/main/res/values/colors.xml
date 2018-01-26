@@ -3,4 +3,6 @@
     <color name="colorPrimary">#EE4000</color>
     <color name="colorPrimaryDark">#EE5C42</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="less_trans">#0e000000</color>
+    <color name="line">#0e000000</color>
 </resources>
