@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import com.dazhi.renzhengtong.news.adapter.BaseViewHolder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/5 0005.
@@ -25,6 +27,8 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
     private List<View> headerViews = new ArrayList<>();
     private List<View> footerViews = new ArrayList<>();
     private final int IS_SECTION_TYPE = 1;
+    private Map<Integer,Integer> map = new HashMap<>();
+    private int sectionCount = 0;
 
     public SectionAdapter(Context context) {
         mContext = context;
@@ -37,7 +41,7 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public abstract void convert(RecyclerView.ViewHolder holder, int position);
+    public abstract void convert(RecyclerView.ViewHolder holder,int section, int position);
 
     public abstract void onBindSectionViewHolder(RecyclerView.ViewHolder holder, int position);
 
@@ -203,10 +207,10 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
             return;
         }
         if (isSection(position)) {
-            onBindSectionViewHolder(holder, position);
+            onBindSectionViewHolder(holder, getSectionIndex(position));
             return;
         }
-        convert(holder, position - getHeaderCount());
+        convert(holder, getSectionIndex(position),getIndexInSction(position));
     }
 
     @Override
@@ -216,6 +220,7 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
+        setSectionMap(position);
         if (isSection(position)) {
             return IS_SECTION_TYPE;
         }
@@ -236,6 +241,15 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
         return false;
     }
 
+    public void setSectionMap(int position){
+        for (int i = 0; i < mData.size(); i++) {
+            if (position == getUpCount(i) + getHeaderCount()) {
+                sectionCount++;
+            }
+            map.put(position,sectionCount-1);
+        }
+    }
+
     public int getUpCount(int index) {
         int count = 0;
         for (int i = 0; i < index; i++) {
@@ -243,5 +257,18 @@ public abstract class SectionAdapter<T> extends RecyclerView.Adapter {
         }
         return count;
     }
-}
 
+    public int getIndexInSction(int postion){
+
+        return postion - getUpCount(getSectionIndex(postion)) - getHeaderCount() -1;
+    }
+
+    public int getSectionIndex(int postion){
+
+        if (map.get(postion - getHeaderCount())!=null){
+            return map.get(postion - getHeaderCount());
+        }
+        return 0;
+    }
+
+}

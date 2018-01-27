@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dp"
+    android:background="@color/colorPrimary"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:background="@color/colorPrimary">
+    android:focusableInTouchMode="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/news_home_title_photo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:src="@mipmap/ic_launcher_round" />
+        fresco:placeholderImage="@drawable/ic_default_user"
+        fresco:roundAsCircle="true"
+        fresco:roundedCornerRadius="15dp" />
 
     <TextView
         android:id="@+id/news_home_title_location"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_height="wrap_content"
-        android:text="安徽省" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:text="安徽省"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/news_home_title_edittext"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@drawable/drawable_edittext"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/news_home_title_location"
+        android:layout_toRightOf="@id/news_home_title_photo"
+        android:background="@drawable/drawable_edittext"
         android:hint="高新技术企业"
         android:paddingLeft="15dp"
-        android:textSize="13sp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/news_home_title_photo"
-        android:layout_toLeftOf="@id/news_home_title_location" />
+        android:textSize="13sp" />
 
 
 </RelativeLayout>

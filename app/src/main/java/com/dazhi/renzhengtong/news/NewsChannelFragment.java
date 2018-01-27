@@ -128,7 +128,6 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
         resetIndicator(0);
 
         autoRefresh();
-        requestList();
     }
 
     public void requestList(){
@@ -197,16 +196,17 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
     }
 
     private void stopRefresh() {
-        swipeRefreshLayout.postDelayed(new Runnable() {
+        swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }, 2000);
+        });
     }
 }
