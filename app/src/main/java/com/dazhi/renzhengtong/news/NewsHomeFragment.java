@@ -1,11 +1,16 @@
 package com.dazhi.renzhengtong.news;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.loading.MyProgressView;
 import com.dazhi.renzhengtong.menu.MyCollectActivity;
 import com.dazhi.renzhengtong.menu.SettingsActivity;
 import com.dazhi.renzhengtong.news.adapter.NewsFragmentAdapter;
 import com.dazhi.renzhengtong.user.LoginActivity;
+import com.dazhi.renzhengtong.user.UserInfo;
+import com.dazhi.renzhengtong.user.UserInfoActivity;
+import com.dazhi.renzhengtong.user.UserManager;
+import com.dazhi.renzhengtong.utils.MyLoadingDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -46,6 +56,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout invite_layout;
     private LinearLayout settings_layout;
     private TextView location_tv;
+    private TextView nickName_tv;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -67,6 +78,36 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         initMenu();
         location_tv = view.findViewById(R.id.news_home_title_location);
         location_tv.setOnClickListener(this);
+
+
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(receiver, new IntentFilter("login_success"));
+
+        MyLoadingDialog dialog = new MyLoadingDialog(getActivity());
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUser();
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.unregisterReceiver(receiver);
+    }
+
+    public void updateUser() {
+        UserInfo userInfo = UserManager.getUser(getContext());
+        if (userInfo != null) {
+            menu_image.setImageURI(Uri.parse(userInfo.getPhoto()));
+            nickName_tv.setText(userInfo.getNickname());
+        }
     }
 
     @Nullable
@@ -103,6 +144,9 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
 
         menu_image = view.findViewById(R.id.home_menu_photo);
         menu_image.setOnClickListener(this);
+        nickName_tv = view.findViewById(R.id.home_menu_name);
+
+        updateUser();
     }
 
     @Override
@@ -137,9 +181,14 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.home_menu_photo:
-
-                intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
+                UserInfo info = UserManager.getUser(getContext());
+                if (info != null) {
+                    intent = new Intent(getContext(), UserInfoActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
 
             case R.id.news_home_title_location:

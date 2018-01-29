@@ -16,7 +16,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             fresco:roundAsCircle="true"
             fresco:actualImageScaleType="fitXY"
             fresco:roundedCornerRadius="50dp"

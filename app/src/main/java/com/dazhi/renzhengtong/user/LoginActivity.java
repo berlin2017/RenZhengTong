@@ -3,11 +3,13 @@ package com.dazhi.renzhengtong.user;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -227,9 +229,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(mobile, password);
-            mAuthTask.execute((Void) null);
+
+
+//            showProgress(true);
+//            mAuthTask = new UserLoginTask(mobile, password);
+//            mAuthTask.execute((Void) null);
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId("1");
+            userInfo.setNickname("test");
+            userInfo.setPhone("15605662015");
+            userInfo.setPhoto("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58");
+            UserManager.saveUser(this,userInfo);
+            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance( this ) ;
+            localBroadcastManager.sendBroadcast(new Intent("login_success"));
+            finish();
         }
     }
 

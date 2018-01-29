@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/res/merged/androidTest/debug/layout_slidingmenumain.xml.flat",
-        "source": "/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/bundles/debug/res/layout/slidingmenumain.xml"
+        "merged": "C:\\Users\\Admin\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_slidingmenumain.xml.flat",
+        "source": "C:\\Users\\Admin\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenumain.xml"
+    },
+    {
+        "merged": "C:\\Users\\mac\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_slidingmenumain.xml.flat",
+        "source": "C:\\Users\\mac\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenumain.xml"
     }
 ]

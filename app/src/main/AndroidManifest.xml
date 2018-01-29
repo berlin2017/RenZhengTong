@@ -74,6 +74,11 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".user.UserInfoActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".news.LocationActivity"
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />

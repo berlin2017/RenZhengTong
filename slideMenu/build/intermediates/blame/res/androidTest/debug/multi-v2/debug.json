@@ -1,10 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
+            "outputFile": "C:\\Users\\mac\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/bundles/debug/res/values/values.xml",
+                    "source": "C:\\Users\\mac\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "14",
+                        "startColumns": "4",
+                        "startOffsets": "1092",
+                        "endColumns": "42",
+                        "endOffsets": "1130"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\Admin\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\Admin\\Desktop\\RenZhengTong\\slideMenu\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "from": {
                         "startLines": "14",
                         "startColumns": "4",

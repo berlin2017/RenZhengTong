@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.user.UserManager;
 
 /**
  * Created by mac on 2018/1/27.
@@ -53,7 +54,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(this,ChangePassActivity.class);
             startActivity(intent);
         }else if (v.getId() == R.id.settings_home_loginout){
-
+            UserManager.clearUser(this);
+            finish();
         }
     }
 }
