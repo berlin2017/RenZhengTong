@@ -24,7 +24,7 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
 
     private MyProgressView progressBar;
     private TextView textView;
-    private int duration = 3000;
+    private int duration = 000;
 
 
     @Override

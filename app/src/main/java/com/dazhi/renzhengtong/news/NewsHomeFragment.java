@@ -1,5 +1,7 @@
 package com.dazhi.renzhengtong.news;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,24 +19,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.loading.MyProgressView;
 import com.dazhi.renzhengtong.menu.MyCollectActivity;
 import com.dazhi.renzhengtong.menu.SettingsActivity;
 import com.dazhi.renzhengtong.news.adapter.NewsFragmentAdapter;
+import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.user.LoginActivity;
 import com.dazhi.renzhengtong.user.UserInfo;
 import com.dazhi.renzhengtong.user.UserInfoActivity;
 import com.dazhi.renzhengtong.user.UserManager;
-import com.dazhi.renzhengtong.utils.MyLoadingDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import org.w3c.dom.Text;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by mac on 2018/1/25.
@@ -58,6 +63,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
     private TextView location_tv;
     private TextView nickName_tv;
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,6 +74,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         list.add("新闻");
         list.add("公告");
         list.add("认证");
+        list.add("培训");
         list.add("标准");
         adapter = new NewsFragmentAdapter(getChildFragmentManager(), list, getContext());
         viewPager.setAdapter(adapter);
@@ -83,10 +90,8 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(receiver, new IntentFilter("login_success"));
 
-        MyLoadingDialog dialog = new MyLoadingDialog(getActivity());
-        dialog.setCancelable(false);
-        dialog.show();
     }
+
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override

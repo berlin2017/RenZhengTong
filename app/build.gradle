@@ -41,4 +41,6 @@ dependencies {
     compile 'com.github.donkingliang:GroupedRecyclerViewAdapter:1.2.0'
     compile project(path: ':slideMenu')
     implementation 'com.google.code.gson:gson:2.2.4'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

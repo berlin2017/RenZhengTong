@@ -18,7 +18,7 @@ import java.util.List;
 
 public class NewsFragmentAdapter extends FragmentStatePagerAdapter {
 
-    private List<String>list;
+    private List<String> list;
     private Context context;
 
     public NewsFragmentAdapter(FragmentManager fm) {
@@ -33,7 +33,28 @@ public class NewsFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        NewsChannelFragment fragment = NewsChannelFragment.newInstance(list.get(position));
+        NewsChannelFragment fragment = null;
+        switch (position) {
+            case 0:
+                fragment = NewsChannelFragment.newInstance(8);
+                break;
+            case 1:
+                fragment = NewsChannelFragment.newInstance(9);
+                break;
+            case 2:
+                fragment = NewsChannelFragment.newInstance(10);
+                break;
+            case 3:
+                fragment = NewsChannelFragment.newInstance(11);
+                break;
+            case 4:
+                fragment = NewsChannelFragment.newInstance(12);
+                break;
+            default:
+                fragment = NewsChannelFragment.newInstance(8);
+                break;
+        }
+
         return fragment;
     }
 

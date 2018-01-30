@@ -14,12 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.news.DashlineItemDivider;
 import com.dazhi.renzhengtong.news.NewsDetailActivity;
-import com.dazhi.renzhengtong.news.adapter.BaseViewHolder;
-import com.dazhi.renzhengtong.news.adapter.HeaderFooterAdapter;
+import com.dazhi.renzhengtong.news.adapter.NewsAdapter;
 import com.dazhi.renzhengtong.news.model.NewsModel;
+import com.dazhi.renzhengtong.news.model.NewsMore;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.List;
 public class MyCollectActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
-    private HeaderFooterAdapter adapter;
+    private NewsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int page = 0;
     private List<NewsModel> list = new ArrayList<>();
@@ -47,30 +48,15 @@ public class MyCollectActivity extends AppCompatActivity implements View.OnClick
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         recyclerView = findViewById(R.id.collect_home_recycelerview);
-        adapter = new HeaderFooterAdapter(this,list) {
+        adapter = new NewsAdapter(R.layout.item_news_list,list);
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public BaseViewHolder creatViewHolder(ViewGroup parent, int viewType) {
-                return new BaseViewHolder(LayoutInflater.from(MyCollectActivity.this).inflate(R.layout.item_news_list,parent,false));
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(MyCollectActivity.this,NewsDetailActivity.class);
+                startActivity(intent);
             }
-
-            @Override
-            public void convert(BaseViewHolder holder, int position) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MyCollectActivity.this,NewsDetailActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                holder.setText(R.id.item_news_name,list.get(position).getName());
-                holder.setText(R.id.item_news_time,list.get(position).getTime());
-                holder.setText(R.id.item_news_content,list.get(position).getContent());
-                SimpleDraweeView simpleDraweeView = holder.getView(R.id.item_news_imageview);
-                simpleDraweeView.setImageURI(Uri.parse(list.get(position).getImage()));
-            }
-
-
-        };
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -99,10 +85,12 @@ public class MyCollectActivity extends AppCompatActivity implements View.OnClick
 
     public void requestList(){
         NewsModel model = new NewsModel();
-        model.setName("合肥蜀山区科技园");
-        model.setContent("关于组织申报2017年促进服务业发展政策（电子商务及服务外包）时候讲不项目的通知");
-        model.setTime("2018-01-25");
-        model.setImage("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58");
+        model.setPost_title("合肥蜀山区科技园");
+        model.setPost_excerpt("关于组织申报2017年促进服务业发展政策（电子商务及服务外包）时候讲不项目的通知");
+        model.setPublished_time("2018-01-25");
+        NewsMore more = new NewsMore();
+        more.setThumbnail("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58");
+        model.setMore(more);
         for (int i=0;i<20;i++){
             list.add(model);
         }
