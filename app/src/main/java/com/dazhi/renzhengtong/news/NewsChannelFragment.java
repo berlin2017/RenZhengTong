@@ -19,18 +19,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.news.adapter.NewsAdapter;
 import com.dazhi.renzhengtong.news.adapter.NewsImageAdapter;
-import com.dazhi.renzhengtong.news.model.ImageModel;
+import com.dazhi.renzhengtong.news.model.SlideModel;
 import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
 import com.dazhi.renzhengtong.utils.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Request;
@@ -45,11 +45,12 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
     private NewsAdapter adapter;
     private List<NewsModel> list = new ArrayList<>();
     private ViewPager viewPager;
-    private List<ImageModel> images = new ArrayList<>();
+    private List<SlideModel> images = new ArrayList<>();
     private LinearLayout indicator_layout;
     private int page = 0;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int id = 0;
+    private NewsImageAdapter imageAdapter;
 
     @Nullable
     @Override
@@ -95,21 +96,15 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DashlineItemDivider());
+
         if (id == 8) {
             View header = LayoutInflater.from(getContext()).inflate(R.layout.layout_news_header, null);
-
             adapter.addHeaderView(header);
-
             viewPager = header.findViewById(R.id.news_channel_viewpager);
-            ImageModel iamge = new ImageModel();
-            iamge.setImage("http://pic.anhuinews.com/003/006/699/00300669990_b7accccc.jpg");
-            images.add(iamge);
-            images.add(iamge);
-            viewPager.setAdapter(new NewsImageAdapter(images, getContext()));
-            viewPager.addOnPageChangeListener(this);
-
+            imageAdapter = new NewsImageAdapter(images, getContext());
+            viewPager.setAdapter(imageAdapter);
+            viewPager.addOnPageChangeListener(NewsChannelFragment.this);
             indicator_layout = header.findViewById(R.id.news_channel_indcator);
-            resetIndicator(0);
         }
 
         autoRefresh();
@@ -124,6 +119,16 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
                 JSONObject jsonObject = new JSONObject(result);
                 List<NewsModel> array = Utils.decodeJSONARRAY(jsonObject.optJSONObject("data").optString("list"), NewsModel.class);
+                JSONArray jsonArray = jsonObject.optJSONObject("data").optJSONArray("slides");
+                if (jsonArray.length()>0){
+                    JSONObject object = jsonArray.getJSONObject(0);
+                    List<SlideModel> slideArray = Utils.decodeJSONARRAY(object.optString("items"),SlideModel.class);
+                    images.clear();
+                    images.addAll(slideArray);
+                    resetIndicator(0);
+                    imageAdapter.notifyDataSetChanged();
+                }
+
                 list.addAll(array);
                 adapter.notifyDataSetChanged();
                 adapter.loadMoreComplete();

@@ -1,9 +1,11 @@
 package com.dazhi.renzhengtong.user;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
@@ -13,13 +15,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
+import com.dazhi.renzhengtong.utils.ToastHelper;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.sql.Time;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Request;
 
 /**
  * Created by mac on 2018/1/27.
@@ -35,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
     private TextView rule_textview;
     private TextView login_textview;
     private TimeCount timeCount;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +72,9 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
         login_textview.setOnClickListener(this);
 
         timeCount = new TimeCount(60000, 1000);
+        progressBar = findViewById(R.id.register_loading);
+        progressBar.setVisibility(View.GONE);
+        initTitle();
     }
 
     @Override
@@ -89,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
         ImageView back = findViewById(R.id.common_back);
         back.setOnClickListener(this);
         TextView textView = findViewById(R.id.common_title);
-        textView.setText("密码重置");
+        textView.setText("注册");
     }
 
 
@@ -121,9 +137,29 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
         }
 
         //networking
+        progressBar.setVisibility(View.VISIBLE);
+        HashMap<String,String>map = new HashMap<>();
+        map.put("username",phone_edit.getText().toString());
+        map.put("password",pass_edit.getText().toString());
+        NetRequest.postFormRequest(Constant.USRE_REGISTER_URL, map, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code")!=1){
+                    progressBar.setVisibility(View.GONE);
+                    Intent intent = new Intent(RegisterActivity.this,RegisterStep2Activity.class);
+                    startActivity(intent);
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
 
-        Intent intent = new Intent(this, FrogetChangePassActivity.class);
-        startActivity(intent);
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast("请求失败,请重试");
+            }
+        });
     }
 
     private boolean isPasswordValid(String password) {

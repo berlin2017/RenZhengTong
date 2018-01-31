@@ -7,13 +7,11 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.dazhi.renzhengtong.R;
-import com.dazhi.renzhengtong.news.model.ImageModel;
+import com.dazhi.renzhengtong.news.model.SlideModel;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -22,11 +20,11 @@ import java.util.List;
 
 public class NewsImageAdapter extends PagerAdapter{
 
-    private List<ImageModel>list;
+    private List<SlideModel>list;
     private Context context;
     private LayoutInflater mInflater;
 
-    public NewsImageAdapter(List<ImageModel> list,Context context) {
+    public NewsImageAdapter(List<SlideModel> list, Context context) {
         this.list = list;
         this.context = context;
         mInflater = LayoutInflater.from(context);

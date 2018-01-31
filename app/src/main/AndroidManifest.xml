@@ -74,6 +74,12 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".user.RegisterStep2Activity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+
+        <activity
             android:name=".user.UserInfoActivity"
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />
