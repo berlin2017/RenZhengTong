@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,9 +27,9 @@ import java.util.List;
  */
 
 public class ServicesHomeFragment extends Fragment {
-    private SimpleDraweeView first;
-    private SimpleDraweeView two;
-    private SimpleDraweeView three;
+    private RelativeLayout first;
+    private RelativeLayout two;
+    private RelativeLayout three;
     private RecyclerView recyclerView;
     private ServiceHomeAdapter adapter;
     private List<JiGouModel> list2 = new ArrayList<>();
@@ -67,9 +68,9 @@ public class ServicesHomeFragment extends Fragment {
         two = header1.findViewById(R.id.search_home_two);
         three = header1.findViewById(R.id.search_home_three);
 
-        first.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
-        two.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
-        three.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
+//        first.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
+//        two.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
+//        three.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
 
 
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.layout_jigou_header,null);

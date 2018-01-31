@@ -6,23 +6,25 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/search_home_first"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_height="80dp"
+        android:background="@drawable/drawable_serarch__home_bg"
+        android:layout_margin="10dp"
+        >
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/search_home_first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            fresco:roundedCornerRadius="10dp"
-            fresco:viewAspectRatio="4" />
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/search_home_first"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--fresco:roundedCornerRadius="10dp"-->
+        <!--android:background="#CFCFCF"-->
+        <!--fresco:viewAspectRatio="3" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/less_trans"
             android:gravity="center"
             android:text="体系"
             android:textColor="@android:color/white" />
@@ -30,47 +32,47 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/search_home_two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/search_home_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            fresco:roundedCornerRadius="10dp"
-            fresco:viewAspectRatio="4" />
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/search_home_two"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--fresco:roundedCornerRadius="10dp"-->
+        <!--fresco:viewAspectRatio="3" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/less_trans"
             android:gravity="center"
-            android:text="产品"
+            android:text="标准"
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/search_home_three"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/search_home_three"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            fresco:roundedCornerRadius="10dp"
-            fresco:viewAspectRatio="4" />
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--fresco:roundedCornerRadius="10dp"-->
+        <!--android:id="@+id/search_home_three"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--fresco:viewAspectRatio="3" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/less_trans"
             android:gravity="center"
             android:text="标准化"
             android:textColor="@android:color/white" />

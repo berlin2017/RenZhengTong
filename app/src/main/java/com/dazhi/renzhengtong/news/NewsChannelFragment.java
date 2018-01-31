@@ -102,7 +102,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
             viewPager = header.findViewById(R.id.news_channel_viewpager);
             ImageModel iamge = new ImageModel();
-            iamge.setImage("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58");
+            iamge.setImage("http://pic.anhuinews.com/003/006/699/00300669990_b7accccc.jpg");
             images.add(iamge);
             images.add(iamge);
             viewPager.setAdapter(new NewsImageAdapter(images, getContext()));

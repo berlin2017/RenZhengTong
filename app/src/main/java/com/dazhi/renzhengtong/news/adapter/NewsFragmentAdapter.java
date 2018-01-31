@@ -45,11 +45,11 @@ public class NewsFragmentAdapter extends FragmentStatePagerAdapter {
                 fragment = NewsChannelFragment.newInstance(10);
                 break;
             case 3:
-                fragment = NewsChannelFragment.newInstance(11);
-                break;
-            case 4:
                 fragment = NewsChannelFragment.newInstance(12);
                 break;
+//            case 4:
+//                fragment = NewsChannelFragment.newInstance(12);
+//                break;
             default:
                 fragment = NewsChannelFragment.newInstance(8);
                 break;

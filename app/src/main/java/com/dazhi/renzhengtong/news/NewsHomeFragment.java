@@ -74,7 +74,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         list.add("新闻");
         list.add("公告");
         list.add("认证");
-        list.add("培训");
+//        list.add("培训");
         list.add("标准");
         adapter = new NewsFragmentAdapter(getChildFragmentManager(), list, getContext());
         viewPager.setAdapter(adapter);
@@ -83,8 +83,8 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         simpleDraweeView.setOnClickListener(this);
 
         initMenu();
-        location_tv = view.findViewById(R.id.news_home_title_location);
-        location_tv.setOnClickListener(this);
+//        location_tv = view.findViewById(R.id.news_home_title_location);
+//        location_tv.setOnClickListener(this);
 
 
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
@@ -196,10 +196,10 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
 
-            case R.id.news_home_title_location:
-                intent = new Intent(getContext(), LocationActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.news_home_title_location:
+//                intent = new Intent(getContext(), LocationActivity.class);
+//                startActivity(intent);
+//                break;
             default:
 
 
