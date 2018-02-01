@@ -2,12 +2,11 @@ package com.dazhi.renzhengtong.services.adapter;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dazhi.renzhengtong.R;
-import com.dazhi.renzhengtong.services.JiGouModel;
+import com.dazhi.renzhengtong.services.model.JiGouModel;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;

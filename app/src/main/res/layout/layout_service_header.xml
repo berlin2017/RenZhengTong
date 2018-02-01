@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/search_home_first"
+        android:id="@+id/search_home_tixi"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"
@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="体系"
+            android:text="体系认证"
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/search_home_two"
+        android:id="@+id/search_home_product"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"
@@ -50,13 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="标准"
+            android:text="产品认证"
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/search_home_three"
+        android:id="@+id/search_home_standard"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="标准化"
+            android:text="标准认证"
             android:textColor="@android:color/white" />
 
     </RelativeLayout>

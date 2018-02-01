@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -88,6 +89,13 @@
             android:name=".news.LocationActivity"
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />
+        <!--<activity android:name=".evaluation.TestActivity"/>-->
+
+        <activity
+            android:name=".services.ServiceListActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
     </application>
 
 </manifest>

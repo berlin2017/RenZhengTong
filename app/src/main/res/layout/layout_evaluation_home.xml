@@ -93,8 +93,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/evaluation_hangye_name"
                 android:background="@null"
+                android:focusable="false"
                 android:gravity="center_vertical|right"
-                android:hint="请输入行业名称"
+                android:hint="请选择企业类型"
                 android:textColorHint="@color/less_trans" />
 
             <View

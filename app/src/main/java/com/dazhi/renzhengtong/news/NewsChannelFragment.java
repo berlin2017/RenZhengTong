@@ -157,18 +157,20 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
     }
 
     public void resetIndicator(int position) {
-        indicator_layout.removeAllViews();
-        for (int i = 0; i < images.size(); i++) {
-            Button bt = new Button(getActivity());
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(20, 20);
-            p.setMargins(10, 10, 10, 10);
-            bt.setLayoutParams(p);
-            if (i == position) {
-                bt.setBackgroundResource(R.drawable.ic_indicator_light);
-            } else {
-                bt.setBackgroundResource(R.drawable.ic_indicator_normal);
+        if (indicator_layout!=null){
+            indicator_layout.removeAllViews();
+            for (int i = 0; i < images.size(); i++) {
+                Button bt = new Button(getActivity());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(20, 20);
+                p.setMargins(10, 10, 10, 10);
+                bt.setLayoutParams(p);
+                if (i == position) {
+                    bt.setBackgroundResource(R.drawable.ic_indicator_light);
+                } else {
+                    bt.setBackgroundResource(R.drawable.ic_indicator_normal);
+                }
+                indicator_layout.addView(bt);
             }
-            indicator_layout.addView(bt);
         }
     }
 
