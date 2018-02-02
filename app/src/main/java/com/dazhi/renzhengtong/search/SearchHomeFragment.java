@@ -1,5 +1,6 @@
 package com.dazhi.renzhengtong.search;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,16 +19,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * Created by mac on 2018/1/25.
  */
 
-public class SearchHomeFragment extends Fragment{
-    private RelativeLayout first;
-    private RelativeLayout two;
-    private RelativeLayout three;
+public class SearchHomeFragment extends Fragment implements View.OnClickListener {
+    private RelativeLayout tixi;
+    private RelativeLayout standard;
+    private RelativeLayout download;
     private TextView title;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_search_home,container,false);
+        return inflater.inflate(R.layout.layout_search_home, container, false);
     }
 
     @Override
@@ -37,14 +38,36 @@ public class SearchHomeFragment extends Fragment{
         title = view.findViewById(R.id.common_title);
         title.setText("查询");
 
-        first = view.findViewById(R.id.search_home_first);
-        two = view.findViewById(R.id.search_home_two);
-        three = view.findViewById(R.id.search_home_three);
+        tixi = view.findViewById(R.id.search_home_tixi);
+        standard = view.findViewById(R.id.search_home_standard);
+        download = view.findViewById(R.id.search_home_download);
 
-//        first.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
-//        two.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
-//        three.setImageURI(Uri.parse("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58"));
+        tixi.setOnClickListener(this);
+        download.setOnClickListener(this);
+        standard.setOnClickListener(this);
 
+    }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getContext(),SearchListActivity.class);
+        switch (v.getId()) {
+            case R.id.search_home_tixi:
+                intent.putExtra("id",0);
+                intent.putExtra("name","体系查询");
+                startActivity(intent);
+                break;
+            case R.id.search_home_standard:
+                intent.putExtra("id",1);
+                intent.putExtra("name","标准查询");
+                startActivity(intent);
+                break;
+            case R.id.search_home_download:
+                intent.putExtra("id",2);
+                intent.putExtra("name","标准下载");
+                startActivity(intent);
+                break;
+
+        }
     }
 }

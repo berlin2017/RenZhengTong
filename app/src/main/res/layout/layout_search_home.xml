@@ -11,7 +11,7 @@
     <include layout="@layout/layout_common_title" />
 
     <RelativeLayout
-        android:id="@+id/search_home_first"
+        android:id="@+id/search_home_tixi"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"
@@ -37,7 +37,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/search_home_two"
+        android:id="@+id/search_home_standard"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"
@@ -61,7 +61,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/search_home_three"
+        android:id="@+id/search_home_download"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/drawable_serarch__home_bg"

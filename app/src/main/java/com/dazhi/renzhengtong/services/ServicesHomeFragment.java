@@ -1,12 +1,16 @@
 package com.dazhi.renzhengtong.services;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.news.DashlineItemDivider;
+import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.services.adapter.ServiceHomeAdapter;
 import com.dazhi.renzhengtong.services.adapter.ServiceListAdapter;
 import com.dazhi.renzhengtong.services.model.JiGouModel;
@@ -70,8 +75,13 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
                     builder.setTitle("拨打电话").setMessage("15605662015").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"15605662015"));
-                            startActivity(intent);
+                            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED||
+                                    ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED   ){
+                                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                            }else {
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"15605662015"));
+                                startActivity(intent);
+                            }
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
@@ -113,16 +123,19 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
         switch (v.getId()){
             case R.id.search_home_tixi:
                 intent.putExtra("id",0);
+                intent.putExtra("name","体系认证");
                 startActivity(intent);
                 break;
 
             case R.id.search_home_product:
                 intent.putExtra("id",1);
+                intent.putExtra("name","产品认证");
                 startActivity(intent);
                 break;
 
             case R.id.search_home_standard:
                 intent.putExtra("id",2);
+                intent.putExtra("name","标准认证");
                 startActivity(intent);
                 break;
 

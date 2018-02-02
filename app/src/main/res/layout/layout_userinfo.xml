@@ -10,200 +10,269 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_photo_left"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/userinfo_photo_name"
+        <ProgressBar
+            android:id="@+id/userinfo_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/userinfo_photo_left"
-            android:text="头像" />
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_photo_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/photo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_photo_left"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/userinfo_photo_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/userinfo_photo_left"
+                    android:text="头像" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_photo_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@+id/userinfo_arrow1"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <ImageView
+                    android:id="@+id/userinfo_arrow1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:id="@+id/name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_name_left"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/userinfo_name_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/userinfo_name_left"
+                    android:text="姓名" />
+
+                <TextView
+                    android:id="@+id/userinfo_name_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@+id/userinfo_arrow2" />
+
+                <ImageView
+                    android:id="@+id/userinfo_arrow2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+
+            <RelativeLayout
+                android:id="@+id/company_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_company_left"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/userinfo_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/userinfo_company_left"
+                    android:text="公司" />
+
+                <TextView
+                    android:id="@+id/userinfo_company_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@+id/userinfo_arrow3" />
+
+                <ImageView
+                    android:id="@+id/userinfo_arrow3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:id="@+id/type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_type_left"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/userinfo_type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/userinfo_type_left"
+                    android:text="认证类别" />
+
+                <TextView
+                    android:id="@+id/userinfo_type_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@+id/userinfo_arrow4" />
+
+                <ImageView
+                    android:id="@+id/userinfo_arrow4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:id="@+id/time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/userinfo_time_left"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    fresco:placeholderImage="@drawable/ic_default_user"
+                    fresco:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/userinfo_time_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/userinfo_time_left"
+                    android:text="认证时间" />
+
+                <TextView
+                    android:id="@+id/userinfo_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@+id/userinfo_arrow5" />
+
+                <ImageView
+                    android:id="@+id/userinfo_arrow5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <Button
+                android:id="@+id/userinfo_commit_btn"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/drawable_evaluation_btn"
+                android:text="保存"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_name_left"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/userinfo_name_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/userinfo_name_left"
-            android:text="姓名" />
-
-        <TextView
-            android:id="@+id/userinfo_name_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_company_left"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/userinfo_company_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/userinfo_company_left"
-            android:text="公司" />
-
-        <TextView
-            android:id="@+id/userinfo_company_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_type_left"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/userinfo_type_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/userinfo_type_left"
-            android:text="认证类别" />
-
-        <TextView
-            android:id="@+id/userinfo_type_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/userinfo_time_left"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            fresco:placeholderImage="@drawable/ic_default_user"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/userinfo_time_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/userinfo_time_left"
-            android:text="认证时间" />
-
-        <TextView
-            android:id="@+id/userinfo_time_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
-
-    <Button
-        android:id="@+id/userinfo_commit_btn"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/drawable_evaluation_btn"
-        android:text="保存" />
-
 </LinearLayout>

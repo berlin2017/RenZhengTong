@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
@@ -93,6 +97,11 @@
 
         <activity
             android:name=".services.ServiceListActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".search.SearchListActivity"
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />
 

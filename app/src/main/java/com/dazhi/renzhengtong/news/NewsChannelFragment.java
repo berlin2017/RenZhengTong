@@ -85,13 +85,13 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
             }
         });
 
-        adapter.openLoadAnimation();
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 requestList();
             }
-        });
+        },recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

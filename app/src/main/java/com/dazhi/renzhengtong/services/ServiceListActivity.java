@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.services.adapter.ServiceListAdapter;
 import com.dazhi.renzhengtong.services.model.TiXiModel;
+import com.dazhi.renzhengtong.utils.ToastHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +42,13 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
         recyclerView = findViewById(R.id.services_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ServiceListAdapter(R.layout.item_service_list_layout, list);
-        adapter.openLoadAnimation();
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 requestList();
             }
-        });
+        },recyclerView);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout = findViewById(R.id.services_list_swip);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -81,7 +82,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
         ImageView back = findViewById(R.id.common_back);
         back.setOnClickListener(this);
         TextView textView = findViewById(R.id.common_title);
-        textView.setText("体系认证");
+        textView.setText(getIntent().getStringExtra("name"));
     }
 
     @Override
