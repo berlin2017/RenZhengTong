@@ -58,7 +58,6 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout collect_layout;
     private LinearLayout sbjj_layout;
     private LinearLayout kefu_layout;
-    private LinearLayout invite_layout;
     private LinearLayout settings_layout;
     private TextView location_tv;
     private TextView nickName_tv;
@@ -141,8 +140,6 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         kefu_layout = view.findViewById(R.id.home_menu_kefu);
         kefu_layout.setOnClickListener(this);
 
-        invite_layout = view.findViewById(R.id.home_menu_invite);
-        invite_layout.setOnClickListener(this);
 
         settings_layout = view.findViewById(R.id.home_menu_settings);
         settings_layout.setOnClickListener(this);
@@ -167,16 +164,13 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.home_menu_collect:
                 menu.showContent();
-                intent = new Intent(getContext(), MyCollectActivity.class);
+                intent = new Intent(getContext(), UserInfoActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.home_menu_sbjj:
 
                 break;
             case R.id.home_menu_kefu:
-
-                break;
-            case R.id.home_menu_invite:
 
                 break;
             case R.id.home_menu_settings:

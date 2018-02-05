@@ -12,12 +12,21 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.services.adapter.ServiceListAdapter;
 import com.dazhi.renzhengtong.services.model.TiXiModel;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Created by mac on 2018/2/1.
@@ -28,7 +37,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private ServiceListAdapter adapter;
-    private List<TiXiModel> list = new ArrayList<>();
+    private List<NewsModel> list = new ArrayList<>();
     private int id = 0;
     private int page = 0;
 
@@ -65,17 +74,25 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void requestList() {
-        List<TiXiModel> arrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            TiXiModel model = new TiXiModel();
-            model.setId(1);
-            model.setName("ISO9001质量管理体系");
-            arrayList.add(model);
-        }
-        list.addAll(arrayList);
-        adapter.notifyDataSetChanged();
-        adapter.loadMoreComplete();
-        stopRefresh();
+        NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+
+                JSONObject jsonObject = new JSONObject(result);
+                List<NewsModel> array = Utils.decodeJSONARRAY(jsonObject.optJSONObject("data").optString("list"), NewsModel.class);
+                list.addAll(array);
+                adapter.notifyDataSetChanged();
+                adapter.loadMoreComplete();
+                stopRefresh();
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast("请求失败,请重试");
+                adapter.loadMoreComplete();
+                stopRefresh();
+            }
+        });
     }
 
     public void initTitle() {

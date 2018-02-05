@@ -122,19 +122,19 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
         Intent intent = new Intent(getContext(), ServiceListActivity.class);
         switch (v.getId()){
             case R.id.search_home_tixi:
-                intent.putExtra("id",0);
+                intent.putExtra("id",20);
                 intent.putExtra("name","体系认证");
                 startActivity(intent);
                 break;
 
             case R.id.search_home_product:
-                intent.putExtra("id",1);
+                intent.putExtra("id",21);
                 intent.putExtra("name","产品认证");
                 startActivity(intent);
                 break;
 
             case R.id.search_home_standard:
-                intent.putExtra("id",2);
+                intent.putExtra("id",22);
                 intent.putExtra("name","标准认证");
                 startActivity(intent);
                 break;

@@ -58,7 +58,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="我的关注" />
+            android:text="我的资料" />
 
     </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="申报奖金" />
+            android:text="机构入驻" />
 
     </LinearLayout>
 
@@ -105,30 +105,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="客服中心" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/home_menu_invite"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_guimo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="有奖邀请" />
+            android:text="联系中规" />
 
     </LinearLayout>
 

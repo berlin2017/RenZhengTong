@@ -16,10 +16,21 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.news.model.NewsModel;
+import com.dazhi.renzhengtong.news.model.SlideModel;
 import com.dazhi.renzhengtong.search.adapter.SearchListAdapter;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
+import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Created by mac on 2018/2/2.
@@ -82,16 +93,28 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
 
     public void requestList() {
         progressBar.setVisibility(View.VISIBLE);
-        for (int i = 0; i < 10; i++) {
-            NewsModel model = new NewsModel();
-            model.setPost_title("外部链接" + i);
-            model.setId(10);
-            list.add(model);
-            adapter.notifyDataSetChanged();
-            adapter.loadMoreComplete();
-            progressBar.setVisibility(View.GONE);
-            stopRefresh();
-        }
+
+        NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+
+                JSONObject jsonObject = new JSONObject(result);
+                List<NewsModel> array = Utils.decodeJSONARRAY(jsonObject.optJSONObject("data").optString("list"), NewsModel.class);
+                list.addAll(array);
+                adapter.notifyDataSetChanged();
+                adapter.loadMoreComplete();
+                progressBar.setVisibility(View.GONE);
+                stopRefresh();
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast("请求失败,请重试");
+                adapter.loadMoreComplete();
+                progressBar.setVisibility(View.GONE);
+                stopRefresh();
+            }
+        });
     }
 
     public void autoRefresh() {

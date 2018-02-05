@@ -120,7 +120,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
                 JSONObject jsonObject = new JSONObject(result);
                 List<NewsModel> array = Utils.decodeJSONARRAY(jsonObject.optJSONObject("data").optString("list"), NewsModel.class);
                 JSONArray jsonArray = jsonObject.optJSONObject("data").optJSONArray("slides");
-                if (jsonArray.length()>0){
+                if (id==8&&jsonArray.length()>0){
                     JSONObject object = jsonArray.getJSONObject(0);
                     List<SlideModel> slideArray = Utils.decodeJSONARRAY(object.optString("items"),SlideModel.class);
                     images.clear();

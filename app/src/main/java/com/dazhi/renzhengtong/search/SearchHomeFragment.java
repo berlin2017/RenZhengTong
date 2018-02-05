@@ -53,17 +53,17 @@ public class SearchHomeFragment extends Fragment implements View.OnClickListener
         Intent intent = new Intent(getContext(),SearchListActivity.class);
         switch (v.getId()) {
             case R.id.search_home_tixi:
-                intent.putExtra("id",0);
+                intent.putExtra("id",15);
                 intent.putExtra("name","体系查询");
                 startActivity(intent);
                 break;
             case R.id.search_home_standard:
-                intent.putExtra("id",1);
+                intent.putExtra("id",16);
                 intent.putExtra("name","标准查询");
                 startActivity(intent);
                 break;
             case R.id.search_home_download:
-                intent.putExtra("id",2);
+                intent.putExtra("id",17);
                 intent.putExtra("name","标准下载");
                 startActivity(intent);
                 break;
