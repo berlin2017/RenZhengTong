@@ -1,9 +1,18 @@
 package com.dazhi.renzhengtong.search;
 
+import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +65,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                list.clear();
                 requestList();
             }
         });
@@ -71,15 +81,41 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         }, recyclerView);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         recyclerView.setAdapter(adapter);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(SearchListActivity.this, NewsDetailActivity.class);
-                intent.putExtra("id", list.get(position).getId());
-                startActivity(intent);
+            public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
+                if (id == 17&&list.get(position).getMore().getFiles().size()>0) {
+
+                    AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SearchListActivity.this);
+                    builder.setTitle("确认下载").setMessage(list.get(position).getMore().getFiles().get(0).getName()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(list.get(position).getMore().getFiles().get(0).getUrl()));
+                            //指定下载路径和下载文件名
+                            request.setDestinationInExternalPublicDir("/download/", list.get(position).getMore().getFiles().get(0).getName());
+                            //获取下载管理器
+                            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                            //将下载任务加入下载队列，否则不会进行下载
+                            downloadManager.enqueue(request);
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).create().show();
+
+                }else{
+                    Intent intent = new Intent(SearchListActivity.this, NewsDetailActivity.class);
+                    intent.putExtra("id", list.get(position).getId());
+                    intent.putExtra("url", list.get(position).getPost_source());
+                    startActivity(intent);
+                }
             }
         });
         autoRefresh();
+        requestList();
         initTitle();
     }
 
@@ -122,7 +158,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-                requestList();
+//                requestList();
             }
         });
     }

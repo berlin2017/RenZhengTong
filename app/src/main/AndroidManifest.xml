@@ -105,6 +105,20 @@
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />
 
+        <activity
+            android:name=".menu.MenuJGActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".menu.MenuJGDetailActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".menu.ContactActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
     </application>
 
 </manifest>

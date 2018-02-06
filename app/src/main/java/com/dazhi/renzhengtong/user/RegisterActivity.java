@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -48,12 +49,14 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
     private TextView login_textview;
     private TimeCount timeCount;
     private ProgressBar progressBar;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_register);
 
+        checkBox = findViewById(R.id.register_checkbox);
         phone_edit = findViewById(R.id.register_phone_edit);
         code_edit = findViewById(R.id.register_code_edit);
         pass_edit = findViewById(R.id.register_pass_edit);
@@ -136,28 +139,38 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
             return;
         }
 
+        if (!checkBox.isChecked()){
+            ToastHelper.showToast("请同意认证服务条款");
+            return;
+        }
+
         //networking
         progressBar.setVisibility(View.VISIBLE);
-        HashMap<String,String>map = new HashMap<>();
-        map.put("username",phone_edit.getText().toString());
-        map.put("password",pass_edit.getText().toString());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", phone_edit.getText().toString());
+        map.put("password", pass_edit.getText().toString());
+        map.put("device_type", "android");
         NetRequest.postFormRequest(Constant.USRE_REGISTER_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
-                if (jsonObject.optInt("code")!=1){
+                if (jsonObject.optInt("code") == 1) {
                     progressBar.setVisibility(View.GONE);
-                    Intent intent = new Intent(RegisterActivity.this,RegisterStep2Activity.class);
+                    Intent intent = new Intent(RegisterActivity.this, RegisterStep2Activity.class);
+                    intent.putExtra("uid",jsonObject.optJSONObject("data").optJSONObject("info").optInt("id"));
                     startActivity(intent);
-                }else{
+                    finish();
+                } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
+                    progressBar.setVisibility(View.GONE);
                 }
 
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
-                ToastHelper.showToast("请求失败,请重试");
+                ToastHelper.showToast(R.string.request_failed);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -201,9 +214,9 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
             commit();
         } else if (v.getId() == R.id.register_send_btn) {
             timeCount.start();
-        }else  if (v.getId() == R.id.common_back){
+        } else if (v.getId() == R.id.common_back) {
             finish();
-        }else if(v.getId() == R.id.register_login_textview){
+        } else if (v.getId() == R.id.register_login_textview) {
             finish();
         }
     }

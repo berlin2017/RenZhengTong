@@ -35,12 +35,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
+import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
+
+import org.json.JSONObject;
+
+import okhttp3.Request;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -229,21 +239,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-
-
-//            showProgress(true);
-//            mAuthTask = new UserLoginTask(mobile, password);
-//            mAuthTask.execute((Void) null);
-            UserInfo userInfo = new UserInfo();
-            userInfo.setId("1");
-            userInfo.setNickname("test");
-            userInfo.setPhone("15605662015");
-            userInfo.setPhoto("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2054592640,401359956&fm=58");
-            UserManager.saveUser(this,userInfo);
-            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance( this ) ;
-            localBroadcastManager.sendBroadcast(new Intent("login_success"));
-            finish();
+            showProgress(true);
+            requestLogin(mobile,password);
         }
+    }
+
+    public void requestLogin(String name,String pass){
+        HashMap<String,String>map = new HashMap<>();
+        map.put("username",name);
+        map.put("password",pass);
+        map.put("device_type", "android");
+        NetRequest.postFormRequest(Constant.USER_LOGIN_URL, map, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code")==1){
+                    UserInfo userInfo = Utils.decodeJSON(jsonObject.optJSONObject("data").optString("user"),UserInfo.class);
+                    UserManager.saveUser(LoginActivity.this,userInfo);
+                    showProgress(false);
+                    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance( LoginActivity.this ) ;
+                    localBroadcastManager.sendBroadcast(new Intent("login_success"));
+                    finish();
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                    showProgress(false);
+                    mPasswordView.requestFocus();
+                }
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast(R.string.request_failed);
+            }
+        });
     }
 
     private boolean isEmailValid(String email) {

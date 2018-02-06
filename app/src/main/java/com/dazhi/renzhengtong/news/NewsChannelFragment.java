@@ -95,6 +95,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.addItemDecoration(new DashlineItemDivider());
 
         if (id == 8) {

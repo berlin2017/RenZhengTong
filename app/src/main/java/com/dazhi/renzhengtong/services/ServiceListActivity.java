@@ -1,5 +1,6 @@
 package com.dazhi.renzhengtong.services;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.news.model.NewsModel;
+import com.dazhi.renzhengtong.search.SearchListActivity;
 import com.dazhi.renzhengtong.services.adapter.ServiceListAdapter;
 import com.dazhi.renzhengtong.services.model.TiXiModel;
 import com.dazhi.renzhengtong.utils.Constant;
@@ -59,6 +62,16 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
             }
         },recyclerView);
         recyclerView.setAdapter(adapter);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(ServiceListActivity.this, NewsDetailActivity.class);
+                intent.putExtra("id", list.get(position).getId());
+                intent.putExtra("url", list.get(position).getPost_source());
+                startActivity(intent);
+            }
+        });
         swipeRefreshLayout = findViewById(R.id.services_list_swip);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);

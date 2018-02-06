@@ -71,11 +71,11 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         type = findViewById(R.id.userinfo_type_value);
         UserInfo info = UserManager.getUser(this);
         if (info != null) {
-            name.setText(info.getNickname());
-            simpleDraweeView.setImageURI(Uri.parse(info.getPhoto()));
+            name.setText(info.getUser_nickname());
+            simpleDraweeView.setImageURI(Uri.parse(info.getAvatar()));
             company.setText(info.getCompany());
-            time.setText(info.getTime());
-            type.setText(info.getType());
+            time.setText(info.getRztime());
+            type.setText(info.getRztype());
         }
 
         photo_layout = findViewById(R.id.photo_layout);
@@ -96,19 +96,19 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         list.add("101-200人");
         list.add("200人以上");
         userInfo = UserManager.getUser(this);
-        if (userInfo == null || userInfo.getType() == null || userInfo.getType().isEmpty()) {
+        if (userInfo == null || userInfo.getRztype() == null || userInfo.getRztype().isEmpty()) {
             type.setText("选择认证类别");
 //            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
         } else {
-            type.setText(userInfo.getType());
+            type.setText(userInfo.getRztype());
 //            type.setTextColor(getResources().getColor(android.R.color.black));
         }
 
-        if (userInfo == null || userInfo.getTime() == null || userInfo.getTime().isEmpty()) {
+        if (userInfo == null || userInfo.getRztime() == null || userInfo.getRztime().isEmpty()) {
             time.setText("选择认证时间");
 //            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
         } else {
-            time.setText(userInfo.getTime());
+            time.setText(userInfo.getRztime());
 //            time.setTextColor(getResources().getColor(android.R.color.black));
         }
 
@@ -158,8 +158,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.name_layout:
                 final EditText editText2 = new EditText(this);
-                if (userInfo == null || userInfo.getNickname() == null || userInfo.getNickname().isEmpty()) {
-                    editText2.setText(UserManager.getUser(this).getNickname());
+                if (userInfo == null || userInfo.getUser_nickname() == null || userInfo.getUser_nickname().isEmpty()) {
+                    editText2.setText(UserManager.getUser(this).getUser_nickname());
                 }
 
                 new AlertDialog.Builder(this)

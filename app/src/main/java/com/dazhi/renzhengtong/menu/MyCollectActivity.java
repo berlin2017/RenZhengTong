@@ -60,6 +60,7 @@ public class MyCollectActivity extends AppCompatActivity implements View.OnClick
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.addItemDecoration(new DashlineItemDivider());
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -56,12 +57,14 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
     private ProgressBar progressBar;
     private NewsModel model;
     private int id = 0;
+    private String url;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_detail);
         id = getIntent().getIntExtra("id", 0);
+        url = getIntent().getStringExtra("url");
         webView = findViewById(R.id.detail_webview);
 //        webView.loadUrl("https://www.baidu.com/");
 
@@ -82,7 +85,12 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
         progressBar = findViewById(R.id.detail_loading);
 
         initTitle();
-        requestDetail();
+        if (TextUtils.isEmpty(url)){
+            requestDetail();
+        }else{
+            webView.loadUrl(url);
+        }
+
     }
 
 

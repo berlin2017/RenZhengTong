@@ -14,6 +14,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import android.widget.Toast;
 
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.loading.MyProgressView;
+import com.dazhi.renzhengtong.menu.ContactActivity;
+import com.dazhi.renzhengtong.menu.MenuJGActivity;
 import com.dazhi.renzhengtong.menu.MyCollectActivity;
 import com.dazhi.renzhengtong.menu.SettingsActivity;
 import com.dazhi.renzhengtong.news.adapter.NewsFragmentAdapter;
@@ -109,8 +112,12 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
     public void updateUser() {
         UserInfo userInfo = UserManager.getUser(getContext());
         if (userInfo != null) {
-            menu_image.setImageURI(Uri.parse(userInfo.getPhoto()));
-            nickName_tv.setText(userInfo.getNickname());
+            menu_image.setImageURI(Uri.parse(userInfo.getAvatar()));
+            if (TextUtils.isEmpty(userInfo.getUser_nickname())){
+                nickName_tv.setText(userInfo.getMobile());
+            }else{
+                nickName_tv.setText(userInfo.getUser_nickname());
+            }
         }
     }
 
@@ -168,10 +175,14 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(intent);
                 break;
             case R.id.home_menu_sbjj:
-
+                menu.showContent();
+                intent = new Intent(getContext(), MenuJGActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.home_menu_kefu:
-
+                menu.showContent();
+                intent = new Intent(getContext(), ContactActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.home_menu_settings:
                 menu.showContent();

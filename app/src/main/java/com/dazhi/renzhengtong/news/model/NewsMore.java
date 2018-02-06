@@ -1,6 +1,7 @@
 package com.dazhi.renzhengtong.news.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mac on 2018/1/30.
@@ -8,7 +9,16 @@ import java.io.Serializable;
 
 public class NewsMore implements Serializable {
     private String thumbnail;
-//    private String template;
+    private String template;
+    private List<NewsFileModel>files;
+
+    public List<NewsFileModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<NewsFileModel> files) {
+        this.files = files;
+    }
 
     public String getThumbnail() {
         return thumbnail;
@@ -18,11 +28,13 @@ public class NewsMore implements Serializable {
         this.thumbnail = thumbnail;
     }
 
-//    public String getTemplate() {
-//        return template;
-//    }
-//
-//    public void setTemplate(String template) {
-//        this.template = template;
-//    }
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+
 }
