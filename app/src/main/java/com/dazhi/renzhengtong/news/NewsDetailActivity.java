@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.loading.SystemInfoManager;
 import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -129,14 +130,14 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.detail_bottom_layout:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("拨打电话").setMessage("15605662015").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setTitle("拨打电话").setMessage(SystemInfoManager.getInfo(getApplicationContext()).getSite_tel()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (ContextCompat.checkSelfPermission(NewsDetailActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED||
                                 ContextCompat.checkSelfPermission(NewsDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED   ){
                             ActivityCompat.requestPermissions(NewsDetailActivity.this,new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                         }else {
-                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"15605662015"));
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+SystemInfoManager.getInfo(getApplicationContext()).getSite_tel()));
                             startActivity(intent);
                         }
                     }

@@ -6,13 +6,21 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+
     <include
         android:id="@+id/services_title_layout"
         layout="@layout/layout_common_title" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/services_home_recyclerview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/services_home_swip"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/services_home_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

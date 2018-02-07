@@ -27,6 +27,8 @@ import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.news.model.SlideModel;
 import com.dazhi.renzhengtong.search.adapter.SearchListAdapter;
+import com.dazhi.renzhengtong.user.LoginActivity;
+import com.dazhi.renzhengtong.user.UserManager;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
@@ -85,28 +87,43 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
-                if (id == 17&&list.get(position).getMore().getFiles().size()>0) {
+                if (id == 17 && list.get(position).getMore().getFiles().size() > 0) {
+                    if (UserManager.getUser(SearchListActivity.this) != null) {
+                        AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SearchListActivity.this);
+                        builder.setTitle("确认下载").setMessage(list.get(position).getMore().getFiles().get(0).getName()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(list.get(position).getMore().getFiles().get(0).getUrl()));
+                                //指定下载路径和下载文件名
+                                request.setDestinationInExternalPublicDir("/download/", list.get(position).getMore().getFiles().get(0).getName());
+                                //获取下载管理器
+                                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                                //将下载任务加入下载队列，否则不会进行下载
+                                downloadManager.enqueue(request);
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SearchListActivity.this);
-                    builder.setTitle("确认下载").setMessage(list.get(position).getMore().getFiles().get(0).getName()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(list.get(position).getMore().getFiles().get(0).getUrl()));
-                            //指定下载路径和下载文件名
-                            request.setDestinationInExternalPublicDir("/download/", list.get(position).getMore().getFiles().get(0).getName());
-                            //获取下载管理器
-                            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                            //将下载任务加入下载队列，否则不会进行下载
-                            downloadManager.enqueue(request);
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).create().show();
+                    } else {
+                        AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SearchListActivity.this);
+                        builder.setTitle("提示").setMessage("请登录后下载").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(SearchListActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    }).create().show();
+                            }
+                        }).create().show();
+                    }
 
-                }else{
+                } else {
                     Intent intent = new Intent(SearchListActivity.this, NewsDetailActivity.class);
                     intent.putExtra("id", list.get(position).getId());
                     intent.putExtra("url", list.get(position).getPost_source());

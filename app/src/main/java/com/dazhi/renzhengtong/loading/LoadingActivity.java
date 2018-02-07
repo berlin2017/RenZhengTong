@@ -1,7 +1,9 @@
 package com.dazhi.renzhengtong.loading;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,16 @@ import android.widget.TextView;
 import com.dazhi.renzhengtong.MainActivity;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.TableBarActivity;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
+import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Request;
 
 /**
  * Created by mac on 2018/1/22.
@@ -24,7 +36,7 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
 
     private MyProgressView progressBar;
     private TextView textView;
-    private int duration = 000;
+    private int duration = 3000;
 
 
     @Override
@@ -36,8 +48,25 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
         textView.setText(duration+"s");
         progressBar.setListener(this);
         progressBar.setDuration(duration);
-        progressBar.start();
+        NetRequest.getFormRequest(Constant.SYSTEM_INFO_URL, null, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code")==1){
+                    SystemInfo systemInfo = Utils.decodeJSON(jsonObject.optString("data"),SystemInfo.class);
+                    SystemInfoManager.saveInfo(getApplicationContext(),systemInfo);
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
+                progressBar.start();
+            }
 
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast(R.string.request_failed);
+                progressBar.start();
+            }
+        });
     }
 
 

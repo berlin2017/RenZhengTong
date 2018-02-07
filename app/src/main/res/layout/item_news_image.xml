@@ -7,7 +7,7 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        fresco:placeholderImage="@mipmap/ic_launcher_round"
+        fresco:placeholderImage="@drawable/ic_default"
         android:id="@+id/item_news_pager_image"/>
 
 </RelativeLayout>

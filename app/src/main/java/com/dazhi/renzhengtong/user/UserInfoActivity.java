@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,23 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.NetRequest;
+import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Request;
 
 /**
  * Created by Admin on 2018/1/29 0029.
@@ -97,7 +108,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         list.add("200人以上");
         userInfo = UserManager.getUser(this);
         if (userInfo == null || userInfo.getRztype() == null || userInfo.getRztype().isEmpty()) {
-            type.setText("选择认证类别");
+            type.setText("输入认证类别");
 //            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
         } else {
             type.setText(userInfo.getRztype());
@@ -135,7 +146,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.company_layout:
                 final EditText editText = new EditText(this);
-                if (userInfo == null || userInfo.getCompany() == null || userInfo.getCompany().isEmpty()) {
+                if (userInfo != null && userInfo.getCompany() != null && !userInfo.getCompany().isEmpty()) {
                     editText.setText(UserManager.getUser(this).getCompany());
                 }
 
@@ -158,7 +169,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.name_layout:
                 final EditText editText2 = new EditText(this);
-                if (userInfo == null || userInfo.getUser_nickname() == null || userInfo.getUser_nickname().isEmpty()) {
+                if (userInfo != null && userInfo.getUser_nickname() != null && !userInfo.getUser_nickname().isEmpty()) {
                     editText2.setText(UserManager.getUser(this).getUser_nickname());
                 }
 
@@ -180,23 +191,44 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                         .show();
                 break;
             case R.id.type_layout:
-                //条件选择器
-                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        //返回的分别是三个级别的选中位置
-                        type.setText(list.get(options1));
-                    }
-                }).build();
-                pvOptions.setPicker(list);
-                pvOptions.show();
+//                //条件选择器
+//                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+//                    @Override
+//                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+//                        //返回的分别是三个级别的选中位置
+//                        type.setText(list.get(options1));
+//                    }
+//                }).build();
+//                pvOptions.setPicker(list);
+//                pvOptions.show();
+                final EditText editText3 = new EditText(this);
+                if (userInfo != null && userInfo.getRztype() != null &&! userInfo.getRztype().isEmpty()) {
+                    editText3.setText(UserManager.getUser(this).getRztype());
+                }
+
+                new AlertDialog.Builder(this)
+                        .setTitle("请输入认证类别")
+                        .setView(editText3)
+                        .setCancelable(false)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String input = editText3.getText().toString();
+                                if (input.equals("")) {
+                                    Toast.makeText(getApplicationContext(), "认证类别不能为空！" + input, Toast.LENGTH_LONG).show();
+                                } else {
+                                    type.setText(input);
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
                 break;
             case R.id.time_layout:
                 boolean[] types = {true, true, true, false, false, false};
                 TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Utils.DATE_FORMAT_MONTH_DAY);
                         String timestring = simpleDateFormat.format(date);
                         time.setText(timestring);
                     }
@@ -210,11 +242,55 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.userinfo_commit_btn:
 
-                progressBar.setVisibility(View.VISIBLE);
                 //网络请求
+                commit();
 
                 break;
         }
+    }
+
+    private void commit() {
+        if (TextUtils.isEmpty(name.getText())){
+            ToastHelper.showToast("姓名不能为空");
+            return;
+        }
+
+        if (TextUtils.isEmpty(company.getText())){
+            ToastHelper.showToast("公司不能为空");
+            return;
+        }
+        HashMap<String,String>map = new HashMap<>();
+        map.put("uid",userInfo.getId()+"");
+        map.put("user_nickname",name.getText().toString());
+        map.put("company",company.getText().toString());
+        map.put("rztype",type.getText().toString());
+        map.put("rztime",time.getText().toString());
+        progressBar.setVisibility(View.VISIBLE);
+        NetRequest.postFormRequest(Constant.USER_CHSNGE_INFO_URL, map, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code")==1){
+                    userInfo.setCompany(company.getText().toString());
+                    userInfo.setUser_nickname(name.getText().toString());
+                    userInfo.setRztime(time.getText().toString());
+                    userInfo.setRztype(type.getText().toString());
+                    UserManager.saveUser(UserInfoActivity.this,userInfo);
+                    ToastHelper.showToast("修改成功");
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast(R.string.request_failed);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
     @Override

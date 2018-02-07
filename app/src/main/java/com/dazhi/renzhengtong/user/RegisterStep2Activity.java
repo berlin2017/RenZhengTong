@@ -1,9 +1,11 @@
 package com.dazhi.renzhengtong.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
@@ -20,6 +23,7 @@ import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.dazhi.renzhengtong.utils.Utils;
 
 import org.json.JSONObject;
 
@@ -97,7 +101,7 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
                 TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Utils.DATE_FORMAT_MONTH_DAY);
                         String timestring = simpleDateFormat.format(date);
                         time.setText(timestring);
                     }
@@ -109,16 +113,34 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
                 pickerView.show();
                 break;
             case R.id.register_type:
-                //条件选择器
-                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        //返回的分别是三个级别的选中位置
-                        type.setText(list.get(options1));
-                    }
-                }).build();
-                pvOptions.setPicker(list);
-                pvOptions.show();
+//                //条件选择器
+//                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+//                    @Override
+//                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+//                        //返回的分别是三个级别的选中位置
+//                        type.setText(list.get(options1));
+//                    }
+//                }).build();
+//                pvOptions.setPicker(list);
+//                pvOptions.show();
+
+                final EditText editText3 = new EditText(this);
+                new AlertDialog.Builder(this)
+                        .setTitle("请输入认证类别")
+                        .setView(editText3)
+                        .setCancelable(false)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String input = editText3.getText().toString();
+                                if (input.equals("")) {
+                                    Toast.makeText(getApplicationContext(), "认证类别不能为空！" + input, Toast.LENGTH_LONG).show();
+                                } else {
+                                    type.setText(input);
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
                 break;
 
             case R.id.common_title_right:
@@ -131,7 +153,7 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
 
     public void commit() {
         String nameSting = name.getText().toString();
-        String companyString = company.getText().toString();
+        final String companyString = company.getText().toString();
         String typeString = type.getText().toString();
         String timeString = time.getText().toString();
 

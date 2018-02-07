@@ -3,6 +3,7 @@ package com.dazhi.renzhengtong.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
         }else if (v.getId() == R.id.settings_home_loginout){
             UserManager.clearUser(this);
+            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+            Intent intent = new Intent("login_out");
+            localBroadcastManager.sendBroadcast(intent);
             finish();
         }
     }

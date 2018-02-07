@@ -9,247 +9,301 @@
         android:id="@+id/evaluation_home_title"
         layout="@layout/layout_common_title" />
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:layout_below="@id/evaluation_home_title"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ProgressBar
+            android:id="@+id/evaluation_home_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/evaluation_name_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_qiye" />
-
-            <TextView
-                android:id="@+id/evaluation_name_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_name_image"
-                android:text="企业名称:" />
-
-
-            <EditText
-                android:id="@+id/evaluation_qiye_edit"
-                style="?android:attr/textViewStyle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_name_name"
-                android:background="@null"
-                android:gravity="center_vertical|right"
-                android:hint="请输入企业名称"
-                android:textColorHint="@color/less_trans" />
+                android:layout_marginRight="10dp">
 
-            <View
+                <ImageView
+                    android:id="@+id/evaluation_name_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_qiye" />
+
+                <TextView
+                    android:id="@+id/evaluation_name_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_name_image"
+                    android:text="企业名称:" />
+
+
+                <EditText
+                    android:id="@+id/evaluation_qiye_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_name_name"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入企业名称"
+                    android:textColorHint="@color/less_trans" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/evaluation_hangye_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_hangye" />
-
-            <TextView
-                android:id="@+id/evaluation_hangye_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_hangye_image"
-                android:text="行业:" />
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/evaluation_hangye_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_hangye" />
+
+                <TextView
+                    android:id="@+id/evaluation_hangye_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_hangye_image"
+                    android:text="行业:" />
 
 
-            <EditText
-                android:id="@+id/evaluation_hangye_edit"
-                style="?android:attr/textViewStyle"
+                <EditText
+                    android:id="@+id/evaluation_hangye_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_hangye_name"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择企业类型"
+                    android:textColorHint="@color/less_trans" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_hangye_name"
-                android:background="@null"
-                android:focusable="false"
-                android:gravity="center_vertical|right"
-                android:hint="请选择企业类型"
-                android:textColorHint="@color/less_trans" />
+                android:layout_marginRight="10dp">
 
-            <View
+                <ImageView
+                    android:id="@+id/evaluation_guimo_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_guimo" />
+
+                <TextView
+                    android:id="@+id/evaluation_guimo_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_guimo_image"
+                    android:text="规模:" />
+
+
+                <EditText
+                    android:id="@+id/evaluation_guimo_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_guimo_name"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择规模大小"
+                    android:textColorHint="@color/less_trans" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/evaluation_guimo_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_guimo" />
-
-            <TextView
-                android:id="@+id/evaluation_guimo_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_guimo_image"
-                android:text="规模:" />
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/evaluation_people_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_people" />
+
+                <TextView
+                    android:id="@+id/evaluation_people_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_people_image"
+                    android:text="人员:" />
 
 
-            <EditText
-                android:id="@+id/evaluation_guimo_edit"
-                style="?android:attr/textViewStyle"
+                <EditText
+                    android:id="@+id/evaluation_people_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_people_name"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择人员规模"
+                    android:textColorHint="@color/less_trans" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_guimo_name"
-                android:background="@null"
-                android:focusable="false"
-                android:gravity="center_vertical|right"
-                android:hint="请选择规模大小"
-                android:textColorHint="@color/less_trans" />
+                android:layout_marginRight="10dp">
 
-            <View
+                <ImageView
+                    android:id="@+id/evaluation_product_type_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_product" />
+
+                <TextView
+                    android:id="@+id/evaluation_product_type_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_product_type_image"
+                    android:text="产品类型:" />
+
+
+                <EditText
+                    android:id="@+id/evaluation_product_type_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_product_type_name"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择产品类型"
+                    android:textColorHint="@color/less_trans" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/evaluation_people_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_people" />
-
-            <TextView
-                android:id="@+id/evaluation_people_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_people_image"
-                android:text="人员:" />
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/evaluation_product_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_product" />
+
+                <TextView
+                    android:id="@+id/evaluation_product_name"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_product_image"
+                    android:text="产品:" />
 
 
-            <EditText
-                android:id="@+id/evaluation_people_edit"
-                style="?android:attr/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_people_name"
-                android:background="@null"
-                android:focusable="false"
-                android:gravity="center_vertical|right"
-                android:hint="请选择人员规模"
-                android:textColorHint="@color/less_trans" />
+                <EditText
+                    android:id="@+id/evaluation_product_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/evaluation_product_name"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入产品名称"
+                    android:textColorHint="@color/less_trans" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+            </RelativeLayout>
 
+            <Button
+                android:id="@+id/evaluation_commit_btn"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/drawable_evaluation_btn"
+                android:text="立即测评"
+                android:textColor="@android:color/white" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+        </LinearLayout>
 
-            <ImageView
-                android:id="@+id/evaluation_product_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_product" />
-
-            <TextView
-                android:id="@+id/evaluation_product_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_product_image"
-                android:text="产品:" />
-
-
-            <EditText
-                android:id="@+id/evaluation_product_edit"
-                style="?android:attr/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_product_name"
-                android:background="@null"
-                android:gravity="center_vertical|right"
-                android:hint="请输入产品名称"
-                android:textColorHint="@color/less_trans" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/evaluation_commit_btn"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/drawable_evaluation_btn"
-            android:text="立即测评"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-
-
+    </RelativeLayout>
 </RelativeLayout>

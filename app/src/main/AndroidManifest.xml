@@ -119,6 +119,11 @@
             android:theme="@style/MyNoActionTheme"
             android:windowSoftInputMode="adjustPan" />
 
+        <activity
+            android:name=".evaluation.EvaluationListActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
+
     </application>
 
 </manifest>

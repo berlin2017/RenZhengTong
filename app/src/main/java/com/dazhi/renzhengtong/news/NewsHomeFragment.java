@@ -91,11 +91,18 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
 
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(receiver, new IntentFilter("login_success"));
-
+        localBroadcastManager.registerReceiver(outreceiver, new IntentFilter("login_out"));
     }
 
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUser();
+        }
+    };
+
+    private BroadcastReceiver outreceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             updateUser();
@@ -107,6 +114,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         super.onDestroy();
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.unregisterReceiver(receiver);
+        localBroadcastManager.unregisterReceiver(outreceiver);
     }
 
     public void updateUser() {
@@ -118,6 +126,9 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
             }else{
                 nickName_tv.setText(userInfo.getUser_nickname());
             }
+        }else{
+            simpleDraweeView.setImageResource(R.drawable.ic_default_user);
+            nickName_tv.setText("您还未登录~");
         }
     }
 
