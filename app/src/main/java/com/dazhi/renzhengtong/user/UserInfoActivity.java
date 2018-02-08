@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -33,8 +34,12 @@ import com.dazhi.renzhengtong.utils.ToastHelper;
 import com.dazhi.renzhengtong.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +48,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by Admin on 2018/1/29 0029.
@@ -68,6 +80,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private UserInfo userInfo;
     private ProgressBar progressBar;
     private Button commit;
+    private Bitmap select_image;
+    private final String PATH = "mnt/sdcard/logo.jpg";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,14 +94,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         company = findViewById(R.id.userinfo_company_value);
         time = findViewById(R.id.userinfo_time_value);
         type = findViewById(R.id.userinfo_type_value);
-        UserInfo info = UserManager.getUser(this);
-        if (info != null) {
-            name.setText(info.getUser_nickname());
-            simpleDraweeView.setImageURI(Uri.parse(info.getAvatar()));
-            company.setText(info.getCompany());
-            time.setText(info.getRztime());
-            type.setText(info.getRztype());
-        }
 
         photo_layout = findViewById(R.id.photo_layout);
         name_layout = findViewById(R.id.name_layout);
@@ -106,26 +112,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         list.add("51-100人");
         list.add("101-200人");
         list.add("200人以上");
-        userInfo = UserManager.getUser(this);
-        if (userInfo == null || userInfo.getRztype() == null || userInfo.getRztype().isEmpty()) {
-            type.setText("输入认证类别");
-//            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
-        } else {
-            type.setText(userInfo.getRztype());
-//            type.setTextColor(getResources().getColor(android.R.color.black));
-        }
-
-        if (userInfo == null || userInfo.getRztime() == null || userInfo.getRztime().isEmpty()) {
-            time.setText("选择认证时间");
-//            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
-        } else {
-            time.setText(userInfo.getRztime());
-//            time.setTextColor(getResources().getColor(android.R.color.black));
-        }
 
         progressBar = findViewById(R.id.userinfo_progress);
         commit = findViewById(R.id.userinfo_commit_btn);
         commit.setOnClickListener(this);
+        userInfo = UserManager.getUser(this);
+        updataUser();
+        getInfo();
     }
 
     public void initTitle() {
@@ -202,7 +195,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //                pvOptions.setPicker(list);
 //                pvOptions.show();
                 final EditText editText3 = new EditText(this);
-                if (userInfo != null && userInfo.getRztype() != null &&! userInfo.getRztype().isEmpty()) {
+                if (userInfo != null && userInfo.getRztype() != null && !userInfo.getRztype().isEmpty()) {
                     editText3.setText(UserManager.getUser(this).getRztype());
                 }
 
@@ -250,34 +243,40 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void commit() {
-        if (TextUtils.isEmpty(name.getText())){
+        if (TextUtils.isEmpty(name.getText())) {
             ToastHelper.showToast("姓名不能为空");
             return;
         }
 
-        if (TextUtils.isEmpty(company.getText())){
+        if (TextUtils.isEmpty(company.getText())) {
             ToastHelper.showToast("公司不能为空");
             return;
         }
-        HashMap<String,String>map = new HashMap<>();
-        map.put("uid",userInfo.getId()+"");
-        map.put("user_nickname",name.getText().toString());
-        map.put("company",company.getText().toString());
-        map.put("rztype",type.getText().toString());
-        map.put("rztime",time.getText().toString());
         progressBar.setVisibility(View.VISIBLE);
-        NetRequest.postFormRequest(Constant.USER_CHSNGE_INFO_URL, map, new NetRequest.DataCallBack() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("uid", userInfo.getId() + "");
+        map.put("user_nickname", name.getText().toString());
+        map.put("company", company.getText().toString());
+        map.put("rztype", type.getText().toString());
+        map.put("rztime", time.getText().toString());
+        File file = null;
+        if (select_image != null) {
+            file = new File(PATH);
+        }
+        NetRequest.postFile(Constant.USER_CHANGE_INFO_URL, map, "logo", file, new NetRequest.DataCallBack() {
+
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
-                if (jsonObject.optInt("code")==1){
-                    userInfo.setCompany(company.getText().toString());
-                    userInfo.setUser_nickname(name.getText().toString());
-                    userInfo.setRztime(time.getText().toString());
-                    userInfo.setRztype(type.getText().toString());
-                    UserManager.saveUser(UserInfoActivity.this,userInfo);
+                if (jsonObject.optInt("code") == 1) {
+//                    userInfo.setCompany(company.getText().toString());
+//                    userInfo.setUser_nickname(name.getText().toString());
+//                    userInfo.setRztime(time.getText().toString());
+//                    userInfo.setRztype(type.getText().toString());
+//                    UserManager.saveUser(UserInfoActivity.this, userInfo);
+                    getInfo();
                     ToastHelper.showToast("修改成功");
-                }else{
+                } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
                 progressBar.setVisibility(View.GONE);
@@ -290,7 +289,63 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+    }
 
+    public void getInfo() {
+        progressBar.setVisibility(View.VISIBLE);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("uid", userInfo.getId() + "");
+        progressBar.setVisibility(View.VISIBLE);
+        NetRequest.postFormRequest(Constant.USER_INFO_URL, map, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code") == 1) {
+                    UserInfo userInfo1 = Utils.decodeJSON(jsonObject.optJSONArray("data").optString(0),UserInfo.class);
+                    userInfo = userInfo1;
+                    UserManager.saveUser(UserInfoActivity.this, userInfo);
+                    updataUser();
+                    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(UserInfoActivity.this);
+                    Intent intent = new Intent("login_success");
+                    localBroadcastManager.sendBroadcastSync(intent);
+                } else {
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast(R.string.request_failed);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void updataUser(){
+        if (userInfo != null) {
+            name.setText(userInfo.getUser_nickname());
+            simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL + userInfo.getLogo()));
+            company.setText(userInfo.getCompany());
+            time.setText(userInfo.getRztime());
+            type.setText(userInfo.getRztype());
+        }
+
+        if (userInfo == null || userInfo.getRztype() == null || userInfo.getRztype().isEmpty()) {
+            type.setText("输入认证类别");
+//            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        } else {
+            type.setText(userInfo.getRztype());
+//            type.setTextColor(getResources().getColor(android.R.color.black));
+        }
+
+        if (userInfo == null || userInfo.getRztime() == null || userInfo.getRztime().isEmpty()) {
+            time.setText("选择认证时间");
+//            type.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        } else {
+            time.setText(userInfo.getRztime());
+//            time.setTextColor(getResources().getColor(android.R.color.black));
+        }
     }
 
     @Override
@@ -302,9 +357,24 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             cutImage(data.getData());
         } else if (requestCode == 3000 && resultCode == RESULT_OK) {
             Bitmap bitmap = data.getExtras().getParcelable("data");
+            select_image = bitmap;
+            setFile(select_image);
             simpleDraweeView.setImageBitmap(bitmap);
         }
     }
+
+    private void setFile(Bitmap photo) {
+        File file = new File(PATH);
+        try {
+            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, bout);
+            bout.flush();
+            bout.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void cutImage(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");

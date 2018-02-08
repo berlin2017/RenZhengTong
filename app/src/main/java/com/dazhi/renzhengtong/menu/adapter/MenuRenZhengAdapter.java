@@ -31,6 +31,12 @@ public class MenuRenZhengAdapter extends BaseQuickAdapter<MenuJGModel,BaseViewHo
        helper.setText(R.id.item_menu_jigou_name,item.getJgname());
        String s = String.format("%s   %s",item.getJgxm(),item.getJgtel());
        helper.setText(R.id.item_menu_jigou_phone,s);
+       if (item.getStatus()==1){
+           helper.setText(R.id.item_menu_jigou_type,"已认证");
+       }else{
+           helper.setText(R.id.item_menu_jigou_type,"正在审核");
+       }
+
     }
 
 }

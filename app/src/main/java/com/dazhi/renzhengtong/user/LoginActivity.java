@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     UserManager.saveUser(LoginActivity.this,userInfo);
                     showProgress(false);
                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance( LoginActivity.this ) ;
-                    localBroadcastManager.sendBroadcast(new Intent("login_success"));
+                    localBroadcastManager.sendBroadcastSync(new Intent("login_success"));
                     finish();
                 }else{
                     ToastHelper.showToast(jsonObject.optString("msg"));

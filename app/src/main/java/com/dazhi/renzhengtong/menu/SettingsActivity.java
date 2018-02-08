@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.user.UserManager;
+import com.dazhi.renzhengtong.utils.ToastHelper;
 
 /**
  * Created by mac on 2018/1/27.
@@ -52,13 +53,21 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             Intent intent2 = new Intent(this,AboutActivtity.class);
             startActivity(intent2);
         }else if(v.getId() == R.id.settings_home_pass){
+            if(UserManager.getUser(this)==null){
+                ToastHelper.showToast("请登录后再试");
+                return;
+            }
             Intent intent = new Intent(this,ChangePassActivity.class);
             startActivity(intent);
         }else if (v.getId() == R.id.settings_home_loginout){
+            if(UserManager.getUser(this)==null){
+                ToastHelper.showToast("请登录后再试");
+                return;
+            }
             UserManager.clearUser(this);
             LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
-            Intent intent = new Intent("login_out");
-            localBroadcastManager.sendBroadcast(intent);
+            Intent intent = new Intent("login_success");
+            localBroadcastManager.sendBroadcastSync(intent);
             finish();
         }
     }

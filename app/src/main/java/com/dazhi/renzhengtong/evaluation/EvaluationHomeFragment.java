@@ -267,7 +267,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code") == 1) {
-                    List<NewsModel> list = Utils.decodeJSONARRAY(jsonObject.optString("data"), NewsModel.class);
+                    List<EvaluationItem> list = Utils.decodeJSONARRAY(jsonObject.optString("data"), EvaluationItem.class);
                     Intent intent = new Intent(getActivity(), EvaluationListActivity.class);
                     intent.putExtra("list", (Serializable) list);
                     startActivity(intent);

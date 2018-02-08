@@ -34,7 +34,13 @@ import com.dazhi.renzhengtong.user.LoginActivity;
 import com.dazhi.renzhengtong.user.UserInfo;
 import com.dazhi.renzhengtong.user.UserInfoActivity;
 import com.dazhi.renzhengtong.user.UserManager;
+import com.dazhi.renzhengtong.utils.Constant;
+import com.dazhi.renzhengtong.utils.ToastHelper;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -91,7 +97,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
 
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(receiver, new IntentFilter("login_success"));
-        localBroadcastManager.registerReceiver(outreceiver, new IntentFilter("login_out"));
+//        localBroadcastManager.registerReceiver(outreceiver, new IntentFilter("login_out"));
     }
 
 
@@ -102,31 +108,33 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         }
     };
 
-    private BroadcastReceiver outreceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateUser();
-        }
-    };
+//    private BroadcastReceiver outreceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            updateUser();
+//        }
+//    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.unregisterReceiver(receiver);
-        localBroadcastManager.unregisterReceiver(outreceiver);
+//        localBroadcastManager.unregisterReceiver(outreceiver);
     }
 
     public void updateUser() {
         UserInfo userInfo = UserManager.getUser(getContext());
         if (userInfo != null) {
-            menu_image.setImageURI(Uri.parse(userInfo.getAvatar()));
+            menu_image.setImageURI(Uri.parse(Constant.BASE_URL+userInfo.getLogo()));
+            simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL+userInfo.getLogo()));
             if (TextUtils.isEmpty(userInfo.getUser_nickname())){
                 nickName_tv.setText(userInfo.getMobile());
             }else{
                 nickName_tv.setText(userInfo.getUser_nickname());
             }
         }else{
+            menu_image.setImageResource(R.drawable.ic_default_user);
             simpleDraweeView.setImageResource(R.drawable.ic_default_user);
             nickName_tv.setText("您还未登录~");
         }
@@ -182,11 +190,23 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.home_menu_collect:
                 menu.showContent();
+                if (UserManager.getUser(getContext())==null){
+                    ToastHelper.showToast("请先登录");
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent = new Intent(getContext(), UserInfoActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.home_menu_sbjj:
                 menu.showContent();
+                if (UserManager.getUser(getContext())==null){
+                    ToastHelper.showToast("请先登录");
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent = new Intent(getContext(), MenuJGActivity.class);
                 getActivity().startActivity(intent);
                 break;
@@ -197,6 +217,12 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.home_menu_settings:
                 menu.showContent();
+                if (UserManager.getUser(getContext())==null){
+                    ToastHelper.showToast("请先登录");
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent = new Intent(getContext(), SettingsActivity.class);
                 getActivity().startActivity(intent);
                 break;

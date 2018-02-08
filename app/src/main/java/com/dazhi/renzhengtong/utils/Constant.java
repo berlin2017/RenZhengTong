@@ -30,11 +30,15 @@ public class Constant {
 
     public static final String MENU_JIGOU_INFO_URL =  BASE_URL + "api/user/public/jgdetial";
 
-    public static final String USER_CHSNGE_INFO_URL = BASE_URL + "api/user/public/uinfo";
+    public static final String USER_CHANGE_INFO_URL = BASE_URL + "api/user/public/uinfo";
 
     public static final String SYSTEM_INFO_URL = BASE_URL + "api/user/public/sysinfo";
 
     public static final String SERVICE_HOME_URL = BASE_URL + "api/user/public/jglistall";
 
     public static final String EVALUATION_URL = BASE_URL + "api/user/public/cp";
+
+    public static final String USER_INFO_URL = BASE_URL + "api/user/public/getuinfo";
+
+    public static final String USER_CHNAGEPASS_URL = BASE_URL + "api/user/public/passwordReset";
 }

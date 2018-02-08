@@ -18,6 +18,15 @@ public class SystemInfo {
     private String site_qq;
     private String site_tel;
     private String site_address;
+    private String site_logo;
+
+    public String getSite_logo() {
+        return site_logo;
+    }
+
+    public void setSite_logo(String site_logo) {
+        this.site_logo = site_logo;
+    }
 
     public String getSite_name() {
         return site_name;

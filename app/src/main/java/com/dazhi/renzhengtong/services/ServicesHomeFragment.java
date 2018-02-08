@@ -133,9 +133,8 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
     }
 
     private void requestList() {
-
         HashMap<String,String> map = new HashMap<>();
-        map.put("uid", UserManager.getUser(getActivity()).getId()+"");
+//        map.put("uid", UserManager.getUser(getActivity()).getId()+"");
         NetRequest.postFormRequest(Constant.SERVICE_HOME_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {

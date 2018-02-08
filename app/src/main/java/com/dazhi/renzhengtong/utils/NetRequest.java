@@ -9,6 +9,7 @@ import android.os.Looper;
 
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -89,6 +91,15 @@ public class NetRequest {
     public static void postJsonRequest(String url, Map<String, String> params, DataCallBack callBack) {
         getInstance().inner_postJsonAsync(url, params, callBack);
     }
+
+    public static OkHttpClient getOkHttpClient(){
+        getInstance();
+       return okHttpClient;
+    }
+
+    public static void postFile(String url, Map<String, String> params,String key, File file, DataCallBack callBack){
+        getInstance().inner_postImageAsync(url, params, key, file, callBack);
+    }
     //-------------对外提供的方法End--------------------------------
 
     /**
@@ -125,6 +136,66 @@ public class NetRequest {
             }
         });
     }
+
+    /**
+     * 异步post请求（Form）,内部实现方法
+     *
+     * @param url      url
+     * @param params   params
+     * @param callBack callBack
+     */
+    private void inner_postImageAsync(String url, Map<String, String> params, String filekey, File file,final DataCallBack callBack) {
+        RequestBody requestBody;
+        if (params == null) {
+            params = new HashMap<>();
+        }
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+        /**
+         * 在这对添加的参数进行遍历
+         */
+        for (Map.Entry<String, String> map : params.entrySet()) {
+            String key = map.getKey();
+            String value;
+            /**
+             * 判断值是否是空的
+             */
+            if (map.getValue() == null) {
+                value = "";
+            } else {
+                value = map.getValue();
+            }
+            /**
+             * 把key和value添加到formbody中
+             */
+            builder.addFormDataPart(key, value);
+        }
+        if (file!=null){
+            builder.addFormDataPart(filekey, "logo.png",
+                    RequestBody.create(MediaType.parse("image/png"), file));
+        }
+        requestBody = builder.build();
+        //结果返回
+        final Request request = new Request.Builder().url(url).post(requestBody).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                deliverDataFailure(request, e, callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) { // 请求成功
+                    //执行请求成功的操作
+                    String result = response.body().string();
+                    deliverDataSuccess(result, callBack);
+                } else {
+                    throw new IOException(response + "");
+                }
+            }
+        });
+    }
+
 
     /**
      * 异步post请求（Form）,内部实现方法

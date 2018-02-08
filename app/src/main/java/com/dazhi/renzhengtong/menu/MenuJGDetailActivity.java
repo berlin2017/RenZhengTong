@@ -30,6 +30,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +55,8 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     private PopupWindow pop;
     private View rootview;
     private MenuJGModel model;
+    private Bitmap select_image;
+    private final String PATH = "mnt/sdcard/jglogo.jpg";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,8 +145,8 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             company.setText(model.getJgname());
             name.setText(model.getJgxm());
             phone.setText(model.getJgtel());
-            if (TextUtils.isEmpty(model.getJglogo())){
-                simpleDraweeView.setImageURI(Uri.parse(model.getJglogo()));
+            if (!TextUtils.isEmpty(model.getJglogo())){
+                simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL+model.getJglogo()));
             }
         }
     }
@@ -172,7 +177,33 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             map.put("jgtel",phone.getText().toString());
             map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
             map.put("id", id+"");
-            NetRequest.postFormRequest(Constant.MENU_JIGOU_UPDATE_URL, map, new NetRequest.DataCallBack() {
+//            NetRequest.postFormRequest(Constant.MENU_JIGOU_UPDATE_URL, map, new NetRequest.DataCallBack() {
+//                @Override
+//                public void requestSuccess(String result) throws Exception {
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    if (jsonObject.optInt("code")==1){
+//                        ToastHelper.showToast("修改成功");
+//                        progressBar.setVisibility(View.GONE);
+//                        finish();
+//                    }else{
+//                        ToastHelper.showToast(jsonObject.optString("msg"));
+//                        progressBar.setVisibility(View.GONE);
+//                    }
+//                }
+//
+//                @Override
+//                public void requestFailure(Request request, IOException e) {
+//                    ToastHelper.showToast(R.string.request_failed);
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            });
+            File file = null;
+            if (select_image != null) {
+                file = new File(PATH);
+            }
+
+            NetRequest.postFile(Constant.MENU_JIGOU_UPDATE_URL, map, "jglogo", file, new NetRequest.DataCallBack() {
+
                 @Override
                 public void requestSuccess(String result) throws Exception {
                     JSONObject jsonObject = new JSONObject(result);
@@ -198,7 +229,35 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             map.put("jgxm",name.getText().toString());
             map.put("jgtel",phone.getText().toString());
             map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
-            NetRequest.postFormRequest(Constant.USRE_JGRZ_URL, map, new NetRequest.DataCallBack() {
+//            NetRequest.postFormRequest(Constant.USRE_JGRZ_URL, map, new NetRequest.DataCallBack() {
+//                @Override
+//                public void requestSuccess(String result) throws Exception {
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    if (jsonObject.optInt("code")==1){
+//                        ToastHelper.showToast("认证成功");
+//                        progressBar.setVisibility(View.GONE);
+//                        setResult(2000);
+//                        finish();
+//                    }else{
+//                        ToastHelper.showToast(jsonObject.optString("msg"));
+//                        progressBar.setVisibility(View.GONE);
+//                    }
+//                }
+//
+//                @Override
+//                public void requestFailure(Request request, IOException e) {
+//                    ToastHelper.showToast(R.string.request_failed);
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            });
+
+            File file = null;
+            if (select_image != null) {
+                file = new File(PATH);
+            }
+
+            NetRequest.postFile(Constant.USRE_JGRZ_URL, map, "logo", file, new NetRequest.DataCallBack() {
+
                 @Override
                 public void requestSuccess(String result) throws Exception {
                     JSONObject jsonObject = new JSONObject(result);
@@ -263,6 +322,8 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             cutImage(data.getData());
         } else if (requestCode == 3000 && resultCode == RESULT_OK) {
             Bitmap bitmap = data.getExtras().getParcelable("data");
+            select_image = bitmap;
+            setFile(select_image);
             simpleDraweeView.setImageBitmap(bitmap);
         }
     }
@@ -277,6 +338,18 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         intent.putExtra("outputY", "200");
         intent.putExtra("return-data", true);
         startActivityForResult(intent, 3000);
+    }
+
+    private void setFile(Bitmap photo) {
+        File file = new File(PATH);
+        try {
+            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, bout);
+            bout.flush();
+            bout.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

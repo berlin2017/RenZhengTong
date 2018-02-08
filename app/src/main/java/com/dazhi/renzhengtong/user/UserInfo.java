@@ -15,6 +15,7 @@ public class UserInfo {
     private String user_url;
     private String avatar;
     private String mobile;
+    private String logo;
 
     private String company;
     private String rztype;
@@ -24,6 +25,14 @@ public class UserInfo {
     private String jgtel;
     private String jglogo;
     private String jgstatus;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public String getCompany() {
         return company;

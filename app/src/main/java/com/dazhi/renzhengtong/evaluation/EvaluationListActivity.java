@@ -45,18 +45,18 @@ import okhttp3.Request;
 public class EvaluationListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private SearchListAdapter adapter;
-    private List<NewsModel> list = new ArrayList<>();
+    private EvaluationAdapter adapter;
+    private List<EvaluationItem> list = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_evaluation_list);
-        list =  (List<NewsModel>) getIntent().getSerializableExtra("list");
+        list =  (List<EvaluationItem>) getIntent().getSerializableExtra("list");
 
-        recyclerView = findViewById(R.id.search_list_recyclerview);
+        recyclerView = findViewById(R.id.evaluation_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SearchListAdapter(R.layout.item_service_list_layout, list);
+        adapter = new EvaluationAdapter(R.layout.item_service_list_layout, list);
 
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         recyclerView.setAdapter(adapter);
@@ -65,8 +65,7 @@ public class EvaluationListActivity extends AppCompatActivity implements View.On
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
                 Intent intent = new Intent(EvaluationListActivity.this, NewsDetailActivity.class);
-                intent.putExtra("id", list.get(position).getId());
-                intent.putExtra("url", list.get(position).getPost_source());
+                intent.putExtra("id", list.get(position).getAid());
                 startActivity(intent);
             }
         });
