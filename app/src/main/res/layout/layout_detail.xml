@@ -35,20 +35,24 @@
 
     </RelativeLayout>
 
-    <WebView
-        android:id="@+id/detail_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_files_recyclerview"
         android:layout_above="@id/detail_bottom_layout"
-        android:layout_below="@id/detail_title_layout"></WebView>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_title_layout"
+        android:background="@android:color/white"
+        android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+
 
     <ProgressBar
-        android:layout_centerInParent="true"
         android:id="@+id/detail_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@id/detail_bottom_layout"
         android:layout_below="@id/detail_title_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_centerInParent="true" />
 
 
 </RelativeLayout>

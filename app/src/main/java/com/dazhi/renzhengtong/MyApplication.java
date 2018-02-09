@@ -7,6 +7,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 /**
@@ -22,6 +23,8 @@ public class MyApplication extends Application {
         super.onCreate();
         MyApplication.context = getApplicationContext();
         Fresco.initialize(getApplicationContext());
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public static Context getAppContext() {
