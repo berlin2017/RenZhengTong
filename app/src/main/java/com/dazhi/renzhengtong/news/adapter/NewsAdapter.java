@@ -1,5 +1,6 @@
 package com.dazhi.renzhengtong.news.adapter;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
@@ -15,21 +16,26 @@ import java.util.List;
  * Created by mac on 2018/1/30.
  */
 
-public class NewsAdapter extends BaseQuickAdapter<NewsModel,BaseViewHolder>{
+public class NewsAdapter extends BaseQuickAdapter<NewsModel, BaseViewHolder> {
 
-    private List<NewsModel>list ;
 
     public NewsAdapter(int layoutResId, @Nullable List<NewsModel> data) {
         super(layoutResId, data);
-        list = data;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, NewsModel item) {
-        helper.setText(R.id.item_news_name,item.getPost_title());
-        helper.setText(R.id.item_news_time,item.getPublished_time());
-        helper.setText(R.id.item_news_content,item.getPost_excerpt());
+        if (item.getRead()) {
+            helper.setTextColor(R.id.item_news_name, Color.GRAY);
+        }else{
+            helper.setTextColor(R.id.item_news_name, Color.BLACK);
+        }
+
+        helper.setText(R.id.item_news_name, item.getPost_title());
+        helper.setText(R.id.item_news_time, item.getPublished_time());
+        helper.setText(R.id.item_news_content, item.getPost_excerpt());
         SimpleDraweeView simpleDraweeView = helper.getView(R.id.item_news_imageview);
         simpleDraweeView.setImageURI(Uri.parse(item.getMore().getThumbnail()));
     }
+
 }

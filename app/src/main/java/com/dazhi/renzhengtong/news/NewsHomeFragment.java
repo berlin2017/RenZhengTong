@@ -1,9 +1,11 @@
 package com.dazhi.renzhengtong.news;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -14,6 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,7 @@ import com.dazhi.renzhengtong.menu.MyCollectActivity;
 import com.dazhi.renzhengtong.menu.SettingsActivity;
 import com.dazhi.renzhengtong.news.adapter.NewsFragmentAdapter;
 import com.dazhi.renzhengtong.news.model.NewsModel;
+import com.dazhi.renzhengtong.search.SearchListActivity;
 import com.dazhi.renzhengtong.user.LoginActivity;
 import com.dazhi.renzhengtong.user.UserInfo;
 import com.dazhi.renzhengtong.user.UserInfoActivity;
@@ -68,6 +72,7 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout sbjj_layout;
     private LinearLayout kefu_layout;
     private LinearLayout settings_layout;
+    private LinearLayout hetong_layout;
     private TextView location_tv;
     private TextView nickName_tv;
 
@@ -174,6 +179,9 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
         menu_image.setOnClickListener(this);
         nickName_tv = view.findViewById(R.id.home_menu_name);
 
+        hetong_layout = view.findViewById(R.id.home_menu_download);
+        hetong_layout.setOnClickListener(this);
+
         updateUser();
     }
 
@@ -242,6 +250,32 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
 //                intent = new Intent(getContext(), LocationActivity.class);
 //                startActivity(intent);
 //                break;
+            case R.id.home_menu_download:
+                if (UserManager.getUser(getContext()) != null) {
+                    AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
+                    builder.setTitle("确认下载").setMessage("合同下载").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse("https://wkbos.bdimg.com/v1/wenku44//524b391375c7f19db4d9833dfb130ed4?responseContentDisposition=attachment%3B%20filename%3D%22DA%25E8%25BD%25AC%25E6%258D%25A2%25E7%2594%25B5%25E8%25B7%25AF.docx%22%3B%20filename%2A%3Dutf-8%27%27DA%25E8%25BD%25AC%25E6%258D%25A2%25E7%2594%25B5%25E8%25B7%25AF.docx&responseContentType=application%2Foctet-stream&responseCacheControl=no-cache&authorization=bce-auth-v1%2Ffa1126e91489401fa7cc85045ce7179e%2F2018-02-10T07%3A30%3A59Z%2F3600%2Fhost%2F991c7f74dc60f98a05fd4aa0ae2df1fa2d8c1ca73c55d9d30e5b54be0964bb4b&token=78ae6e82dc6b7b467d7c7a05c91d835905b0bd59d2ce098a3b311003d794ea10&expire=2018-02-10T08:30:59Z"));
+                            //指定下载路径和下载文件名
+                            request.setDestinationInExternalPublicDir("/download/", "renzhengtong.doc");
+                            //获取下载管理器
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                            //将下载任务加入下载队列，否则不会进行下载
+                            downloadManager.enqueue(request);
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).create().show();
+
+                } else {
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
             default:
 
 

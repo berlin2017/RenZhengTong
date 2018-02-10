@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'org.litepal.android:core:1.5.0'
 }

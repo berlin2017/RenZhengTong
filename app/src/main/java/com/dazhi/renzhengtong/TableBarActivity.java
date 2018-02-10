@@ -1,10 +1,15 @@
 package com.dazhi.renzhengtong;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -25,6 +30,7 @@ public class TableBarActivity extends AppCompatActivity implements ViewPager.OnP
     private ViewPager mViewPager;
     private HomeFragmentAdapter mAdapter;
     private List<Fragment> list = new ArrayList<>();
+    private int current = 0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,7 +76,19 @@ public class TableBarActivity extends AppCompatActivity implements ViewPager.OnP
         mAdapter = new HomeFragmentAdapter(getSupportFragmentManager(), list, this);
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
+        current = getIntent().getIntExtra("current",0);
+        changeindex(current);
+
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(receiver,new IntentFilter("updateTab"));
     }
+
+    public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            changeindex(2);
+        }
+    };
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -120,5 +138,16 @@ public class TableBarActivity extends AppCompatActivity implements ViewPager.OnP
             Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void changeindex(int index) {
+        mViewPager.setCurrentItem(index);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.unregisterReceiver(receiver);
     }
 }

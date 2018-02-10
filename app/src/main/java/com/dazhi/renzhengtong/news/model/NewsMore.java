@@ -1,5 +1,7 @@
 package com.dazhi.renzhengtong.news.model;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * Created by mac on 2018/1/30.
  */
 
-public class NewsMore implements Serializable {
+public class NewsMore extends DataSupport implements Serializable {
     private String thumbnail;
     private String template;
     private List<NewsFileModel>files;

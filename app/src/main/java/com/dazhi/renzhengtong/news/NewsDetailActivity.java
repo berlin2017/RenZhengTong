@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -31,7 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dazhi.renzhengtong.MainActivity;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.TableBarActivity;
 import com.dazhi.renzhengtong.loading.SystemInfoManager;
 import com.dazhi.renzhengtong.news.adapter.NewsFileAdapter;
 import com.dazhi.renzhengtong.news.model.NewsFileModel;
@@ -74,6 +78,9 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
     private NewsFileAdapter adapter;
     private List<NewsFileModel> list = new ArrayList<>();
     private TextView fileTitle;
+    private Boolean from_push = false;
+    private Boolean from_services = false;
+    private Button ceping_btn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,8 +88,17 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.layout_detail);
         id = getIntent().getIntExtra("id", 0);
         url = getIntent().getStringExtra("url");
+        from_push = getIntent().getBooleanExtra("from_push", false);
+        from_services = getIntent().getBooleanExtra("from_services", false);
         recyclerView = findViewById(R.id.detail_files_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ceping_btn = findViewById(R.id.detail_ceping_btn);
+        if (from_services) {
+            ceping_btn.setVisibility(View.VISIBLE);
+        } else {
+            ceping_btn.setVisibility(View.GONE);
+        }
+        ceping_btn.setOnClickListener(this);
         adapter = new NewsFileAdapter(R.layout.item_detail_file, list);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -177,9 +193,9 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
                 title_tv.setText(model.getPost_title());
                 list.clear();
                 list.addAll(model.getMore().getFiles());
-                if (list.size()<=0){
+                if (list.size() <= 0) {
                     fileTitle.setVisibility(View.GONE);
-                }else{
+                } else {
                     fileTitle.setVisibility(View.VISIBLE);
                 }
                 adapter.notifyDataSetChanged();
@@ -217,6 +233,10 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
                 }).create().show();
                 break;
             case R.id.detail_title_back:
+                if (from_push) {
+                    Intent intent = new Intent(this, TableBarActivity.class);
+                    startActivity(intent);
+                }
                 finish();
                 break;
 
@@ -225,6 +245,18 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.detail_title_collect:
 
+                break;
+
+            case R.id.detail_ceping_btn:
+                if (from_push) {
+                    Intent intent = new Intent(this, TableBarActivity.class);
+                    intent.putExtra("current",2);
+                    startActivity(intent);
+                }else{
+                    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+                    localBroadcastManager.sendBroadcast(new Intent("updateTab"));
+                }
+                finish();
                 break;
         }
     }

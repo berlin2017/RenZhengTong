@@ -5,6 +5,9 @@ import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import org.litepal.LitePal;
+import org.litepal.LitePalApplication;
+
 import java.util.concurrent.TimeUnit;
 
 import cn.jpush.android.api.JPushInterface;
@@ -14,7 +17,7 @@ import okhttp3.OkHttpClient;
  * Created by mac on 2018/1/25.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends LitePalApplication {
 
     public static Context context;
 
@@ -25,6 +28,7 @@ public class MyApplication extends Application {
         Fresco.initialize(getApplicationContext());
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        LitePal.initialize(this);
     }
 
     public static Context getAppContext() {

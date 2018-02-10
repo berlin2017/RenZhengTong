@@ -28,6 +28,7 @@ import com.dazhi.renzhengtong.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import okhttp3.Request;
 public class NewsChannelFragment extends Fragment implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
-    private NewsAdapter adapter;
+    private NewsAdapter mAdapter;
     private List<NewsModel> list = new ArrayList<>();
     private ViewPager viewPager;
     private List<SlideModel> images = new ArrayList<>();
@@ -63,7 +64,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         id = getArguments().getInt("id");
-
+        List<NewsModel> allNews = DataSupport.findAll(NewsModel.class);
         swipeRefreshLayout = view.findViewById(R.id.news_channel_swip);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
@@ -71,36 +72,39 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
         recyclerView = view.findViewById(R.id.news_channel_recyclerview);
         if (id == 12) {
-            adapter = new NewsAdapter(R.layout.item_huibian_layout, list);
+            mAdapter = new NewsAdapter(R.layout.item_huibian_layout, list);
         } else {
-            adapter = new NewsAdapter(R.layout.item_news_list, list);
+            mAdapter = new NewsAdapter(R.layout.item_news_list, list);
         }
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 NewsModel model = list.get(position);
+                model.save();
+                list.get(position).setRead(true);
+                mAdapter.notifyDataSetChanged();
                 Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                intent.putExtra("id", model.getId());
+                intent.putExtra("id", model.getNews_id());
                 startActivity(intent);
             }
         });
 
-        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 requestList();
             }
-        },recyclerView);
+        }, recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        adapter.disableLoadMoreIfNotFullPage(recyclerView);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.addItemDecoration(new DashlineItemDivider());
 
         if (id == 8) {
             View header = LayoutInflater.from(getContext()).inflate(R.layout.layout_news_header, null);
-            adapter.addHeaderView(header);
+            mAdapter.addHeaderView(header);
             viewPager = header.findViewById(R.id.news_channel_viewpager);
             imageAdapter = new NewsImageAdapter(images, getContext());
             viewPager.setAdapter(imageAdapter);
@@ -112,35 +116,48 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
         requestList();
     }
 
+    public void updateRead(List<NewsModel> array) {
+        List<NewsModel> allReadNews = DataSupport.findAll(NewsModel.class);
+        for (NewsModel model : array) {
+            for (NewsModel item : allReadNews) {
+                if (model.getNews_id() == item.getNews_id()) {
+                    model.setRead(true);
+                    break;
+                }
+            }
+            list.add(model);
+        }
+        mAdapter.notifyDataSetChanged();
+        mAdapter.loadMoreComplete();
+        stopRefresh();
+    }
+
+
     private void requestList() {
 
-        NetRequest.getFormRequest(Constant.NEW_LIST_URL+"/category_id/"+id, null, new NetRequest.DataCallBack() {
+        NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
 
                 JSONObject jsonObject = new JSONObject(result);
                 List<NewsModel> array = Utils.decodeJSONARRAY(jsonObject.optJSONObject("data").optString("list"), NewsModel.class);
                 JSONArray jsonArray = jsonObject.optJSONObject("data").optJSONArray("slides");
-                if (id==8&&jsonArray.length()>0){
+                if (id == 8 && jsonArray.length() > 0) {
                     JSONObject object = jsonArray.getJSONObject(0);
-                    List<SlideModel> slideArray = Utils.decodeJSONARRAY(object.optString("items"),SlideModel.class);
+                    List<SlideModel> slideArray = Utils.decodeJSONARRAY(object.optString("items"), SlideModel.class);
                     images.clear();
                     images.addAll(slideArray);
                     resetIndicator(0);
                     imageAdapter.notifyDataSetChanged();
                 }
-
-                list.addAll(array);
-                adapter.notifyDataSetChanged();
-                adapter.loadMoreComplete();
-                stopRefresh();
+                updateRead(array);
 
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast("请求失败,请重试");
-                adapter.loadMoreComplete();
+                mAdapter.loadMoreComplete();
                 stopRefresh();
             }
         });
@@ -158,7 +175,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
     }
 
     public void resetIndicator(int position) {
-        if (indicator_layout!=null){
+        if (indicator_layout != null) {
             indicator_layout.removeAllViews();
             for (int i = 0; i < images.size(); i++) {
                 Button bt = new Button(getActivity());

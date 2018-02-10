@@ -125,7 +125,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
 
                 } else {
                     Intent intent = new Intent(SearchListActivity.this, NewsDetailActivity.class);
-                    intent.putExtra("id", list.get(position).getId());
+                    intent.putExtra("id", list.get(position).getNews_id());
                     intent.putExtra("url", list.get(position).getPost_source());
                     startActivity(intent);
                 }

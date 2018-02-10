@@ -1,14 +1,19 @@
 package com.dazhi.renzhengtong.news.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
 /**
  * Created by mac on 2018/1/25.
  */
 
-public class NewsModel implements Serializable {
+public class NewsModel extends DataSupport implements Serializable {
 
-    private int id;
+    @SerializedName("id")
+    private int news_id;
     private int post_type;
     private int user_id;
     private int comment_status;
@@ -28,15 +33,24 @@ public class NewsModel implements Serializable {
     private String post_excerpt;
     private String post_source;
     private String post_content;
+    private boolean read;
+
+    public boolean getRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     private NewsMore more;
 
-    public int getId() {
-        return id;
+    public int getNews_id() {
+        return news_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNews_id(int news_id) {
+        this.news_id = news_id;
     }
 
     public int getPost_type() {

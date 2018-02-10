@@ -124,6 +124,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
 
         product_list.add("机械电气类产品");
         product_list.add("医疗器械类产品");
+        product_list.add("无");
     }
 
     @Nullable

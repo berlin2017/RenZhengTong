@@ -90,11 +90,11 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
 //        confirm_btn.setBackgroundResource(R.drawable.drawable_evaluation_btn_gray);
 //        confirm_btn.setEnabled(false);
         if (!phone_edit.getText().toString().isEmpty()) {
-            if (!code_edit.getText().toString().isEmpty()) {
+//            if (!code_edit.getText().toString().isEmpty()) {
                 if (!pass_edit.getText().toString().isEmpty()) {
                     confirm_btn.setEnabled(true);
                     confirm_btn.setBackgroundResource(R.drawable.drawable_evaluation_btn);
-                }
+//                }
             }
         }
     }
@@ -126,11 +126,11 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
             phone_edit.setError(getString(R.string.error_invalid_email));
             return;
         }
-
-        if (TextUtils.isEmpty(code)) {
-            code_edit.setError("请输入验证码");
-            return;
-        }
+//
+//        if (TextUtils.isEmpty(code)) {
+//            code_edit.setError("请输入验证码");
+//            return;
+//        }
 
         if (TextUtils.isEmpty(pass)) {
             pass_edit.setError("请输入密码");

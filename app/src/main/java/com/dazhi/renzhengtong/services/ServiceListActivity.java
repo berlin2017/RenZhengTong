@@ -1,8 +1,12 @@
 package com.dazhi.renzhengtong.services;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,8 +71,9 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(ServiceListActivity.this, NewsDetailActivity.class);
-                intent.putExtra("id", list.get(position).getId());
+                intent.putExtra("id", list.get(position).getNews_id());
                 intent.putExtra("url", list.get(position).getPost_source());
+                intent.putExtra("from_services",true);
                 startActivity(intent);
             }
         });
@@ -84,7 +89,18 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
         });
         autoRefresh();
         requestList();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(receiver,new IntentFilter("updateTab"));
     }
+
+
+    public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
+
 
     public void requestList() {
         NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
@@ -140,5 +156,12 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.unregisterReceiver(receiver);
     }
 }

@@ -1,10 +1,12 @@
 package com.dazhi.renzhengtong.news.model;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by mac on 2018/2/6.
  */
 
-public class NewsFileModel {
+public class NewsFileModel extends DataSupport {
     private String url;
     private String name;
 

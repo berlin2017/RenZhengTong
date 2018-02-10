@@ -36,11 +36,23 @@
     </RelativeLayout>
 
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/detail_ceping_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/detail_bottom_layout"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/drawable_detail_ceping"
+        android:text="测评" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/detail_files_recyclerview"
-        android:layout_above="@id/detail_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/detail_bottom_layout"
         android:layout_below="@id/detail_title_layout"
         android:background="@android:color/white"
         android:scrollbars="none"></android.support.v7.widget.RecyclerView>
