@@ -73,12 +73,14 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
         });
         recyclerView = view.findViewById(R.id.services_home_recyclerview);
         adapter = new ServiceHomeAdapter(R.layout.item_jigou_layout,list2);
-//        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-//            @Override
-//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                //...
-//            }
-//        });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getContext(),CompanyDetailActivity.class);
+                intent.putExtra("id","1");
+                getContext().startActivity(intent);
+            }
+        });
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

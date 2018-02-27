@@ -5,18 +5,24 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.dazhi.renzhengtong.R;
-import com.dazhi.renzhengtong.news.model.NewsModel;
+import com.dazhi.renzhengtong.evaluation.adapter.EvaluationHomeAdapter;
+import com.dazhi.renzhengtong.evaluation.model.EvaluationItem;
+import com.dazhi.renzhengtong.evaluation.model.ProductType;
 import com.dazhi.renzhengtong.user.LoginActivity;
 import com.dazhi.renzhengtong.user.UserManager;
 import com.dazhi.renzhengtong.utils.Constant;
@@ -38,7 +44,7 @@ import okhttp3.Request;
  * Created by mac on 2018/1/25.
  */
 
-public class EvaluationHomeFragment extends Fragment implements View.OnClickListener {
+public class EvaluationHomeFragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
     private EditText people_edit;
     private EditText qiye_edit;
     private EditText hangye_edit;
@@ -59,10 +65,20 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
     private List<String> product_value_list = new ArrayList<>();
     private List<String> product_list = new ArrayList<>();
     private ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private EvaluationHomeAdapter adapter;
+    private List<ProductType> productTypeList = new ArrayList<>();
+    private List<ProductType> feiTypeList = new ArrayList<>();
+    private List<ProductType> shengChanTypeList = new ArrayList<>();
+    private List<ProductType> selectedTypeList = new ArrayList<>();
+    private RadioGroup radioGroup;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        radioGroup = view.findViewById(R.id.evaluation_hangye_group);
+        radioGroup.setOnCheckedChangeListener(this);
+        recyclerView = view.findViewById(R.id.evaluation_home_recyclerview);
         progressBar = view.findViewById(R.id.evaluation_home_progress);
         people_edit = view.findViewById(R.id.evaluation_people_edit);
         product_type_edit = view.findViewById(R.id.evaluation_product_type_edit);
@@ -99,7 +115,6 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         List<String> shengchan = new ArrayList<>();
         shengchan.add("含有环评批复验收");
         shengchan.add("食品加工业");
-        shengchan.add("含有环评批复验收");
         shengchan.add("汽车相关企业");
         shengchan.add("是否出口");
 
@@ -125,6 +140,26 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         product_list.add("机械电气类产品");
         product_list.add("医疗器械类产品");
         product_list.add("无");
+
+
+        for (int i = 0; i < shengchan.size(); i++) {
+            ProductType productType = new ProductType();
+            productType.setTitle(shengchan.get(i));
+            productType.setId(hangye_value.get(i));
+            shengChanTypeList.add(productType);
+        }
+
+        for (int i = 0; i < feishengchan.size(); i++) {
+            ProductType productType = new ProductType();
+            productType.setTitle(feishengchan.get(i));
+            productType.setId(hangye_value2.get(i));
+            feiTypeList.add(productType);
+        }
+
+        adapter = new EvaluationHomeAdapter(R.layout.item_evaluation_product, productTypeList);
+        adapter.setOnCheckChangeListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Nullable
@@ -149,7 +184,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         }
     }
 
-    public void showHangYeSelect(){
+    public void showHangYeSelect() {
         //条件选择器
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(getContext(), new OptionsPickerView.OnOptionsSelectListener() {
             @Override
@@ -168,42 +203,48 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         pvOptions.show();
     }
 
-    public void showGuiMoSelect(){
+    public void showGuiMoSelect() {
         //条件选择器
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(getContext(), new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
                 guimo_edit.setText(guimo_list.get(options1));
-                selected_guimo = "C"+(options1+1);
+                selected_guimo = "C" + (options1 + 1);
             }
         }).setTitleText("规模选择").setCancelText("取消").setSubmitText("确定").build();
         pvOptions.setPicker(guimo_list);
         pvOptions.show();
     }
 
-    public void showPeopleSelect(){
+    public void showPeopleSelect() {
         //条件选择器
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(getContext(), new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
                 people_edit.setText(list.get(options1));
-                selected_people = "D"+(options1+1);
+                selected_people = "D" + (options1 + 1);
             }
         }).setTitleText("人数选择").setCancelText("取消").setSubmitText("确定").build();
         pvOptions.setPicker(list);
         pvOptions.show();
     }
 
-    public void showProductSelect(){
+    public void showProductSelect() {
         //条件选择器
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(getContext(), new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
                 product_type_edit.setText(product_list.get(options1));
-                selected_product = product_value_list.get(options1);
+                if (options1!=2){
+                    selected_product = product_value_list.get(options1);
+                    product_edit.setEnabled(true);
+                }else{
+                    selected_product = null;
+                    product_edit.setEnabled(false);
+                }
             }
         }).setTitleText("产品类型选择").setCancelText("取消").setSubmitText("确定").build();
         pvOptions.setPicker(product_list);
@@ -212,7 +253,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
 
     public void commit() {
 
-        if (com.dazhi.renzhengtong.user.UserManager.getUser(getContext())==null){
+        if (com.dazhi.renzhengtong.user.UserManager.getUser(getContext()) == null) {
             ToastHelper.showToast("请先登录");
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
@@ -224,9 +265,9 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
             return;
         }
 
-        if (TextUtils.isEmpty(selected_hangye)) {
+        if (TextUtils.isEmpty(getSelectedString())) {
             ToastHelper.showToast("请选择行业类型");
-            showHangYeSelect();
+//            showHangYeSelect();
             return;
         }
 
@@ -242,13 +283,13 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
             return;
         }
 
-        if (TextUtils.isEmpty(selected_product)) {
+        if (TextUtils.isEmpty(product_type_edit.getText().toString())) {
             ToastHelper.showToast("请选择产品类型");
             showProductSelect();
             return;
         }
 
-        if (TextUtils.isEmpty(product_edit.getText().toString())) {
+        if (!TextUtils.isEmpty(selected_product)&&TextUtils.isEmpty(product_edit.getText().toString())) {
             ToastHelper.showToast("请填写产品名称");
             return;
         }
@@ -257,12 +298,12 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> map = new HashMap<>();
         map.put("A", hangye_edit.getText().toString());
-        map.put("B", selected_hangye);
+        map.put("B", getSelectedString());
         map.put("C", selected_guimo);
         map.put("D", selected_people);
         map.put("E", selected_product);
         map.put("product", hangye_edit.getText().toString());
-        map.put("uid", UserManager.getUser(getContext()).getId()+"");
+        map.put("uid", UserManager.getUser(getContext()).getId() + "");
         NetRequest.postFormRequest(Constant.EVALUATION_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -284,5 +325,43 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.evaluation_feishengchan_radio) {
+            productTypeList.clear();
+            selectedTypeList.clear();
+            productTypeList.addAll(feiTypeList);
+            adapter.notifyDataSetChanged();
+        } else {
+            productTypeList.clear();
+            selectedTypeList.clear();
+            productTypeList.addAll(shengChanTypeList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        ProductType type = (ProductType) buttonView.getTag();
+        if (isChecked) {
+            if (!selectedTypeList.contains(type)) {
+                selectedTypeList.add(type);
+            }
+        } else {
+            if (selectedTypeList.contains(type)) {
+                selectedTypeList.remove(type);
+            }
+        }
+
+    }
+
+    public String getSelectedString() {
+        String s = "";
+        for (int i = 0; i < selectedTypeList.size(); i++) {
+            s = s + "," + selectedTypeList.get(i).getId();
+        }
+        return s.replaceFirst(",","");
     }
 }

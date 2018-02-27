@@ -45,7 +45,7 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
         setContentView(R.layout.layout_loading);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.textView);
-        textView.setText(duration+"s");
+        textView.setText(duration/1000+"s");
         progressBar.setListener(this);
         progressBar.setDuration(duration);
         NetRequest.getFormRequest(Constant.SYSTEM_INFO_URL, null, new NetRequest.DataCallBack() {

@@ -41,4 +41,5 @@ public class Constant {
     public static final String USER_INFO_URL = BASE_URL + "api/user/public/getuinfo";
 
     public static final String USER_CHNAGEPASS_URL = BASE_URL + "api/user/public/passwordReset";
+    public static final String COMPANY_DETAIL_URL = BASE_URL + "api/user/public/passwordReset";
 }

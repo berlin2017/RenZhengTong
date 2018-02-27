@@ -1,1 +1,1 @@
-include ':app', ':slideMenu'
+include ':app', ':slideMenu', ':picture_library', ':ucrop'

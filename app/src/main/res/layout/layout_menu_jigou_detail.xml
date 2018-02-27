@@ -9,189 +9,283 @@
         android:id="@+id/jigou_detail_title"
         layout="@layout/layout_common_back_title" />
 
-    <ProgressBar
-        android:id="@+id/jigou_detail_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/jigou_detail_title"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/jigou_detail_title"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_below="@id/jigou_detail_title">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/evaluation_name_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_qiye" />
-
-            <TextView
-                android:id="@+id/evaluation_name_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/evaluation_name_image"
-                android:text="机构logo:" />
+            android:layout_height="match_parent">
 
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                fresco:placeholderImage="@drawable/ic_default_user"
-                android:id="@+id/jigou_detail_logo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                fresco:roundAsCircle="true" />
+            <ProgressBar
+                android:id="@+id/jigou_detail_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
 
-            <View
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/jigou_detail_title"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/evaluation_name_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_qiye" />
+
+                    <TextView
+                        android:id="@+id/evaluation_name_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/evaluation_name_image"
+                        android:text="机构logo:" />
+
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/jigou_detail_logo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        fresco:placeholderImage="@drawable/ic_default_user"
+                        fresco:roundAsCircle="true" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/jigou_detail_company_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_qiye" />
+
+                    <TextView
+                        android:id="@+id/jigou_detail_company_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/jigou_detail_company_image"
+                        android:text="机构名称:" />
+
+
+                    <EditText
+                        android:id="@+id/jigou_detail_company_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/jigou_detail_company_name"
+                        android:gravity="right" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/jigou_detail_name_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_qiye" />
+
+                    <TextView
+                        android:id="@+id/jigou_detail_name_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/jigou_detail_name_image"
+                        android:text="姓名:" />
+
+
+                    <EditText
+                        android:id="@+id/jigou_detail_name_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/jigou_detail_name_name"
+                        android:gravity="right" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/jigou_detail_phone_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_qiye" />
+
+                    <TextView
+                        android:id="@+id/jigou_detail_phone_name"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/jigou_detail_phone_image"
+                        android:text="联系方式:" />
+
+
+                    <EditText
+                        android:id="@+id/jigou_detail_phone_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/jigou_detail_phone_name"
+                        android:gravity="right"
+                        android:inputType="phone" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="公司地址:"/>
+
+                <EditText
+                    android:id="@+id/jigou_detail_location_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/drawable_company_edit"
+                    android:hint="请输入公司地址"
+                    android:gravity="top|left"
+                    android:minLines="2" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="产品服务:"/>
+
+                <EditText
+                    android:id="@+id/jigou_detail_product_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/drawable_company_edit"
+                    android:hint="请输入产品服务"
+                    android:gravity="top|left"
+                    android:minLines="4" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="公司简介:"/>
+
+                <EditText
+                    android:id="@+id/jigou_detail_info_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/drawable_company_edit"
+                    android:hint="请输入公司简介"
+                    android:gravity="top|left"
+                    android:minLines="4" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="公司风采:"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/jigou_detail_photo_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:overScrollMode="never" />
+
+
+                <Button
+                    android:id="@+id/jigou_detail_save"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/drawable_evaluation_btn"
+                    android:text="保存"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/jigou_detail_company_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_qiye" />
-
-            <TextView
-                android:id="@+id/jigou_detail_company_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/jigou_detail_company_image"
-                android:text="机构名称:" />
-
-
-            <EditText
-                android:id="@+id/jigou_detail_company_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/jigou_detail_company_name"
-                android:gravity="right" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/jigou_detail_name_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_qiye" />
-
-            <TextView
-                android:id="@+id/jigou_detail_name_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/jigou_detail_name_image"
-                android:text="姓名:" />
-
-
-            <EditText
-                android:id="@+id/jigou_detail_name_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/jigou_detail_name_name"
-                android:gravity="right" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/jigou_detail_phone_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_qiye" />
-
-            <TextView
-                android:id="@+id/jigou_detail_phone_name"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/jigou_detail_phone_image"
-                android:text="联系方式:" />
-
-
-            <EditText
-                android:inputType="phone"
-                android:id="@+id/jigou_detail_phone_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/jigou_detail_phone_name"
-                android:gravity="right" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/line" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/jigou_detail_save"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/drawable_evaluation_btn"
-            android:text="保存"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-
+    </ScrollView>
 
 </RelativeLayout>

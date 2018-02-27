@@ -71,7 +71,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
         swipeRefreshLayout.setOnRefreshListener(this);
 
         recyclerView = view.findViewById(R.id.news_channel_recyclerview);
-        if (id == 12) {
+        if (id == 12||id==10) {
             mAdapter = new NewsAdapter(R.layout.item_huibian_layout, list);
         } else {
             mAdapter = new NewsAdapter(R.layout.item_news_list, list);

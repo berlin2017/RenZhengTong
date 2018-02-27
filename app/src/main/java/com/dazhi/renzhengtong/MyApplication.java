@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.luck.picture.lib.compress.Luban;
+import com.luck.picture.lib.config.PictureConfig;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -29,6 +31,10 @@ public class MyApplication extends LitePalApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         LitePal.initialize(this);
+
+//        FunctionOptions options = new FunctionOptions.Builder()
+//                .setType(FunctionConfig.TYPE_IMAGE).setCompress(true).setGrade(Luban.THIRD_GEAR).create();
+//        PictureConfig.getInstance().init(options);
     }
 
     public static Context getAppContext() {

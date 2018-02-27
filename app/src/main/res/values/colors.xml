@@ -7,4 +7,9 @@
     <color name="line">#0e000000</color>
 
     <color name="white_trns">#FFFFFF</color>
+
+    <color name="color_f6">#f6f6f6</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="color_c51">#f94c51</color>
+    <color name="color_green">#43c117</color>
 </resources>
