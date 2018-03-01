@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -83,11 +84,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private TextView regist_textview;
     private TextView forget_textview;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -245,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void requestLogin(String name,String pass){
+        progressDialog.show();
         HashMap<String,String>map = new HashMap<>();
         map.put("username",name);
         map.put("password",pass);
@@ -265,11 +269,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     showProgress(false);
                     mPasswordView.requestFocus();
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
+                progressDialog.dismiss();
             }
         });
     }

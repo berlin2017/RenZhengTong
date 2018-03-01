@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.utils.Constant;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class DetailImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.item_news_image,container,false);
         SimpleDraweeView simpleDraweeView = view.findViewById(R.id.item_news_pager_image);
-        simpleDraweeView.setImageURI(Uri.parse(list.get(position)));
+        simpleDraweeView.setImageURI(Constant.BASE_URL+Uri.parse(list.get(position)));
         container.addView(view);
         return  view;
     }

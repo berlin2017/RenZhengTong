@@ -2,6 +2,8 @@ package com.dazhi.renzhengtong.news;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.news.adapter.NewsAdapter;
 import com.dazhi.renzhengtong.news.adapter.NewsImageAdapter;
@@ -48,10 +51,11 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
     private ViewPager viewPager;
     private List<SlideModel> images = new ArrayList<>();
     private LinearLayout indicator_layout;
-    private int page = 0;
+    private int page = 1;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int id = 0;
     private NewsImageAdapter imageAdapter;
+    private MyProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -60,9 +64,23 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
     }
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (viewPager.getCurrentItem()==images.size()-1){
+                viewPager.setCurrentItem(0);
+            }else{
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+            }
+            sendEmptyMessageDelayed(0,3000);
+        }
+    };
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new MyProgressDialog(getActivity(),R.style.Dialog);
         id = getArguments().getInt("id");
         List<NewsModel> allNews = DataSupport.findAll(NewsModel.class);
         swipeRefreshLayout = view.findViewById(R.id.news_channel_swip);
@@ -106,7 +124,15 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
             View header = LayoutInflater.from(getContext()).inflate(R.layout.layout_news_header, null);
             mAdapter.addHeaderView(header);
             viewPager = header.findViewById(R.id.news_channel_viewpager);
-            imageAdapter = new NewsImageAdapter(images, getContext());
+            imageAdapter = new NewsImageAdapter(images, getContext(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) v.getTag();
+                    Intent intent = new Intent(getContext(),NewsDetailActivity.class);
+                    intent.putExtra("id",list.get(position).getNews_id());
+                    getContext().startActivity(intent);
+                }
+            });
             viewPager.setAdapter(imageAdapter);
             viewPager.addOnPageChangeListener(NewsChannelFragment.this);
             indicator_layout = header.findViewById(R.id.news_channel_indcator);
@@ -134,7 +160,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
 
     private void requestList() {
-
+        progressDialog.show();
         NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -149,9 +175,10 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
                     images.addAll(slideArray);
                     resetIndicator(0);
                     imageAdapter.notifyDataSetChanged();
+                    handler.sendEmptyMessageDelayed(0,3000);
                 }
                 updateRead(array);
-
+                progressDialog.dismiss();
             }
 
             @Override
@@ -159,6 +186,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
                 ToastHelper.showToast("请求失败,请重试");
                 mAdapter.loadMoreComplete();
                 stopRefresh();
+                progressDialog.dismiss();
             }
         });
 
@@ -210,7 +238,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
     @Override
     public void onRefresh() {
-        page = 0;
+        page = 1;
         list.clear();
         requestList();
     }

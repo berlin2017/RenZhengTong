@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.menu.adapter.MenuRenZhengAdapter;
 import com.dazhi.renzhengtong.menu.model.MenuJGModel;
@@ -49,12 +50,14 @@ public class MenuJGActivity extends AppCompatActivity implements View.OnClickLis
     private View emptyView;
     private Button emptyButton;
     private int page = 0;
+    private MyProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_menu_jigou);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         initTitle();
         recyclerView = findViewById(R.id.menu_jigou_recyclerview);
         addBtn = findViewById(R.id.menu_jigou_add);
@@ -97,6 +100,7 @@ public class MenuJGActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void requstList() {
+        progressDialog.show();
         HashMap<String,String>map = new HashMap<>();
         map.put("uid",UserManager.getUser(this).getId()+"");
         NetRequest.postFormRequest(Constant.MENU_JIGOU_LIST_URL, map, new NetRequest.DataCallBack() {
@@ -120,6 +124,7 @@ public class MenuJGActivity extends AppCompatActivity implements View.OnClickLis
                     stopRefresh();
                     adapter.loadMoreComplete();
                 }
+                progressDialog.dismiss();
             }
 
             @Override
@@ -127,6 +132,7 @@ public class MenuJGActivity extends AppCompatActivity implements View.OnClickLis
                 ToastHelper.showToast(R.string.request_failed);
                 stopRefresh();
                 adapter.loadMoreComplete();
+                progressDialog.dismiss();
             }
         });
 

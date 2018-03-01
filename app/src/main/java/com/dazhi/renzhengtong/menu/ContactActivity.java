@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.loading.SystemInfo;
 import com.dazhi.renzhengtong.loading.SystemInfoManager;
@@ -38,6 +39,7 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
     private TextView email;
     private TextView phone;
     private TextView location;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.layout_menu_contact);
         initTitle();
         progressBar = findViewById(R.id.menu_contact_progress);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         simpleDraweeView = findViewById(R.id.menu_contact_logo);
         info = findViewById(R.id.menu_contact_info);
         qq = findViewById(R.id.menu_contact_qq_value);
@@ -55,7 +58,8 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void requestInfo() {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         NetRequest.getFormRequest(Constant.SYSTEM_INFO_URL, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -68,12 +72,14 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
 

@@ -1,5 +1,6 @@
 package com.dazhi.renzhengtong.menu;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dazhi.renzhengtong.MainActivity;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.menu.adapter.GridImageAdapter;
 import com.dazhi.renzhengtong.menu.adapter.PhotoGridAdapter;
@@ -74,13 +76,16 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     private EditText product_edit;
     private GridImageAdapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
-    private int maxSelectNum = 9;
+    private int maxSelectNum = 3;
     private List<String>list = new ArrayList<>();
+    private PictureSelector pictureSelector;
+    private MyProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         id = getIntent().getIntExtra("id", 0);
         rootview = getLayoutInflater().inflate(R.layout.layout_menu_jigou_detail, null);
         setContentView(rootview);
@@ -101,11 +106,6 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             requestDetail();
         }
 
-//        list.add("http://a.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg");
-//        list.add("http://a.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg");
-//        list.add("http://a.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg");
-//        list.add("http://a.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg");
-//        list.add("http://a.hiphotos.baidu.com/image/pic/item/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg");
         FullyGridLayoutManager manager = new FullyGridLayoutManager(MenuJGDetailActivity.this, 4, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(MenuJGDetailActivity.this, onAddPicClickListener);
@@ -139,13 +139,19 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 //        });
     }
 
+
+
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
                 // 进入相册 以下是例子：不需要的api可以不写
-                PictureSelector.create(MenuJGDetailActivity.this)
-                        .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                        .maxSelectNum(maxSelectNum)// 最大图片选择数量
+            int number = maxSelectNum;
+            if (list!=null&&list.size()>0){
+                number = maxSelectNum - list.size();
+            }
+            pictureSelector = PictureSelector.create(MenuJGDetailActivity.this);
+            pictureSelector.openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .maxSelectNum(number)// 最大图片选择数量
                         .minSelectNum(1)// 最小选择数量
                         .imageSpanCount(4)// 每行显示个数
                         .selectionMode(PictureConfig.MULTIPLE )// 多选 or 单选
@@ -217,28 +223,29 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void requestDetail() {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String,String>map = new HashMap<>();
         map.put("id", id+"");
-        map.put("uid",UserManager.getUser(this).getId()+"");
+//        map.put("uid",UserManager.getUser(this).getId()+"");
         NetRequest.postFormRequest(Constant.MENU_JIGOU_INFO_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code")==1){
                     model = Utils.decodeJSON(jsonObject.optString("data"),MenuJGModel.class);
-                    progressBar.setVisibility(View.GONE);
                     updateInfo();
                 }else{
                     ToastHelper.showToast(jsonObject.optString("msg"));
-                    progressBar.setVisibility(View.GONE);
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }
@@ -248,27 +255,41 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             company.setText(model.getJgname());
             name.setText(model.getJgxm());
             phone.setText(model.getJgtel());
+            location_edit.setText(model.getAddress());
+            product_edit.setText(model.getServices());
+            info_edit.setText(model.getIntro());
             if (!TextUtils.isEmpty(model.getJglogo())){
                 simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL+model.getJglogo()));
+            }
+            list.clear();
+
+            if (model.getImages()!=null&&model.getImages().size()>0){
+                list.addAll(model.getImages());
+                adapter.notifyDataSetChanged();
             }
         }
     }
 
 
     public void commit() {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
+//        ProgressDialog.show(this,"","请稍等");
         if (TextUtils.isEmpty(company.getText().toString())) {
             progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
             ToastHelper.showToast("公司名称不能为空");
             return;
         }
         if (TextUtils.isEmpty(name.getText().toString())) {
             progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
             ToastHelper.showToast("姓名不能为空");
             return;
         }
         if (TextUtils.isEmpty(phone.getText().toString())) {
             progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
             ToastHelper.showToast("电话不能为空");
             return;
         }
@@ -278,6 +299,9 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             map.put("jgname",company.getText().toString());
             map.put("jgxm",name.getText().toString());
             map.put("jgtel",phone.getText().toString());
+            map.put("address",location_edit.getText().toString());
+            map.put("services",product_edit.getText().toString());
+            map.put("intro",info_edit.getText().toString());
             map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
             map.put("id", id+"");
 //            NetRequest.postFormRequest(Constant.MENU_JIGOU_UPDATE_URL, map, new NetRequest.DataCallBack() {
@@ -300,46 +324,32 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 //                    progressBar.setVisibility(View.GONE);
 //                }
 //            });
+            List<File>files = new ArrayList<>();
+            List<String>keys = new ArrayList<>();
             File file = null;
             if (select_image != null) {
                 file = new File(PATH);
+                keys.add("jglogo");
+                files.add(file);
+            }
+            for (int i =0;i<list.size();i++) {
+                if(!list.get(i).startsWith("uploads")){
+                    keys.add("logo"+(i+1));
+                    file = new File(list.get(i));
+                    files.add(file);
+                }else{
+                    map.put("logo"+(i+1),list.get(i));
+                }
             }
 
-            NetRequest.postFile(Constant.MENU_JIGOU_UPDATE_URL, map, "jglogo", file, new NetRequest.DataCallBack() {
-
-                @Override
-                public void requestSuccess(String result) throws Exception {
-                    JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.optInt("code")==1){
-                        ToastHelper.showToast("修改成功");
-                        progressBar.setVisibility(View.GONE);
-                        finish();
-                    }else{
-                        ToastHelper.showToast(jsonObject.optString("msg"));
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }
-
-                @Override
-                public void requestFailure(Request request, IOException e) {
-                    ToastHelper.showToast(R.string.request_failed);
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }else{
-            HashMap<String,String>map = new HashMap<>();
-            map.put("jgname",company.getText().toString());
-            map.put("jgxm",name.getText().toString());
-            map.put("jgtel",phone.getText().toString());
-            map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
-//            NetRequest.postFormRequest(Constant.USRE_JGRZ_URL, map, new NetRequest.DataCallBack() {
+//            NetRequest.postFile(Constant.MENU_JIGOU_UPDATE_URL, map, "jglogo", file, new NetRequest.DataCallBack() {
+//
 //                @Override
 //                public void requestSuccess(String result) throws Exception {
 //                    JSONObject jsonObject = new JSONObject(result);
 //                    if (jsonObject.optInt("code")==1){
-//                        ToastHelper.showToast("认证成功");
+//                        ToastHelper.showToast("修改成功");
 //                        progressBar.setVisibility(View.GONE);
-//                        setResult(2000);
 //                        finish();
 //                    }else{
 //                        ToastHelper.showToast(jsonObject.optString("msg"));
@@ -354,24 +364,20 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 //                }
 //            });
 
-            File file = null;
-            if (select_image != null) {
-                file = new File(PATH);
-            }
-
-            NetRequest.postFile(Constant.USRE_JGRZ_URL, map, "logo", file, new NetRequest.DataCallBack() {
+            NetRequest.postFiles(Constant.MENU_JIGOU_UPDATE_URL, map, keys, files, new NetRequest.DataCallBack() {
 
                 @Override
                 public void requestSuccess(String result) throws Exception {
                     JSONObject jsonObject = new JSONObject(result);
                     if (jsonObject.optInt("code")==1){
-                        ToastHelper.showToast("认证成功");
+                        ToastHelper.showToast("修改成功");
                         progressBar.setVisibility(View.GONE);
-                        setResult(2000);
+                        progressDialog.dismiss();
                         finish();
                     }else{
                         ToastHelper.showToast(jsonObject.optString("msg"));
                         progressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                     }
                 }
 
@@ -379,6 +385,59 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                 public void requestFailure(Request request, IOException e) {
                     ToastHelper.showToast(R.string.request_failed);
                     progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
+                }
+            });
+        }else{
+            HashMap<String,String>map = new HashMap<>();
+            map.put("jgname",company.getText().toString());
+            map.put("jgxm",name.getText().toString());
+            map.put("jgtel",phone.getText().toString());
+            map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
+            map.put("address",location_edit.getText().toString());
+            map.put("services",product_edit.getText().toString());
+            map.put("intro",info_edit.getText().toString());
+
+            List<File>files = new ArrayList<>();
+            List<String>keys = new ArrayList<>();
+            File file = null;
+            if (select_image != null) {
+                file = new File(PATH);
+                keys.add("logo");
+                files.add(file);
+            }
+            for (int i =0;i<list.size();i++) {
+                if(!list.get(i).startsWith("uploads")){
+                    keys.add("logo"+(i+1));
+                    file = new File(list.get(i));
+                    files.add(file);
+                }else{
+                    map.put("logo"+(i+1),list.get(i));
+                }
+            }
+            NetRequest.postFiles(Constant.USRE_JGRZ_URL, map, keys, files, new NetRequest.DataCallBack() {
+
+                @Override
+                public void requestSuccess(String result) throws Exception {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optInt("code")==1){
+                        ToastHelper.showToast("认证成功");
+                        progressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
+                        setResult(2000);
+                        finish();
+                    }else{
+                        ToastHelper.showToast(jsonObject.optString("msg"));
+                        progressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void requestFailure(Request request, IOException e) {
+                    ToastHelper.showToast(R.string.request_failed);
+                    progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
             });
         }
@@ -388,7 +447,8 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 
 
     public void delete() {
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String,String>map = new HashMap<>();
         map.put("uid", com.dazhi.renzhengtong.user.UserManager.getUser(this).getId()+"");
         map.put("id", id+"");
@@ -399,11 +459,13 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                 if (jsonObject.optInt("code")==1){
                     ToastHelper.showToast("删除成功");
                     progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                     setResult(2000);
                     finish();
                 }else{
                     ToastHelper.showToast(jsonObject.optString("msg"));
                     progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
             }
 
@@ -411,6 +473,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
 

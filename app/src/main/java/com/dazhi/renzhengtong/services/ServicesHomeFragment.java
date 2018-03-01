@@ -77,7 +77,7 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getContext(),CompanyDetailActivity.class);
-                intent.putExtra("id","1");
+                intent.putExtra("id",list2.get(position).getId());
                 getContext().startActivity(intent);
             }
         });

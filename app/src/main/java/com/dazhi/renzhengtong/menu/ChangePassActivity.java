@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.loading.SystemInfo;
 import com.dazhi.renzhengtong.loading.SystemInfoManager;
@@ -40,11 +41,13 @@ public class ChangePassActivity extends AppCompatActivity implements View.OnClic
     private EditText confirm_edit;
     private Button confirm_btn;
     private ProgressBar progressBar;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_frogetpass);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         initTitle();
 
         old_edit = findViewById(R.id.froget_old);
@@ -114,7 +117,8 @@ public class ChangePassActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String,String>map = new HashMap<>();
         map.put("password",old_edit.getText().toString());
         map.put("newpassword",confirm_edit.getText().toString());
@@ -129,12 +133,14 @@ public class ChangePassActivity extends AppCompatActivity implements View.OnClic
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }

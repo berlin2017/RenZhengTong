@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dazhi.renzhengtong.MainActivity;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.TableBarActivity;
 import com.dazhi.renzhengtong.loading.SystemInfoManager;
@@ -70,7 +71,6 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
     private TextView title_tv;
     private WebView webView;
     private RelativeLayout bottom_layout;
-    private ProgressBar progressBar;
     private NewsModel model;
     private int id = 0;
     private String url;
@@ -81,10 +81,12 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
     private Boolean from_push = false;
     private Boolean from_services = false;
     private Button ceping_btn;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         setContentView(R.layout.layout_detail);
         id = getIntent().getIntExtra("id", 0);
         url = getIntent().getStringExtra("url");
@@ -158,7 +160,6 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
         bottom_layout = findViewById(R.id.detail_bottom_layout);
         bottom_layout.setOnClickListener(this);
 
-        progressBar = findViewById(R.id.detail_loading);
 
         initTitle();
         if (TextUtils.isEmpty(url)) {
@@ -183,7 +184,7 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void requestDetail() {
-
+        progressDialog.show();
         NetRequest.getFormRequest(Constant.NEW_DETAIL_URL + "/articles/" + id, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -199,11 +200,13 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
                     fileTitle.setVisibility(View.VISIBLE);
                 }
                 adapter.notifyDataSetChanged();
+//                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast("请求失败,请重试");
+                progressDialog.dismiss();
             }
         });
 
@@ -284,7 +287,7 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
         }
     }
 

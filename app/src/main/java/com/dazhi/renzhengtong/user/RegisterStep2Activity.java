@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -51,10 +52,12 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
     private List<String> list = new ArrayList<>();
     private ProgressBar progressBar;
     private int uid = 0;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         uid = getIntent().getIntExtra("uid",0);
         setContentView(R.layout.layout_register_step2);
         initTitle();
@@ -158,7 +161,7 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
         String timeString = time.getText().toString();
 
         //networking
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> map = new HashMap<>();
         if (!TextUtils.isEmpty(nameSting)){
             map.put("user_nickname", nameSting);
@@ -179,17 +182,19 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
             map.put("rztime", timeString);
         }
         map.put("uid",uid+"");
-
+        progressDialog.show();
         NetRequest.postFormRequest(Constant.USRE_REGISTER2_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code") == 1) {
                     progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                     finish();
                 } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
                     progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
             }
 
@@ -197,6 +202,7 @@ public class RegisterStep2Activity extends AppCompatActivity implements View.OnC
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast("请求失败,请重试");
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }

@@ -1,11 +1,14 @@
 package com.dazhi.renzhengtong.services;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,10 +21,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.loading.SystemInfoManager;
+import com.dazhi.renzhengtong.menu.model.MenuJGModel;
 import com.dazhi.renzhengtong.services.adapter.DetailImageAdapter;
 import com.dazhi.renzhengtong.services.model.JGDetail;
+import com.dazhi.renzhengtong.user.LoginActivity;
+import com.dazhi.renzhengtong.user.UserManager;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
@@ -52,59 +59,88 @@ public class CompanyDetailActivity extends AppCompatActivity implements View.OnC
     private TextView name_tv;
     private TextView remake_tv;
     private TextView number_tv;
-    private JGDetail detail;
+    private MenuJGModel model;
     private SimpleDraweeView simpleDraweeView;
-    private String id;
+    private int id = 0;
     private DetailImageAdapter adapter;
     private List<String> images = new ArrayList<>();
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        id = getIntent().getStringExtra("id");
-        if (TextUtils.isEmpty(id)) {
-            ToastHelper.showToast("机构不存在");
-        }
         setContentView(R.layout.layout_company_detail);
         initTitle();
+        id = getIntent().getIntExtra("id", 0);
+        if (id == 0) {
+            ToastHelper.showToast("机构不存在");
+            return;
+        }
         initView();
-        requestPage();
-        updateInfo();
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
+        requestDetail();
     }
 
-    private void requestPage() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("id", id);
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (viewPager.getCurrentItem()==images.size()-1){
+                viewPager.setCurrentItem(0);
+            }else{
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+            }
+            sendEmptyMessageDelayed(0,3000);
+        }
+    };
+
+    public void requestDetail() {
+        progressDialog.show();
+        HashMap<String,String>map = new HashMap<>();
+        map.put("id", id+"");
         NetRequest.postFormRequest(Constant.COMPANY_DETAIL_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
-                detail = Utils.decodeJSON(jsonObject.optString("detail"), JGDetail.class);
-                updateInfo();
+                if (jsonObject.optInt("code")==1){
+                    model = Utils.decodeJSON(jsonObject.optString("data"),MenuJGModel.class);
+                    updateInfo();
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
+                progressDialog.dismiss();
             }
         });
+
     }
 
-    private void updateInfo() {
-        if (detail!=null){
-            location_tv.setText(detail.getLocation());
-            info_tv.setText(detail.getInfo());
-            product_tv.setText(detail.getProduct_info());
-            name_tv.setText(detail.getName());
-            remake_tv.setText(detail.getRemake());
-            number_tv.setText(detail.getNumber() + "");
-            simpleDraweeView.setImageURI(Uri.parse(detail.getPhoto()));
-            images = detail.getImages();
+    public void updateInfo() {
+
+        if (model != null) {
+            location_tv.setText(model.getAddress());
+            info_tv.setText(model.getIntro());
+            product_tv.setText(model.getServices());
+            name_tv.setText(model.getJgname());
+            remake_tv.setText(model.getRemark());
+            number_tv.setText(model.getGzrs() + "");
+            if (!TextUtils.isEmpty(model.getJglogo())) {
+                simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL + model.getJglogo()));
+            }
+            images.clear();
+            if (model.getImages() != null && model.getImages().size() > 0) {
+                images.addAll(model.getImages());
+                adapter.notifyDataSetChanged();
+                handler.sendEmptyMessageDelayed(0,3000);
+            }
         }
-        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519708753095&di=00021a07fca9d7a60f277831b6e173cc&imgtype=0&src=http%3A%2F%2Fwap.365jia.cn%2Fuploads%2Fnews%2Ffolder_1436127%2Fimages%2Fded72671afd94a45ecdda8132ce6288b.jpg");
-        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520303492&di=900fffe3dbec0e7c354ee61fe188ed1c&imgtype=jpg&er=1&src=http%3A%2F%2Fimages2015.cnblogs.com%2Fblog%2F1014286%2F201608%2F1014286-20160827225341429-1650107896.png");
-        adapter.notifyDataSetChanged();
     }
+
 
     public void initView() {
         simpleDraweeView = findViewById(R.id.company_detail_icon);
@@ -141,11 +177,11 @@ public class CompanyDetailActivity extends AppCompatActivity implements View.OnC
                 builder.setTitle("拨打电话").setMessage(SystemInfoManager.getInfo(this).getSite_tel()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ContextCompat.checkSelfPermission(CompanyDetailActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED||
-                                ContextCompat.checkSelfPermission(CompanyDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED   ){
-                            ActivityCompat.requestPermissions(CompanyDetailActivity.this,new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                        }else {
-                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+SystemInfoManager.getInfo(CompanyDetailActivity.this).getSite_tel()));
+                        if (ContextCompat.checkSelfPermission(CompanyDetailActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
+                                ContextCompat.checkSelfPermission(CompanyDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(CompanyDetailActivity.this, new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + SystemInfoManager.getInfo(CompanyDetailActivity.this).getSite_tel()));
                             startActivity(intent);
                         }
                     }
@@ -158,8 +194,40 @@ public class CompanyDetailActivity extends AppCompatActivity implements View.OnC
                 break;
 
             case R.id.company_detail_follow:
-
+                follow();
                 break;
         }
+    }
+
+    public void follow(){
+        progressDialog.show();
+        if(UserManager.getUser(this)==null){
+            ToastHelper.showToast("请先登录");
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
+        HashMap<String,String>map = new HashMap<>();
+        map.put("jgid", id+"");
+        map.put("uid",UserManager.getUser(this).getId()+"");
+        map.put("status","1");
+        NetRequest.postFormRequest(Constant.COMPANY_FOLLOW_URL, map, new NetRequest.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.optInt("code")==1){
+                   ToastHelper.showToast("关注成功");
+                }else{
+                    ToastHelper.showToast(jsonObject.optString("msg"));
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+                ToastHelper.showToast(R.string.request_failed);
+                progressDialog.dismiss();
+            }
+        });
     }
 }

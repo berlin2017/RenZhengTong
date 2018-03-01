@@ -54,7 +54,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/MyNoActionTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".TableBarActivity"
             android:label="@string/title_activity_table_bar"

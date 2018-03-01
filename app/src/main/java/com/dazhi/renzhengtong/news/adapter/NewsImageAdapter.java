@@ -23,10 +23,12 @@ public class NewsImageAdapter extends PagerAdapter{
     private List<SlideModel>list;
     private Context context;
     private LayoutInflater mInflater;
+    private View.OnClickListener clickListener;
 
-    public NewsImageAdapter(List<SlideModel> list, Context context) {
+    public NewsImageAdapter(List<SlideModel> list, Context context, View.OnClickListener clickListener) {
         this.list = list;
         this.context = context;
+        this.clickListener = clickListener;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -48,6 +50,10 @@ public class NewsImageAdapter extends PagerAdapter{
         SimpleDraweeView simpleDraweeView = view.findViewById(R.id.item_news_pager_image);
         simpleDraweeView.setImageURI(Uri.parse(list.get(position).getImage()));
         container.addView(view);
+        if (clickListener!=null){
+            view.setOnClickListener(clickListener);
+        }
+        view.setTag(position);
         return  view;
     }
 

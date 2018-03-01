@@ -51,6 +51,7 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
         NetRequest.getFormRequest(Constant.SYSTEM_INFO_URL, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
+                progressBar.start();
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code")==1){
                     SystemInfo systemInfo = Utils.decodeJSON(jsonObject.optString("data"),SystemInfo.class);
@@ -58,7 +59,6 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
                 }else{
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
-                progressBar.start();
             }
 
             @Override
@@ -74,7 +74,8 @@ public class LoadingActivity extends AppCompatActivity implements MyProgressView
     public void onProgressChanged(int progress) {
         if (progress == 0){
             textView.setText("0s");
-            Intent intent = new Intent(this,TableBarActivity.class);
+//            Intent intent = new Intent(this,TableBarActivity.class);
+            Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
             finish();
         }else{

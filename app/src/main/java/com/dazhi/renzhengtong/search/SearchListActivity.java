@@ -22,7 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.news.DashlineItemDivider;
 import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.news.model.SlideModel;
@@ -55,10 +57,12 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
     private SearchListAdapter adapter;
     private List<NewsModel> list = new ArrayList<>();
     private int id = 0;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         id = getIntent().getIntExtra("id", 0);
         setContentView(R.layout.layout_search_list);
         swipeRefreshLayout = findViewById(R.id.search_list_swip);
@@ -74,7 +78,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         recyclerView = findViewById(R.id.search_list_recyclerview);
         progressBar = findViewById(R.id.search_list_progress);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SearchListAdapter(R.layout.item_service_list_layout, list);
+        adapter = new SearchListAdapter(R.layout.item_search_layout, list);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -83,6 +87,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         }, recyclerView);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DashlineItemDivider());
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -145,8 +150,8 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void requestList() {
-        progressBar.setVisibility(View.VISIBLE);
-
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -157,6 +162,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
                 adapter.notifyDataSetChanged();
                 adapter.loadMoreComplete();
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 stopRefresh();
             }
 
@@ -165,6 +171,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
                 ToastHelper.showToast("请求失败,请重试");
                 adapter.loadMoreComplete();
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 stopRefresh();
             }
         });

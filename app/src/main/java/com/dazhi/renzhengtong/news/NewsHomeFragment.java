@@ -256,9 +256,9 @@ public class NewsHomeFragment extends Fragment implements View.OnClickListener {
                     builder.setTitle("确认下载").setMessage("合同下载").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse("https://wkbos.bdimg.com/v1/wenku44//524b391375c7f19db4d9833dfb130ed4?responseContentDisposition=attachment%3B%20filename%3D%22DA%25E8%25BD%25AC%25E6%258D%25A2%25E7%2594%25B5%25E8%25B7%25AF.docx%22%3B%20filename%2A%3Dutf-8%27%27DA%25E8%25BD%25AC%25E6%258D%25A2%25E7%2594%25B5%25E8%25B7%25AF.docx&responseContentType=application%2Foctet-stream&responseCacheControl=no-cache&authorization=bce-auth-v1%2Ffa1126e91489401fa7cc85045ce7179e%2F2018-02-10T07%3A30%3A59Z%2F3600%2Fhost%2F991c7f74dc60f98a05fd4aa0ae2df1fa2d8c1ca73c55d9d30e5b54be0964bb4b&token=78ae6e82dc6b7b467d7c7a05c91d835905b0bd59d2ce098a3b311003d794ea10&expire=2018-02-10T08:30:59Z"));
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse("http://demo.ahxmgk.com/upload/portal/20180228/ec6d228d000ba3eabf1fc60adf61b79c.xls"));
                             //指定下载路径和下载文件名
-                            request.setDestinationInExternalPublicDir("/download/", "renzhengtong.doc");
+                            request.setDestinationInExternalPublicDir("/download/", "renzhengtong.xls");
                             //获取下载管理器
                             DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
                             //将下载任务加入下载队列，否则不会进行下载

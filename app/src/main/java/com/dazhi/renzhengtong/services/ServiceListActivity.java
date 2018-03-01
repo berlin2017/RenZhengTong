@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.news.DashlineItemDivider;
 import com.dazhi.renzhengtong.news.NewsDetailActivity;
 import com.dazhi.renzhengtong.news.model.NewsModel;
 import com.dazhi.renzhengtong.search.SearchListActivity;
@@ -47,17 +49,19 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
     private List<NewsModel> list = new ArrayList<>();
     private int id = 0;
     private int page = 0;
+    private MyProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         id = getIntent().getIntExtra("id", 0);
         setContentView(R.layout.layout_services_list);
         initTitle();
         recyclerView = findViewById(R.id.services_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ServiceListAdapter(R.layout.item_service_list_layout, list);
+        adapter = new ServiceListAdapter(R.layout.item_search_layout, list);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -66,6 +70,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
             }
         },recyclerView);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DashlineItemDivider());
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -84,6 +89,8 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onRefresh() {
                 page = 0;
+                list.clear();
+                adapter.notifyDataSetChanged();
                 requestList();
             }
         });
@@ -103,6 +110,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
 
 
     public void requestList() {
+        progressDialog.show();
         NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -113,6 +121,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
                 adapter.notifyDataSetChanged();
                 adapter.loadMoreComplete();
                 stopRefresh();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -120,6 +129,7 @@ public class ServiceListActivity extends AppCompatActivity implements View.OnCli
                 ToastHelper.showToast("请求失败,请重试");
                 adapter.loadMoreComplete();
                 stopRefresh();
+                progressDialog.dismiss();
             }
         });
     }

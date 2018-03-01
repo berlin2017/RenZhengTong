@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.menu.model.MenuJGModel;
+import com.dazhi.renzhengtong.utils.Constant;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class MenuRenZhengAdapter extends BaseQuickAdapter<MenuJGModel,BaseViewHo
     protected void convert(BaseViewHolder helper, MenuJGModel item) {
        SimpleDraweeView photo =  helper.getView(R.id.item_menu_jigou_photo);
        if (!TextUtils.isEmpty(item.getJglogo())){
-           photo.setImageURI(Uri.parse(item.getJglogo()));
+           photo.setImageURI(Uri.parse(Constant.BASE_URL+item.getJglogo()));
        }
        helper.setText(R.id.item_menu_jigou_name,item.getJgname());
        String s = String.format("%s   %s",item.getJgxm(),item.getJgtel());

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.utils.Constant;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -149,8 +150,12 @@ public class GridImageAdapter extends
                     .centerCrop()
 //                        .placeholder(R.color.color_f6)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
+            String path = list.get(position);
+            if (list.get(position).startsWith("uploads")){
+                path = Constant.BASE_URL + path;
+            }
             Glide.with(viewHolder.itemView.getContext())
-                    .load(list.get(position))
+                    .load(path)
                     .apply(options)
                     .into(viewHolder.mImg);
             //itemView 的点击事件

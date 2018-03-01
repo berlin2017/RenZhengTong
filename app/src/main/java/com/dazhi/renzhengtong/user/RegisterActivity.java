@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -50,12 +51,13 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
     private TimeCount timeCount;
     private ProgressBar progressBar;
     private CheckBox checkBox;
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_register);
-
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         checkBox = findViewById(R.id.register_checkbox);
         phone_edit = findViewById(R.id.register_phone_edit);
         code_edit = findViewById(R.id.register_code_edit);
@@ -145,7 +147,8 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
         }
 
         //networking
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String, String> map = new HashMap<>();
         map.put("username", phone_edit.getText().toString());
         map.put("password", pass_edit.getText().toString());
@@ -155,22 +158,21 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code") == 1) {
-                    progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(RegisterActivity.this, RegisterStep2Activity.class);
                     intent.putExtra("uid",jsonObject.optJSONObject("data").optJSONObject("info").optInt("id"));
                     startActivity(intent);
                     finish();
                 } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
-                    progressBar.setVisibility(View.GONE);
                 }
-
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }

@@ -9,6 +9,7 @@
         android:layout_margin="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        fresco:roundAsCircle="true"
         fresco:placeholderImage="@mipmap/ic_launcher"
         android:layout_centerVertical="true" />
 

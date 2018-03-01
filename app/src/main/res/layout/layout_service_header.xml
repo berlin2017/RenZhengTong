@@ -13,21 +13,21 @@
         android:layout_margin="10dp"
         >
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-        <!--android:id="@+id/search_home_first"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--fresco:roundedCornerRadius="10dp"-->
-        <!--android:background="#CFCFCF"-->
-        <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:background="@drawable/drawable_image_bg"
+            android:id="@+id/services_home_first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/txrz"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="体系认证"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="体系认证"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
@@ -38,20 +38,21 @@
         android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-        <!--android:id="@+id/search_home_two"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--fresco:roundedCornerRadius="10dp"-->
-        <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:background="@drawable/drawable_image_bg"
+            android:id="@+id/services_home_second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/cprz"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="产品认证"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="产品认证"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
@@ -62,20 +63,21 @@
         android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-        <!--fresco:roundedCornerRadius="10dp"-->
-        <!--android:id="@+id/search_home_three"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:background="@drawable/drawable_image_bg"
+            android:id="@+id/services_home_third"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/bzrz"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="标准认证"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="标准认证"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 </LinearLayout>

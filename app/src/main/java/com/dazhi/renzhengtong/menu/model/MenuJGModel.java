@@ -1,5 +1,7 @@
 package com.dazhi.renzhengtong.menu.model;
 
+import java.util.List;
+
 /**
  * Created by mac on 2018/2/6.
  */
@@ -16,6 +18,51 @@ public class MenuJGModel {
     private String jgtel;
     private String jglogo;
     private int createtime;
+    private String address;
+    private String services;
+    private String intro;
+    private List<String>images;
+    private int gzrs;
+
+    public int getGzrs() {
+        return gzrs;
+    }
+
+    public void setGzrs(int gzrs) {
+        this.gzrs = gzrs;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getServices() {
+        return services;
+    }
+
+    public void setServices(String services) {
+        this.services = services;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
 
     public int getId() {
         return id;

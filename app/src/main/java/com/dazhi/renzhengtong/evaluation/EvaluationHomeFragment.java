@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.evaluation.adapter.EvaluationHomeAdapter;
 import com.dazhi.renzhengtong.evaluation.model.EvaluationItem;
@@ -65,6 +66,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
     private List<String> product_value_list = new ArrayList<>();
     private List<String> product_list = new ArrayList<>();
     private ProgressBar progressBar;
+    private MyProgressDialog progressDialog;
     private RecyclerView recyclerView;
     private EvaluationHomeAdapter adapter;
     private List<ProductType> productTypeList = new ArrayList<>();
@@ -76,6 +78,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new MyProgressDialog(getActivity(),R.style.Dialog);
         radioGroup = view.findViewById(R.id.evaluation_hangye_group);
         radioGroup.setOnCheckedChangeListener(this);
         recyclerView = view.findViewById(R.id.evaluation_home_recyclerview);
@@ -295,7 +298,8 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         }
 
 
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String, String> map = new HashMap<>();
         map.put("A", hangye_edit.getText().toString());
         map.put("B", getSelectedString());
@@ -317,12 +321,14 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
                 progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }

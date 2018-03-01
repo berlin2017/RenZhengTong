@@ -14,25 +14,24 @@
         android:id="@+id/search_home_tixi"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp"
        >
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-            <!--android:id="@+id/search_home_first"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--fresco:roundedCornerRadius="10dp"-->
-            <!--android:background="#CFCFCF"-->
-            <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:background="@drawable/drawable_image_bg"
+            android:id="@+id/search_home_first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bg"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="体系查询"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="体系查询"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
@@ -40,23 +39,23 @@
         android:id="@+id/search_home_standard"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-        <!--android:id="@+id/search_home_two"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--fresco:roundedCornerRadius="10dp"-->
-        <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:id="@+id/search_home_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/biaozhun"
+            android:scaleType="fitXY"
+            android:src="@drawable/biaozhun" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="标准查询"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="标准查询"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
@@ -67,20 +66,21 @@
         android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
-        <!--<com.facebook.drawee.view.SimpleDraweeView-->
-            <!--fresco:roundedCornerRadius="10dp"-->
-            <!--android:id="@+id/search_home_three"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--fresco:viewAspectRatio="3" />-->
+        <ImageView
+            android:background="@drawable/drawable_image_bg"
+            android:id="@+id/search_home_third"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/downloads"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="标准下载"
-            android:textColor="@android:color/white" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="标准下载"-->
+            <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 

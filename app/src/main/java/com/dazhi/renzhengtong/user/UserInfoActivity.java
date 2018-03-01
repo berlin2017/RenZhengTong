@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
+import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -82,10 +83,12 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private Button commit;
     private Bitmap select_image;
     private final String PATH = "mnt/sdcard/logo.jpg";
+    private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new MyProgressDialog(this,R.style.Dialog);
         rootview = getLayoutInflater().inflate(R.layout.layout_userinfo, null);
         setContentView(rootview);
         initTitle();
@@ -252,7 +255,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             ToastHelper.showToast("公司不能为空");
             return;
         }
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         HashMap<String, String> map = new HashMap<>();
         map.put("uid", userInfo.getId() + "");
         map.put("user_nickname", name.getText().toString());
@@ -279,13 +283,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
 
@@ -295,7 +299,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> map = new HashMap<>();
         map.put("uid", userInfo.getId() + "");
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         NetRequest.postFormRequest(Constant.USER_INFO_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -311,13 +316,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));
                 }
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
             public void requestFailure(Request request, IOException e) {
                 ToastHelper.showToast(R.string.request_failed);
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         });
     }
