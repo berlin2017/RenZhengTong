@@ -15,15 +15,25 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="10dp"
+        android:background="@drawable/drawable_serarch__home_bg1"
        >
 
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"
+            android:text="体系查询"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:background="@drawable/drawable_image_bg"
             android:id="@+id/search_home_first"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_bg"/>
+            android:src="@drawable/ic_chaxun"/>
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -38,16 +48,26 @@
     <RelativeLayout
         android:id="@+id/search_home_standard"
         android:layout_width="match_parent"
+        android:background="@drawable/drawable_serarch__home_bg2"
         android:layout_height="80dp"
         android:layout_margin="10dp">
 
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:text="标准查询"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/search_home_two"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/biaozhun"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:src="@drawable/biaozhun" />
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_biaozhun" />
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -63,16 +83,25 @@
         android:id="@+id/search_home_download"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
+        android:background="@drawable/drawable_serarch__home_bg3"
         android:layout_margin="10dp">
 
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"
+            android:text="标准查询"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:background="@drawable/drawable_image_bg"
-            android:id="@+id/search_home_third"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:id="@+id/drawable_image_bg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:src="@drawable/downloads"/>
+            android:src="@drawable/ic_downloads" />
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

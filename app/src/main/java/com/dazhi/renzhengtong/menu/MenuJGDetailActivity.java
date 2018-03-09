@@ -80,6 +80,11 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     private List<String>list = new ArrayList<>();
     private PictureSelector pictureSelector;
     private MyProgressDialog progressDialog;
+    private RecyclerView recyclerView2;
+    private GridImageAdapter adapter2;
+    private int maxSelectNum2 = 1;
+    private List<LocalMedia> selectList2 = new ArrayList<>();
+    private List<String>list2 = new ArrayList<>();
 
 
     @Override
@@ -91,6 +96,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         setContentView(rootview);
         initTitle();
         recyclerView = findViewById(R.id.jigou_detail_photo_recyclerview);
+        recyclerView2 = findViewById(R.id.jigou_detail_yingye_recyclerview);
         location_edit = findViewById(R.id.jigou_detail_location_edit);
         info_edit = findViewById(R.id.jigou_detail_info_edit);
         product_edit = findViewById(R.id.jigou_detail_product_edit);
@@ -112,6 +118,12 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         adapter.setList(list);
         adapter.setSelectMax(maxSelectNum);
         recyclerView.setAdapter(adapter);
+
+        adapter2 = new GridImageAdapter(MenuJGDetailActivity.this, onAddPicClickListener2);
+        adapter.setSelectMax(maxSelectNum2);
+        FullyGridLayoutManager manager2 = new FullyGridLayoutManager(MenuJGDetailActivity.this, 4, GridLayoutManager.VERTICAL, false);
+        recyclerView2.setLayoutManager(manager2);
+        recyclerView2.setAdapter(adapter2);
 //        adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(int position, View v) {
@@ -141,13 +153,13 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 
 
 
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+    private GridImageAdapter.onAddPicClickListener onAddPicClickListener2 = new GridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
                 // 进入相册 以下是例子：不需要的api可以不写
-            int number = maxSelectNum;
-            if (list!=null&&list.size()>0){
-                number = maxSelectNum - list.size();
+            int number = maxSelectNum2;
+            if (list2!=null&&list2.size()>0){
+                number = maxSelectNum2 - list2.size();
             }
             pictureSelector = PictureSelector.create(MenuJGDetailActivity.this);
             pictureSelector.openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -167,7 +179,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                         //.sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
                         .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
                         .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
-                        .selectionMedia(selectList)// 是否传入已选图片
+                        .selectionMedia(selectList2)// 是否传入已选图片
                         //.isDragFrame(false)// 是否可拖动裁剪框(固定)
 //                        .videoMaxSecond(15)
 //                        .videoMinSecond(10)
@@ -180,7 +192,52 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                         //.videoQuality()// 视频录制质量 0 or 1
                         //.videoSecond()//显示多少秒以内的视频or音频也可适用
                         //.recordVideoSecond()//录制视频秒数 默认60s
-                        .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+                        .forResult(2001);//结果回调onActivityResult code
+
+        }
+
+    };
+
+    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+        @Override
+        public void onAddPicClick() {
+            // 进入相册 以下是例子：不需要的api可以不写
+            int number = maxSelectNum;
+            if (list!=null&&list.size()>0){
+                number = maxSelectNum - list.size();
+            }
+            pictureSelector = PictureSelector.create(MenuJGDetailActivity.this);
+            pictureSelector.openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                    .maxSelectNum(number)// 最大图片选择数量
+                    .minSelectNum(1)// 最小选择数量
+                    .imageSpanCount(4)// 每行显示个数
+                    .selectionMode(PictureConfig.MULTIPLE )// 多选 or 单选
+                    .previewImage(true)// 是否可预览图片
+                    .isCamera(true)// 是否显示拍照按钮
+                    .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                    //.imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+                    //.setOutputCameraPath("/CustomPath")// 自定义拍照保存路径
+                    .enableCrop(false)// 是否裁剪
+                    .compress(false)// 是否压缩
+                    .synOrAsy(true)//同步true或异步false 压缩 默认同步
+                    //.compressSavePath(getPath())//压缩图片保存地址
+                    //.sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
+                    .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
+                    .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
+                    .selectionMedia(selectList)// 是否传入已选图片
+                    //.isDragFrame(false)// 是否可拖动裁剪框(固定)
+//                        .videoMaxSecond(15)
+//                        .videoMinSecond(10)
+                    //.previewEggs(false)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
+                    //.cropCompressQuality(90)// 裁剪压缩质量 默认100
+                    .minimumCompressSize(100)// 小于100kb的图片不压缩
+                    //.cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效
+                    //.rotateEnabled(true) // 裁剪是否可旋转图片
+                    //.scaleEnabled(true)// 裁剪是否可放大缩小图片
+                    //.videoQuality()// 视频录制质量 0 or 1
+                    //.videoSecond()//显示多少秒以内的视频or音频也可适用
+                    //.recordVideoSecond()//录制视频秒数 默认60s
+                    .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
 
         }
 
@@ -293,6 +350,10 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             ToastHelper.showToast("电话不能为空");
             return;
         }
+        if (list2==null||list2.size()==0){
+            ToastHelper.showToast("请选择营业执照");
+            return;
+        }
 
         if (id!=0){
             HashMap<String,String>map = new HashMap<>();
@@ -339,6 +400,16 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                     files.add(file);
                 }else{
                     map.put("logo"+(i+1),list.get(i));
+                }
+            }
+
+            for (int i =0;i<list2.size();i++) {
+                if(!list.get(i).startsWith("uploads")){
+                    keys.add("yyzz");
+                    file = new File(list2.get(i));
+                    files.add(file);
+                }else{
+                    map.put("yyzz",list2.get(i));
                 }
             }
 
@@ -413,6 +484,16 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                     files.add(file);
                 }else{
                     map.put("logo"+(i+1),list.get(i));
+                }
+            }
+
+            for (int i =0;i<list2.size();i++) {
+                if(!list.get(i).startsWith("uploads")){
+                    keys.add("yyzz");
+                    file = new File(list2.get(i));
+                    files.add(file);
+                }else{
+                    map.put("yyzz",list2.get(i));
                 }
             }
             NetRequest.postFiles(Constant.USRE_JGRZ_URL, map, keys, files, new NetRequest.DataCallBack() {
@@ -509,6 +590,21 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
                     }
                     adapter.setList(list);
                     adapter.notifyDataSetChanged();
+                    break;
+                case 2001:
+                    // 图片选择结果回调
+                    selectList2 = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
+                    for (LocalMedia media : selectList2) {
+                        Log.i("图片-----》", media.getPath());
+                        list2.add(media.getPath());
+                    }
+                    adapter2.setList(list2);
+                    adapter2.notifyDataSetChanged();
                     break;
             }
         }

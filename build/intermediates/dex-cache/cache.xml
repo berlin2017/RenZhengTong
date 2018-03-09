@@ -3,33 +3,53 @@
 
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/glide-4.5.0.aar/222bb7a0e38c57fbc4ad823623db026d/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.0.0/a2d487452376193fc8c103dd2b9bd5f2b1b44563/common-1.0.0.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="fa0e9d2e5cf14f7d154c95672b3d37a845f09d57">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/42.jar" />
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/31.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.0.2/b9ef4342c934a1a8b107506273dc8061662a322/support-annotations-27.0.2.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-0.12.0.aar/56f6f5650f0bea99086e8d88d422a52e/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="0b9ef4342c934a1a8b107506273dc8061662a322">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/24.jar" />
+        sha1="c9a86e6bc8300fc00c191949ac61a2f7165e35c7">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/12.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/drawee-0.12.0.aar/df8e9fd54052cf137fa2b18ffda117b1/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/8b924de8db989195f206939f0efb664a/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="1e346707e4770db216049a532ab3eb5e317cf82a">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/10.jar" />
+        sha1="fe3916317a699975bcce0cba2d13fd2d8cf88922">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/1965149806181602debd3a7c976041b8/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/29.jar" />
     </item>
     <item
         is-multidex="false"
@@ -40,16 +60,6 @@
         revision="26.0.2"
         sha1="fe3916317a699975bcce0cba2d13fd2d8cf88922">
         <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/20.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/2.jar" />
     </item>
     <item
         is-multidex="false"
@@ -83,13 +93,23 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/8ef536e66c8ee122944d438466788ad4/jars/classes.jar"
+        jar="/Users/mac/Desktop/RenZhengTong/ucrop/build/intermediates/intermediate-jars/release/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/13.jar" />
+        sha1="12a386ab8a358eea6e6f870787de568840ac58ab">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.11.0/840897fcd7223a8143f1d9b6f69714e7be34fd50/okio-1.11.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/14.jar" />
     </item>
     <item
         is-multidex="false"
@@ -123,6 +143,426 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/8a1c725d0f6933756e00bc92b98c6530/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Volumes/jixie/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.5.0/86950b32ea96cceece316b829cbe47b735892551/disklrucache-4.5.0.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="86950b32ea96cceece316b829cbe47b735892551">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/8a1c725d0f6933756e00bc92b98c6530/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Desktop/RenZhengTong/picture_library/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="745caff826679e79d4072fc29707cc975f5171f6">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Desktop/RenZhengTong/picture_library/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="745caff826679e79d4072fc29707cc975f5171f6">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.5/4f1ac7ec0215e8f87ac80269baadc82878b87ed8/rxjava-2.0.5.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4f1ac7ec0215e8f87ac80269baadc82878b87ed8">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/d94016a2d85f14bbb4501bdc0b2fae0a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ac2ce6027755bcf49442e70597bec0feb9064f68">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Desktop/RenZhengTong/app/libs/jcore-android-1.1.9.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d36b4154d952a6f18fd438469929820a6e598127">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Desktop/RenZhengTong/app/libs/jcore-android-1.1.9.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d36b4154d952a6f18fd438469929820a6e598127">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/1965149806181602debd3a7c976041b8/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.3/7d7f60c4783872861222166f6164215f8951c7b1/common-1.0.3.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7d7f60c4783872861222166f6164215f8951c7b1">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/68484febc74b5d3c250be9f34c4e1746/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.5.0.aar/50c045468fa9fb766f15b12cf0a95c2f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e6b659b5a5850e1bfd6d81393d35ca3b50297239">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/f70467a82cc438aa39577f3b42cd068a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="031cc16b7b6e77b3c050134ecab9fa5c2640a069">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/68484febc74b5d3c250be9f34c4e1746/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.5.0.aar/50c045468fa9fb766f15b12cf0a95c2f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e6b659b5a5850e1bfd6d81393d35ca3b50297239">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.3/7d7f60c4783872861222166f6164215f8951c7b1/common-1.0.3.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7d7f60c4783872861222166f6164215f8951c7b1">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/f70467a82cc438aa39577f3b42cd068a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="031cc16b7b6e77b3c050134ecab9fa5c2640a069">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/bottom-navigation-bar-2.0.4.aar/1e27013f4c99cfc78599bb3628647752/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e1b25ed27f6a2cfd9d90345e66b89bfb6d5a102d">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-0.12.0.aar/67bec6857af10b80a8f34b56560c7865/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="145da27a459a63ea0c4e318930365cf0a8b8e891">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gridlayout-v7-26.1.0.aar/8264f44ff7b949b01344bda4e4ed3da5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a3e3d3c94305c63a7d6d267cd2b54ec5f9222d31">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/587506f5eecf73f4421219acfce6d058/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9296d6f092fcdba4fafb6ac26546a39babdab46a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-0.12.0.aar/67bec6857af10b80a8f34b56560c7865/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="145da27a459a63ea0c4e318930365cf0a8b8e891">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/587506f5eecf73f4421219acfce6d058/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9296d6f092fcdba4fafb6ac26546a39babdab46a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-0.12.0.aar/56f6f5650f0bea99086e8d88d422a52e/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c9a86e6bc8300fc00c191949ac61a2f7165e35c7">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/bottom-navigation-bar-2.0.4.aar/1e27013f4c99cfc78599bb3628647752/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e1b25ed27f6a2cfd9d90345e66b89bfb6d5a102d">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.0.2/b9ef4342c934a1a8b107506273dc8061662a322/support-annotations-27.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0b9ef4342c934a1a8b107506273dc8061662a322">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gridlayout-v7-26.1.0.aar/8264f44ff7b949b01344bda4e4ed3da5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a3e3d3c94305c63a7d6d267cd2b54ec5f9222d31">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/drawee-0.12.0.aar/df8e9fd54052cf137fa2b18ffda117b1/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1e346707e4770db216049a532ab3eb5e317cf82a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/glide-4.5.0.aar/222bb7a0e38c57fbc4ad823623db026d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fa0e9d2e5cf14f7d154c95672b3d37a845f09d57">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/27.0.2/b9ef4342c934a1a8b107506273dc8061662a322/support-annotations-27.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0b9ef4342c934a1a8b107506273dc8061662a322">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/107bae694fca9fa649eda2b9bad6c91e/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="25c8cb628374f9a2d59ff9e1172753751e9a9f84">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/core-1.5.0.aar/d5e15b82db9196e785da0bdd817255b5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8718be9491bf14e701e7c88bf6f4e30e5eb594e5">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/drawee-0.12.0.aar/df8e9fd54052cf137fa2b18ffda117b1/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1e346707e4770db216049a532ab3eb5e317cf82a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/8ef536e66c8ee122944d438466788ad4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/glide-4.5.0.aar/222bb7a0e38c57fbc4ad823623db026d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fa0e9d2e5cf14f7d154c95672b3d37a845f09d57">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/8ef536e66c8ee122944d438466788ad4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="22"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"
         jumboMode="false"
         min-sdk-version="22"
@@ -143,26 +583,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/8a1c725d0f6933756e00bc92b98c6530/jars/classes.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/18.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.5.0/86950b32ea96cceece316b829cbe47b735892551/disklrucache-4.5.0.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="86950b32ea96cceece316b829cbe47b735892551">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/41.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/mac/Desktop/RenZhengTong/app/libs/jpush-android-3.1.1.jar"
         jumboMode="false"
         min-sdk-version="22"
@@ -180,16 +600,6 @@
         revision="26.0.2"
         sha1="a5fa2e3704f51b30b7b47e12a3a2909728799583">
         <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/16.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/Desktop/RenZhengTong/picture_library/build/intermediates/intermediate-jars/release/classes.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="745caff826679e79d4072fc29707cc975f5171f6">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/44.jar" />
     </item>
     <item
         is-multidex="false"
@@ -215,11 +625,41 @@
         is-multidex="false"
         jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.1.aar/ff7073ee6c372932c5737da8235eee4e/jars/classes.jar"
         jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4119ea97a7191ff9b8f33b534ea220448f62f491">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.1.aar/ff7073ee6c372932c5737da8235eee4e/jars/classes.jar"
+        jumboMode="false"
         min-sdk-version="22"
         optimize="true"
         revision="26.0.2"
         sha1="4119ea97a7191ff9b8f33b534ea220448f62f491">
         <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/3ab4ef152ef468571c6b903fdcf72cfd/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="04cd0cacbedcb338f64665b88bad64d145325fbd">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/72f565955aff64e610ced4bdd66d928b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ed6560f31a6a40b5965f5879d8f2eab1f68def05">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/21.jar" />
     </item>
     <item
         is-multidex="false"
@@ -243,16 +683,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/Desktop/RenZhengTong/app/libs/jcore-android-1.1.9.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="d36b4154d952a6f18fd438469929820a6e598127">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/37.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/core-1.5.0.aar/d5e15b82db9196e785da0bdd817255b5/jars/classes.jar"
         jumboMode="false"
         min-sdk-version="22"
@@ -263,23 +693,43 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/1965149806181602debd3a7c976041b8/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4862d034de88171ea85b491da00b0abb/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/29.jar" />
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/6.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/68484febc74b5d3c250be9f34c4e1746/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/fac58c71ddc017deb978732fa3004c07/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/22.jar" />
+        sha1="b432e82447a3af781e927b9ba0bbb9fe2a496d4a">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.5.0/5c16a9f3c9e4c9b6dbea50374264ef26fb937423/annotations-4.5.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="5c16a9f3c9e4c9b6dbea50374264ef26fb937423">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/fresco-0.12.0.aar/e62dd6f38f4fe2b25003f463bd8c3b89/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a540784239c611ea490593e2053a5e2890675c68">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/7.jar" />
     </item>
     <item
         is-multidex="false"
@@ -333,6 +783,36 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/BaseRecyclerViewAdapterHelper-2.9.30.aar/67487cda48262f005b71d98a28e0f1bc/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fa61569ed84bc6979e529ec7d92bb4756b1c3572">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/transition-27.0.2.aar/38444d2571e3def704f610269cd9f452/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a5fa2e3704f51b30b7b47e12a3a2909728799583">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Desktop/RenZhengTong/app/libs/jpush-android-3.1.1.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="989c1fc762c0424b2e25692444e9f1df60288a1d">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/38.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/intermediate-jars/release/classes.jar"
         jumboMode="false"
         min-sdk-version="22"
@@ -343,33 +823,23 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.5.0.aar/50c045468fa9fb766f15b12cf0a95c2f/jars/classes.jar"
+        jar="/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/intermediate-jars/release/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="e6b659b5a5850e1bfd6d81393d35ca3b50297239">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/34.jar" />
+        sha1="bde2a57670c5768533edc5f2cced37c7de4ded6f">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/32.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.3/7d7f60c4783872861222166f6164215f8951c7b1/common-1.0.3.jar"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.5.0/86950b32ea96cceece316b829cbe47b735892551/disklrucache-4.5.0.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="7d7f60c4783872861222166f6164215f8951c7b1">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/30.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/f70467a82cc438aa39577f3b42cd068a/jars/classes.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="031cc16b7b6e77b3c050134ecab9fa5c2640a069">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/4.jar" />
+        sha1="86950b32ea96cceece316b829cbe47b735892551">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/41.jar" />
     </item>
     <item
         is-multidex="false"
@@ -393,33 +863,23 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/gridlayout-v7-26.1.0.aar/8264f44ff7b949b01344bda4e4ed3da5/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/fbcore-0.12.0.aar/6821bdc29a65863c346e635669c7f718/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="a3e3d3c94305c63a7d6d267cd2b54ec5f9222d31">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/8.jar" />
+        sha1="40e5cb8708fc25fe57cb403cc82e9ef98376b648">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/26.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-0.12.0.aar/67bec6857af10b80a8f34b56560c7865/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="145da27a459a63ea0c4e318930365cf0a8b8e891">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/11.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/587506f5eecf73f4421219acfce6d058/jars/classes.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="9296d6f092fcdba4fafb6ac26546a39babdab46a">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/15.jar" />
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/28.jar" />
     </item>
     <item
         is-multidex="false"
@@ -433,23 +893,13 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-0.12.0.aar/56f6f5650f0bea99086e8d88d422a52e/jars/classes.jar"
+        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/Android-PickerView-3.2.7.aar/9555a13274ec31e2d0093e256906c439/jars/classes.jar"
         jumboMode="false"
-        min-sdk-version="22"
+        min-sdk-version="19"
         optimize="true"
         revision="26.0.2"
-        sha1="c9a86e6bc8300fc00c191949ac61a2f7165e35c7">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/12.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/transforms-1/files-1.1/bottom-navigation-bar-2.0.4.aar/1e27013f4c99cfc78599bb3628647752/jars/classes.jar"
-        jumboMode="false"
-        min-sdk-version="22"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e1b25ed27f6a2cfd9d90345e66b89bfb6d5a102d">
-        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/45.jar" />
+        sha1="c0c9cc6737cc20c72a7341d2b1f699335e5c0014">
+        <dex dex="/Users/mac/Desktop/RenZhengTong/app/build/intermediates/transforms/preDex/release/1.jar" />
     </item>
 
 </items>

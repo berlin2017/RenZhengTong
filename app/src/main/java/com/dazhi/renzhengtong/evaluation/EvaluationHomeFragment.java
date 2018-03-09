@@ -119,7 +119,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
         shengchan.add("含有环评批复验收");
         shengchan.add("食品加工业");
         shengchan.add("汽车相关企业");
-        shengchan.add("是否出口");
+        shengchan.add("出口");
 
         List<String> feishengchan = new ArrayList<>();
         feishengchan.add("农业企业");
@@ -139,9 +139,11 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
 
         product_value_list.add("E1");
         product_value_list.add("E2");
+        product_value_list.add("E3");
 
         product_list.add("机械电气类产品");
         product_list.add("医疗器械类产品");
+        product_list.add("其他");
         product_list.add("无");
 
 
@@ -241,7 +243,7 @@ public class EvaluationHomeFragment extends Fragment implements View.OnClickList
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
                 product_type_edit.setText(product_list.get(options1));
-                if (options1!=2){
+                if (options1!=3){
                     selected_product = product_value_list.get(options1);
                     product_edit.setEnabled(true);
                 }else{

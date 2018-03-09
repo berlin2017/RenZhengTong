@@ -9,50 +9,68 @@
         android:id="@+id/search_home_tixi"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp"
+        android:background="@drawable/drawable_serarch__home_bg1"
         >
 
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"
+            android:text="体系认证"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:background="@drawable/drawable_image_bg"
-            android:id="@+id/services_home_first"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/search_home_first"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
             android:scaleType="fitXY"
-            android:src="@drawable/txrz"/>
+            android:src="@drawable/ic_tixi"/>
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text="体系认证"-->
-            <!--android:textColor="@android:color/white" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:text="体系查询"-->
+        <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/search_home_product"
         android:layout_width="match_parent"
+        android:background="@drawable/drawable_serarch__home_bg2"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
         android:layout_margin="10dp">
 
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:text="产品认证"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:background="@drawable/drawable_image_bg"
-            android:id="@+id/services_home_second"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/search_home_two"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:src="@drawable/cprz"/>
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_chanpin" />
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text="产品认证"-->
-            <!--android:textColor="@android:color/white" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:text="标准查询"-->
+        <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 
@@ -60,24 +78,33 @@
         android:id="@+id/search_home_standard"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/drawable_serarch__home_bg"
+        android:background="@drawable/drawable_serarch__home_bg3"
         android:layout_margin="10dp">
 
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"
+            android:text="标准认证"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:background="@drawable/drawable_image_bg"
-            android:id="@+id/services_home_third"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:id="@+id/drawable_image_bg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:src="@drawable/bzrz"/>
+            android:src="@drawable/ic_bz" />
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text="标准认证"-->
-            <!--android:textColor="@android:color/white" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:text="标准下载"-->
+        <!--android:textColor="@android:color/white" />-->
 
     </RelativeLayout>
 </LinearLayout>
