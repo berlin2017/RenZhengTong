@@ -158,9 +158,10 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher, 
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code") == 1) {
-                    Intent intent = new Intent(RegisterActivity.this, RegisterStep2Activity.class);
-                    intent.putExtra("uid",jsonObject.optJSONObject("data").optJSONObject("info").optInt("id"));
-                    startActivity(intent);
+//                    Intent intent = new Intent(RegisterActivity.this, RegisterStep2Activity.class);
+//                    intent.putExtra("uid",jsonObject.optJSONObject("data").optJSONObject("info").optInt("id"));
+//                    startActivity(intent);
+                    ToastHelper.showToast("注册成功");
                     finish();
                 } else {
                     ToastHelper.showToast(jsonObject.optString("msg"));

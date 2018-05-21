@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">renzhengtong</string>
+    <string name="app_name">认证通</string>
     <string name="title_activity_table_bar">TableBarActivity</string>
     <string name="title_news">新闻</string>
     <string name="title_search">查询</string>

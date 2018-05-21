@@ -33,7 +33,7 @@
             android:layout_margin="10dp"
             android:layout_alignParentRight="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_chaxun"/>
+            android:src="@drawable/ic_search_tixi"/>
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -67,7 +67,7 @@
             android:scaleType="fitXY"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_biaozhun" />
+            android:src="@drawable/ic_search_biaozhun" />
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

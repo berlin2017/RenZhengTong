@@ -1,6 +1,21 @@
 {
     "logs": [
         {
+            "outputFile": "/Users/ahxmt/Desktop/RenZhengTong/slideMenu/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/ahxmt/Desktop/RenZhengTong/slideMenu/build/intermediates/bundles/debug/res/values/values.xml",
+                    "from": {
+                        "startLines": "14",
+                        "startColumns": "4",
+                        "startOffsets": "1092",
+                        "endColumns": "42",
+                        "endOffsets": "1130"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "/Users/mac/Desktop/RenZhengTong/slideMenu/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
             "map": [
                 {

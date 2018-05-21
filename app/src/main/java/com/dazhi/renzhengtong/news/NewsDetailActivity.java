@@ -189,7 +189,13 @@ public class NewsDetailActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
-                model = Utils.decodeJSON(jsonObject.optString("data"), NewsModel.class);
+                try {
+                    model = Utils.decodeJSON(jsonObject.optString("data"), NewsModel.class);
+                }catch (Exception e){
+                    ToastHelper.showToast(jsonObject.getString("msg"));
+                    progressDialog.dismiss();
+                }
+
                 webView.loadDataWithBaseURL(null, model.getPost_content(), "text/html", "utf-8", null);
                 title_tv.setText(model.getPost_title());
                 list.clear();

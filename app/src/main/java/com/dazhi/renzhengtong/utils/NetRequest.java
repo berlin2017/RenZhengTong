@@ -6,6 +6,7 @@ package com.dazhi.renzhengtong.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -119,6 +120,7 @@ public class NetRequest {
         }
         // 请求url（baseUrl+参数）
         final String doUrl = urlJoint(url, params);
+        Log.e("url=====",doUrl);
         // 新建一个请求
         final Request request = new Request.Builder().url(doUrl).build();
         //执行请求获得响应结果

@@ -108,17 +108,45 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
         });
 
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                requestList();
-            }
-        }, recyclerView);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
+//        mAdapter.setEnableLoadMore(true);
+//        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+//            @Override
+//            public void onLoadMoreRequested() {
+//                page++;
+//                requestList();
+//            }
+//        }, recyclerView);
+
+//        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.addItemDecoration(new DashlineItemDivider());
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                //判断是当前layoutManager是否为LinearLayoutManager
+                // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                    //获取最后一个可见view的位置
+                    int lastItemPosition = linearManager.findLastVisibleItemPosition();
+                    //获取第一个可见view的位置
+                    int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    if(lastItemPosition == list.size()){
+                        page++;
+                        requestList();
+                    }
+                }
+            }
+        });
+
 
         if (id == 8) {
             View header = LayoutInflater.from(getContext()).inflate(R.layout.layout_news_header, null);
@@ -161,7 +189,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
 
     private void requestList() {
         progressDialog.show();
-        NetRequest.getFormRequest(Constant.NEW_LIST_URL + "/category_id/" + id, null, new NetRequest.DataCallBack() {
+        NetRequest.getFormRequest(Constant.NEW_LIST_URL + "?category_id=" + id+"&page="+page, null, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
 
@@ -175,6 +203,7 @@ public class NewsChannelFragment extends Fragment implements ViewPager.OnPageCha
                     images.addAll(slideArray);
                     resetIndicator(0);
                     imageAdapter.notifyDataSetChanged();
+                    handler.removeMessages(0);
                     handler.sendEmptyMessageDelayed(0,3000);
                 }
                 updateRead(array);
