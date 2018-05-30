@@ -84,7 +84,7 @@
         <TextView
             android:textColor="@android:color/white"
             android:layout_margin="10dp"
-            android:text="标准认证"
+            android:text="标准制定"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

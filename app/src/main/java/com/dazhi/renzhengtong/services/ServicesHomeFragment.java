@@ -188,7 +188,7 @@ public class ServicesHomeFragment extends Fragment implements View.OnClickListen
 
             case R.id.search_home_standard:
                 intent.putExtra("id",22);
-                intent.putExtra("name","标准认证");
+                intent.putExtra("name","标准制定");
                 startActivity(intent);
                 break;
 
