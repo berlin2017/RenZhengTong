@@ -62,7 +62,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDialog = new MyProgressDialog(this,R.style.Dialog);
+        progressDialog = new MyProgressDialog(this, R.style.Dialog);
         id = getIntent().getIntExtra("id", 0);
         setContentView(R.layout.layout_search_list);
         swipeRefreshLayout = findViewById(R.id.search_list_swip);
@@ -92,7 +92,7 @@ public class SearchListActivity extends AppCompatActivity implements View.OnClic
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
-                if (id == 17 && list.get(position).getMore().getFiles().size() > 0) {
+                if (id == 17 && list.get(position).getMore().getFiles() != null && list.get(position).getMore().getFiles().size() > 0) {
                     if (UserManager.getUser(SearchListActivity.this) != null) {
                         AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SearchListActivity.this);
                         builder.setTitle("确认下载").setMessage(list.get(position).getMore().getFiles().get(0).getName()).setPositiveButton("确定", new DialogInterface.OnClickListener() {

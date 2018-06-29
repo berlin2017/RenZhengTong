@@ -1,12 +1,17 @@
 package com.dazhi.renzhengtong.menu;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dazhi.renzhengtong.MainActivity;
 import com.dazhi.renzhengtong.MyProgressDialog;
@@ -28,6 +34,7 @@ import com.dazhi.renzhengtong.R;
 import com.dazhi.renzhengtong.menu.adapter.GridImageAdapter;
 import com.dazhi.renzhengtong.menu.adapter.PhotoGridAdapter;
 import com.dazhi.renzhengtong.menu.model.MenuJGModel;
+import com.dazhi.renzhengtong.user.UserInfoActivity;
 import com.dazhi.renzhengtong.user.UserManager;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
@@ -68,8 +75,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     private PopupWindow pop;
     private View rootview;
     private MenuJGModel model;
-    private Bitmap select_image;
-    private final String PATH = "mnt/sdcard/jglogo.jpg";
+    private String select_image;
     private RecyclerView recyclerView;
     private EditText location_edit;
     private EditText info_edit;
@@ -120,35 +126,11 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         recyclerView.setAdapter(adapter);
 
         adapter2 = new GridImageAdapter(MenuJGDetailActivity.this, onAddPicClickListener2);
-        adapter.setSelectMax(maxSelectNum2);
+        adapter2.setList(list2);
+        adapter2.setSelectMax(maxSelectNum2);
         FullyGridLayoutManager manager2 = new FullyGridLayoutManager(MenuJGDetailActivity.this, 4, GridLayoutManager.VERTICAL, false);
         recyclerView2.setLayoutManager(manager2);
         recyclerView2.setAdapter(adapter2);
-//        adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position, View v) {
-//                if (selectList.size() > 0) {
-//                    LocalMedia media = selectList.get(position);
-//                    String pictureType = media.getPictureType();
-//                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
-//                    switch (mediaType) {
-//                        case 1:
-//                            // 预览图片 可自定长按保存路径
-//                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-//                            PictureSelector.create(MenuJGDetailActivity.this).externalPicturePreview(position, selectList);
-//                            break;
-//                        case 2:
-//                            // 预览视频
-//                            PictureSelector.create(MenuJGDetailActivity.this).externalPictureVideo(media.getPath());
-//                            break;
-//                        case 3:
-//                            // 预览音频
-//                            PictureSelector.create(MenuJGDetailActivity.this).externalPictureAudio(media.getPath());
-//                            break;
-//                    }
-//                }
-//            }
-//        });
     }
 
 
@@ -318,11 +300,17 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(model.getJglogo())){
                 simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL+model.getJglogo()));
             }
-            list.clear();
 
             if (model.getImages()!=null&&model.getImages().size()>0){
+                list.clear();
                 list.addAll(model.getImages());
                 adapter.notifyDataSetChanged();
+            }
+
+            if(model.getYyzz()!=null){
+                list2.clear();
+                list2.add(model.getYyzz());
+                adapter2.notifyDataSetChanged();
             }
         }
     }
@@ -351,6 +339,8 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         if (list2==null||list2.size()==0){
+            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
             ToastHelper.showToast("请选择营业执照");
             return;
         }
@@ -387,16 +377,15 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 //            });
             List<File>files = new ArrayList<>();
             List<String>keys = new ArrayList<>();
-            File file = null;
             if (select_image != null) {
-                file = new File(PATH);
+                File file = new File(select_image);
                 keys.add("jglogo");
                 files.add(file);
             }
             for (int i =0;i<list.size();i++) {
                 if(!list.get(i).startsWith("uploads")){
                     keys.add("logo"+(i+1));
-                    file = new File(list.get(i));
+                    File file = new File(list.get(i));
                     files.add(file);
                 }else{
                     map.put("logo"+(i+1),list.get(i));
@@ -406,7 +395,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             for (int i =0;i<list2.size();i++) {
                 if(!list.get(i).startsWith("uploads")){
                     keys.add("yyzz");
-                    file = new File(list2.get(i));
+                    File file = new File(list2.get(i));
                     files.add(file);
                 }else{
                     map.put("yyzz",list2.get(i));
@@ -471,16 +460,15 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
 
             List<File>files = new ArrayList<>();
             List<String>keys = new ArrayList<>();
-            File file = null;
             if (select_image != null) {
-                file = new File(PATH);
+                File file = new File(select_image);
                 keys.add("logo");
                 files.add(file);
             }
             for (int i =0;i<list.size();i++) {
                 if(!list.get(i).startsWith("uploads")){
                     keys.add("logo"+(i+1));
-                    file = new File(list.get(i));
+                    File file = new File(list.get(i));
                     files.add(file);
                 }else{
                     map.put("logo"+(i+1),list.get(i));
@@ -490,7 +478,7 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             for (int i =0;i<list2.size();i++) {
                 if(!list.get(i).startsWith("uploads")){
                     keys.add("yyzz");
-                    file = new File(list2.get(i));
+                    File file = new File(list2.get(i));
                     files.add(file);
                 }else{
                     map.put("yyzz",list2.get(i));
@@ -563,15 +551,12 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000 && resultCode == RESULT_OK) {
-            cutImage(data.getData());
-        } else if (requestCode == 2000 && resultCode == RESULT_OK) {
-            cutImage(data.getData());
-        } else if (requestCode == 3000 && resultCode == RESULT_OK) {
-            Bitmap bitmap = data.getExtras().getParcelable("data");
-            select_image = bitmap;
-            setFile(select_image);
-            simpleDraweeView.setImageBitmap(bitmap);
+        if (requestCode == 4000) {
+            List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
+            if (list.size() > 0) {
+                simpleDraweeView.setImageURI(Uri.fromFile(new File(list.get(0).getCutPath())));
+                select_image = list.get(0).getCutPath();
+            }
         }
 
         if (resultCode == RESULT_OK) {
@@ -610,30 +595,6 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public void cutImage(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", "1");
-        intent.putExtra("aspectY", "1");
-        intent.putExtra("outputX", "200");
-        intent.putExtra("outputY", "200");
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3000);
-    }
-
-    private void setFile(Bitmap photo) {
-        File file = new File(PATH);
-        try {
-            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, bout);
-            bout.flush();
-            bout.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void showPopupWindow() {
         pop = new PopupWindow(this);
@@ -650,17 +611,16 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
         Button bt3 = (Button) view.findViewById(R.id.imagepick_pop_cancel);
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1000);
-                pop.dismiss();
+                openGalley();
             }
         });
         bt2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent2, 2000);
-                pop.dismiss();
+                if(ContextCompat.checkSelfPermission(MenuJGDetailActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(MenuJGDetailActivity.this,new String[]{Manifest.permission.CAMERA},1);
+                }else{
+                    openCamera();
+                }
             }
         });
         bt3.setOnClickListener(new View.OnClickListener() {
@@ -669,6 +629,30 @@ public class MenuJGDetailActivity extends AppCompatActivity implements View.OnCl
             }
         });
         pop.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1){
+            if(grantResults.length>0&&grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                openCamera();
+            }else{
+                Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void openCamera() {
+        PictureSelector pictureSelector = PictureSelector.create(this);
+        pictureSelector.openCamera(PictureMimeType.ofImage()).maxSelectNum(1).enableCrop(true).forResult(4000);
+        pop.dismiss();
+    }
+
+    public void openGalley() {
+        PictureSelector pictureSelector = PictureSelector.create(this);
+        pictureSelector.openGallery(PictureMimeType.ofImage()).maxSelectNum(1).enableCrop(true).forResult(4000);
+        pop.dismiss();
     }
 
 }

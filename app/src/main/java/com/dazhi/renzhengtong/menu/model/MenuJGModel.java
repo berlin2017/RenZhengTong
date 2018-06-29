@@ -22,7 +22,16 @@ public class MenuJGModel {
     private String services;
     private String intro;
     private List<String>images;
+    private String yyzz;
     private int gzrs;
+
+    public String getYyzz() {
+        return yyzz;
+    }
+
+    public void setYyzz(String yyzz) {
+        this.yyzz = yyzz;
+    }
 
     public int getGzrs() {
         return gzrs;

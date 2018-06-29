@@ -1,14 +1,19 @@
 package com.dazhi.renzhengtong.user;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +34,15 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.dazhi.renzhengtong.MyProgressDialog;
 import com.dazhi.renzhengtong.R;
+import com.dazhi.renzhengtong.menu.MenuJGDetailActivity;
 import com.dazhi.renzhengtong.utils.Constant;
 import com.dazhi.renzhengtong.utils.NetRequest;
 import com.dazhi.renzhengtong.utils.ToastHelper;
 import com.dazhi.renzhengtong.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,14 +90,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private UserInfo userInfo;
     private ProgressBar progressBar;
     private Button commit;
-    private Bitmap select_image;
-    private final String PATH = "mnt/sdcard/logo.jpg";
+    private String select_image;
     private MyProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDialog = new MyProgressDialog(this,R.style.Dialog);
+        progressDialog = new MyProgressDialog(this, R.style.Dialog);
         rootview = getLayoutInflater().inflate(R.layout.layout_userinfo, null);
         setContentView(rootview);
         initTitle();
@@ -120,7 +128,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         commit = findViewById(R.id.userinfo_commit_btn);
         commit.setOnClickListener(this);
         userInfo = UserManager.getUser(this);
-        updataUser();
         getInfo();
     }
 
@@ -255,7 +262,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             ToastHelper.showToast("公司不能为空");
             return;
         }
-//        progressBar.setVisibility(View.VISIBLE);
         progressDialog.show();
         HashMap<String, String> map = new HashMap<>();
         map.put("uid", userInfo.getId() + "");
@@ -263,50 +269,62 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         map.put("company", company.getText().toString());
         map.put("rztype", type.getText().toString());
         map.put("rztime", time.getText().toString());
-        File file = null;
         if (select_image != null) {
-            file = new File(PATH);
-        }
-        NetRequest.postFile(Constant.USER_CHANGE_INFO_URL, map, "logo", file, new NetRequest.DataCallBack() {
+            NetRequest.postFile(Constant.USER_CHANGE_INFO_URL, map, "logo", new File(select_image), new NetRequest.DataCallBack() {
 
-            @Override
-            public void requestSuccess(String result) throws Exception {
-                JSONObject jsonObject = new JSONObject(result);
-                if (jsonObject.optInt("code") == 1) {
-//                    userInfo.setCompany(company.getText().toString());
-//                    userInfo.setUser_nickname(name.getText().toString());
-//                    userInfo.setRztime(time.getText().toString());
-//                    userInfo.setRztype(type.getText().toString());
-//                    UserManager.saveUser(UserInfoActivity.this, userInfo);
-                    getInfo();
-                    ToastHelper.showToast("修改成功");
-                } else {
-                    ToastHelper.showToast(jsonObject.optString("msg"));
+                @Override
+                public void requestSuccess(String result) throws Exception {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optInt("code") == 1) {
+                        getInfo();
+                        ToastHelper.showToast("修改成功");
+                    } else {
+                        ToastHelper.showToast(jsonObject.optString("msg"));
+                    }
+                    progressDialog.dismiss();
                 }
-                progressDialog.dismiss();
-            }
 
-            @Override
-            public void requestFailure(Request request, IOException e) {
-                ToastHelper.showToast(R.string.request_failed);
-                progressDialog.dismiss();
-            }
-        });
+                @Override
+                public void requestFailure(Request request, IOException e) {
+                    ToastHelper.showToast(R.string.request_failed);
+                    progressDialog.dismiss();
+                }
+            });
+        } else {
+            NetRequest.postFormRequest(Constant.USER_CHANGE_INFO_URL, map, new NetRequest.DataCallBack() {
+                @Override
+                public void requestSuccess(String result) throws Exception {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.optInt("code") == 1) {
+                        getInfo();
+                        ToastHelper.showToast("修改成功");
+                    } else {
+                        ToastHelper.showToast(jsonObject.optString("msg"));
+                    }
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void requestFailure(Request request, IOException e) {
+                    ToastHelper.showToast(R.string.request_failed);
+                    progressDialog.dismiss();
+                }
+            });
+        }
+
 
     }
 
     public void getInfo() {
-        progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> map = new HashMap<>();
         map.put("uid", userInfo.getId() + "");
-//        progressBar.setVisibility(View.VISIBLE);
         progressDialog.show();
         NetRequest.postFormRequest(Constant.USER_INFO_URL, map, new NetRequest.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optInt("code") == 1) {
-                    UserInfo userInfo1 = Utils.decodeJSON(jsonObject.optJSONArray("data").optString(0),UserInfo.class);
+                    UserInfo userInfo1 = Utils.decodeJSON(jsonObject.optJSONArray("data").optString(0), UserInfo.class);
                     userInfo = userInfo1;
                     UserManager.saveUser(UserInfoActivity.this, userInfo);
                     updataUser();
@@ -327,7 +345,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    public void updataUser(){
+    public void updataUser() {
         if (userInfo != null) {
             name.setText(userInfo.getUser_nickname());
             simpleDraweeView.setImageURI(Uri.parse(Constant.BASE_URL + userInfo.getLogo()));
@@ -356,41 +374,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000 && resultCode == RESULT_OK) {
-            cutImage(data.getData());
-        } else if (requestCode == 2000 && resultCode == RESULT_OK) {
-            cutImage(data.getData());
-        } else if (requestCode == 3000 && resultCode == RESULT_OK) {
-            Bitmap bitmap = data.getExtras().getParcelable("data");
-            select_image = bitmap;
-            setFile(select_image);
-            simpleDraweeView.setImageBitmap(bitmap);
+        if (requestCode == 4000) {
+            List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
+            if (list.size() > 0) {
+                simpleDraweeView.setImageURI(Uri.fromFile(new File(list.get(0).getCutPath())));
+                select_image = list.get(0).getCutPath();
+            }
         }
-    }
-
-    private void setFile(Bitmap photo) {
-        File file = new File(PATH);
-        try {
-            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, bout);
-            bout.flush();
-            bout.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void cutImage(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", "1");
-        intent.putExtra("aspectY", "1");
-        intent.putExtra("outputX", "200");
-        intent.putExtra("outputY", "200");
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3000);
     }
 
 
@@ -409,17 +399,17 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         Button bt3 = (Button) view.findViewById(R.id.imagepick_pop_cancel);
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1000);
-                pop.dismiss();
+                openGalley();
             }
         });
         bt2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent2, 2000);
-                pop.dismiss();
+                if (ContextCompat.checkSelfPermission(UserInfoActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(UserInfoActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                } else {
+                    openCamera();
+                }
+
             }
         });
         bt3.setOnClickListener(new View.OnClickListener() {
@@ -428,6 +418,30 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         pop.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void openCamera() {
+        PictureSelector pictureSelector = PictureSelector.create(UserInfoActivity.this);
+        pictureSelector.openCamera(PictureMimeType.ofImage()).maxSelectNum(1).enableCrop(true).forResult(4000);
+        pop.dismiss();
+    }
+
+    public void openGalley() {
+        PictureSelector pictureSelector = PictureSelector.create(UserInfoActivity.this);
+        pictureSelector.openGallery(PictureMimeType.ofImage()).maxSelectNum(1).enableCrop(true).forResult(4000);
+        pop.dismiss();
     }
 
 
