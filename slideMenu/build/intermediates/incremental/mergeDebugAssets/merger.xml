@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/ahxmt/Desktop/RenZhengTong/slideMenu/assets"/><source path="/Users/ahxmt/Desktop/RenZhengTong/slideMenu/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/ahxmt/Desktop/RenZhengTong/slideMenu/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\WORK\android\RenZhengTong\slideMenu\assets"/><source path="D:\WORK\android\RenZhengTong\slideMenu\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\WORK\android\RenZhengTong\slideMenu\src\debug\assets"/></dataSet></merger>

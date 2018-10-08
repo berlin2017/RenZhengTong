@@ -8,7 +8,7 @@ import com.dazhi.renzhengtong.loading.SystemInfo;
 
 public class Constant {
 
-    public final static String BASE_URL = "http://demo.ahxmgk.com/";
+    public final static String BASE_URL = "http://rzt.hfzsgs.cn/";
 
     public final static String NEW_LIST_URL = BASE_URL+"api/portal/lists/getCategoryPostLists";
 
